@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using OneWayOut.Components.Arrow;
+
 namespace OneWayOut
 {
     /// <summary>
@@ -9,6 +11,7 @@ namespace OneWayOut
     /// </summary>
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
