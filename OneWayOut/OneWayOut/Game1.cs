@@ -18,12 +18,12 @@ namespace OneWayOut
         Player MC = new Player();
 
         enum menues{
-            start,
-            help,
-            game,
-            options,
-            GameOver,
-            pause
+            START,
+            HELP,
+            GAME,
+            OPTIONS,
+            GAMEOVER,
+            PAUSE
         }
        
         public Game1()
