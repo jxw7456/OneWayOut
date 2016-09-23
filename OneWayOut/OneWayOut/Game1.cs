@@ -17,7 +17,15 @@ namespace OneWayOut
         Texture2D mainArcher;
         Player MC = new Player();
 
-        
+        enum menues{
+            start,
+            help,
+            game,
+            options,
+            GameOver,
+            pause
+        }
+       
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

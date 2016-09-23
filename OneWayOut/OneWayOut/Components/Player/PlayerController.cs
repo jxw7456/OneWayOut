@@ -19,6 +19,10 @@ namespace OneWayOut.Components.Player
         public int health { get; set; }
         public Rectangle archerlocal = new Rectangle(0, 0, 100, 100);
 
+        public Player()
+        {
+
+        }
         public void move()
         {
             KeyboardState kbState = Keyboard.GetState();
