@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
 
 namespace OneWayOut
@@ -14,7 +14,10 @@ namespace OneWayOut
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D mainArcher;
+        Player MC = new Player();
 
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +46,8 @@ namespace OneWayOut
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            mainArcher = Content.Load<Texture2D>("archer.png");
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,6 +72,8 @@ namespace OneWayOut
 
             // TODO: Add your update logic here
 
+            MC.move();
+
             base.Update(gameTime);
         }
 
@@ -77,6 +84,10 @@ namespace OneWayOut
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
+            spriteBatch.End();
+
 
             // TODO: Add your drawing code here
 

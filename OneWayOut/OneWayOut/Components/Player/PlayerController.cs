@@ -17,7 +17,29 @@ namespace OneWayOut.Components.Player
         public string name { get; set; }
         public int arrowSupply { get; set; }
         public int health { get; set; }
-        public Rectangle position { get; set; }
+        public Rectangle archerlocal = new Rectangle(0, 0, 100, 100);
+
+        public void move()
+        {
+            KeyboardState kbState = Keyboard.GetState();
+            if (kbState.IsKeyDown(Keys.Up))
+            {
+                archerlocal.Y -= 1;
+            }
+            if (kbState.IsKeyDown(Keys.Down))
+            {
+                archerlocal.Y += 1;
+            }
+            if (kbState.IsKeyDown(Keys.Left))
+            {
+                archerlocal.X -= 1;
+            }
+            if (kbState.IsKeyDown(Keys.Right))
+            {
+                archerlocal.X += 1;
+            }
+
+        }
 
     }
 }
