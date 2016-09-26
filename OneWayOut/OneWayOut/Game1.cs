@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
 
+using OneWayOut.Manager;
+
 namespace OneWayOut
 {
     /// <summary>
@@ -17,7 +19,11 @@ namespace OneWayOut
         Texture2D mainArcher;
         Player MC = new Player();
 
-        enum menues{
+        AssetManager asset;
+
+
+        enum menues
+        {
             START,
             HELP,
             GAME,
@@ -54,6 +60,7 @@ namespace OneWayOut
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            asset = new AssetManager(Content);
 
             mainArcher = Content.Load<Texture2D>("archer.png");
             // TODO: use this.Content to load your game content here
@@ -92,7 +99,12 @@ namespace OneWayOut
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             spriteBatch.Begin();
+
+
+            asset.dungeon.Draw(spriteBatch);
+                
             spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
             spriteBatch.End();
 
