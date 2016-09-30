@@ -28,19 +28,19 @@ namespace OneWayOut.Components.Player
             KeyboardState kbState = Keyboard.GetState();
             if (kbState.IsKeyDown(Keys.Up))
             {
-                archerlocal.Y -= 1;
+                archerlocal.Y -= 3;
             }
             if (kbState.IsKeyDown(Keys.Down))
             {
-                archerlocal.Y += 1;
+                archerlocal.Y += 3;
             }
             if (kbState.IsKeyDown(Keys.Left))
             {
-                archerlocal.X -= 1;
+                archerlocal.X -= 3;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
-                archerlocal.X += 1;
+                archerlocal.X += 3;
             }
 
         }

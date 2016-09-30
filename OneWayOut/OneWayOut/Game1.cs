@@ -136,15 +136,66 @@ namespace OneWayOut
 
             switch (strState)
             {
+                //START case
                 case "START":
                     if (SingleKeyPress(Keys.Enter) == true)
                     {
+                        strState = "GAME";
+                    }
 
+                    if(SingleKeyPress(Keys.H) == true)
+                    {
+                        strState = "HELP";
+                    }
+
+                    if (SingleKeyPress(Keys.O) == true)
+                    {
+                        strState = "OPTIONS";
                     }
                     break;
-            }
+                
+                //HELP case
+                case "HELP":
+                    if (SingleKeyPress(Keys.Escape) == true)
+                    {
+                        strState = "START";
+                    }
+                    break;
+                
+                //GAME case
+                case "GAME":
+                    MC.move();
 
-            MC.move();
+                    if (SingleKeyPress(Keys.P) == true)
+                    {
+                        strState = "PAUSE";
+                    }
+                    break;
+
+                //OPTIONS case
+                case "OPTIONS":
+                    if (SingleKeyPress(Keys.Escape) == true)
+                    {
+                        strState = "START";
+                    }
+                    break;
+
+                //PAUSE case
+                case "PAUSE":
+                    if (SingleKeyPress(Keys.Escape) == true)
+                    {
+                        strState = "GAME";
+                    }
+                    break;
+
+                //GAME OVER case
+                case "GAMEOVER":
+                    if (SingleKeyPress(Keys.Enter) == true)
+                    {
+                        strState = "START";
+                    }
+                    break;
+            }          
 
             base.Update(gameTime);
         }
@@ -168,8 +219,12 @@ namespace OneWayOut
                 spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(screenWidth / 2, screenHeight / 2), Color.White);
                 spriteBatch.DrawString(spriteFont, "Press Enter to Start", new Vector2(screenWidth / 2, (screenHeight / 2) + 20), Color.White);
             }            
-                
-            spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
+            
+            //Draw Game
+            if (menuState == Menues.GAME)
+            {
+                spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
+            }            
 
             spriteBatch.End();            
             base.Draw(gameTime);
