@@ -11,9 +11,9 @@ namespace OneWayOut.Components.Dungeon
     partial class Dungeon
     {
 
-        const int TILE_SIZE = 100;
+        const int TILE_SIZE = 45;
 
-        const int DUNGEON_SIZE = 9; // n x n 
+        const int DUNGEON_SIZE = 90; // n x n 
 
         const string TILE_TEXTURE = @"textures/floor";
 
