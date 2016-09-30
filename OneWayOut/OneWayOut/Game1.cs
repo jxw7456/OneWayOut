@@ -8,6 +8,17 @@ using OneWayOut.Manager;
 
 namespace OneWayOut
 {
+
+    enum GameState
+    {
+        START,
+        HELP,
+        GAME,
+        OPTIONS,
+        GAMEOVER,
+        PAUSE
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -21,21 +32,12 @@ namespace OneWayOut
         Player MC = new Player();
         KeyboardState kbState;
         KeyboardState previousKbState;
-        Menues menuState;
+
+        GameState state;
+
         public int screenWidth;
         public int screenHeight;
         AssetManager asset;
-
-
-        enum Menues
-        {
-            START,
-            HELP,
-            GAME,
-            OPTIONS,
-            GAMEOVER,
-            PAUSE
-        }
        
         public Game1()
         {
@@ -66,10 +68,10 @@ namespace OneWayOut
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteFont = Content.Load<SpriteFont>("SpriteFont1");
+            spriteFont = Content.Load<SpriteFont>(@"fonts/bold");
             asset = new AssetManager(Content);
 
-            mainArcher = Content.Load<Texture2D>("archer.png");
+            mainArcher = Content.Load<Texture2D>(@"textures/archer");
             // TODO: use this.Content to load your game content here
         }
 
@@ -93,109 +95,90 @@ namespace OneWayOut
                 Exit();
 
             // TODO: Add your update logic here
-            string strState = "";
             previousKbState = kbState;
             kbState = Keyboard.GetState();
 
-            /*START,
+            /*
+            START,
             HELP,
             GAME,
             OPTIONS,
             GAMEOVER,
             PAUSE
             */
-            if (menuState == Menues.START)
-            {
-                strState = "START";
-            }
 
-            if (menuState == Menues.HELP)
-            {
-                strState = "HELP";
-            }
-
-            if (menuState == Menues.GAME)
-            {
-                strState = "GAME";
-            }
-
-            if (menuState == Menues.OPTIONS)
-            {
-                strState = "OPTIONS";
-            }
-
-            if (menuState == Menues.GAMEOVER)
-            {
-                strState = "GAMEOVER";
-            }
-
-            if (menuState == Menues.PAUSE)
-            {
-                strState = "PAUSE";
-            }
-
-            switch (strState)
+            switch (state)
             {
                 //START case
-                case "START":
+                case GameState.START:
                     if (SingleKeyPress(Keys.Enter) == true)
                     {
-                        strState = "GAME";
+                        state = GameState.GAME;
                     }
 
-                    if(SingleKeyPress(Keys.H) == true)
+                    if (SingleKeyPress(Keys.H) == true)
                     {
-                        strState = "HELP";
+                        state = GameState.HELP;
                     }
 
                     if (SingleKeyPress(Keys.O) == true)
                     {
-                        strState = "OPTIONS";
+                        state = GameState.OPTIONS;
                     }
                     break;
-                
-                //HELP case
-                case "HELP":
-                    if (SingleKeyPress(Keys.Escape) == true)
-                    {
-                        strState = "START";
-                    }
-                    break;
-                
-                //GAME case
-                case "GAME":
-                    MC.move();
 
+                //HELP case
+                case GameState.HELP:
+                    if (SingleKeyPress(Keys.H) == true)
+                    {
+                        state = GameState.START;
+                    }
+                    break;
+
+                //GAME case
+                case GameState.GAME:
                     if (SingleKeyPress(Keys.P) == true)
                     {
-                        strState = "PAUSE";
+                        state = GameState.PAUSE;
                     }
                     break;
 
                 //OPTIONS case
-                case "OPTIONS":
-                    if (SingleKeyPress(Keys.Escape) == true)
+                case GameState.OPTIONS:
+                    if (SingleKeyPress(Keys.O) == true)
                     {
-                        strState = "START";
-                    }
-                    break;
-
-                //PAUSE case
-                case "PAUSE":
-                    if (SingleKeyPress(Keys.Escape) == true)
-                    {
-                        strState = "GAME";
+                        state = GameState.START;
                     }
                     break;
 
                 //GAME OVER case
-                case "GAMEOVER":
+                case GameState.GAMEOVER:
+                    if (SingleKeyPress(Keys.G) == true)
+                    {
+                        state = GameState.GAME;
+                    }
+
                     if (SingleKeyPress(Keys.Enter) == true)
                     {
-                        strState = "START";
+                        state = GameState.START;
                     }
                     break;
-            }          
+                
+                //PAUSE case
+                case GameState.PAUSE:
+                    if (SingleKeyPress(Keys.P) == true)
+                    {
+                        state = GameState.GAME;
+                    }
+
+                    if (SingleKeyPress(Keys.Q) == true)
+                    {
+                        state = GameState.START;
+                    }
+                    break;
+            }
+
+            MC.move();
 
             base.Update(gameTime);
         }
@@ -212,19 +195,42 @@ namespace OneWayOut
             spriteBatch.Begin();
 
             asset.dungeon.Draw(spriteBatch);
-            
-            //Draw Menu
-            if (menuState == Menues.START)
+
+            switch (state)
             {
-                spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(screenWidth / 2, screenHeight / 2), Color.White);
-                spriteBatch.DrawString(spriteFont, "Press Enter to Start", new Vector2(screenWidth / 2, (screenHeight / 2) + 20), Color.White);
-            }            
+                //Draw Menu
+                case GameState.START:
+                    spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(screenWidth / 2, screenHeight / 2), Color.White);
+                    spriteBatch.DrawString(spriteFont, "Press Enter to Start", new Vector2(screenWidth / 2, (screenHeight / 2) + 20), Color.White);
+                    break;
+
+                //Draw Game
+                case GameState.GAME:
+                    spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
+                    break;
+
+                //Draw Help
+                case GameState.HELP:
+
+                    break;
+
+                //Draw Options
+                case GameState.OPTIONS:
+
+                    break;
+
+                //Draw Game Over
+                case GameState.GAMEOVER:
+
+                    break;
+
+                //Draw Pause
+                case GameState.PAUSE:
+
+                    break;
+            } 
             
-            //Draw Game
-            if (menuState == Menues.GAME)
-            {
-                spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
-            }            
+            
 
             spriteBatch.End();            
             base.Draw(gameTime);
