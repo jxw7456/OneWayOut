@@ -29,7 +29,8 @@ namespace OneWayOut
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Texture2D mainArcher;
-        Player MC = new Player();
+        Texture2D spriteSheet;
+        Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
 
@@ -38,7 +39,7 @@ namespace OneWayOut
         public int screenWidth;
         public int screenHeight;
         AssetManager asset;
-       
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -68,10 +69,13 @@ namespace OneWayOut
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             spriteFont = Content.Load<SpriteFont>(@"fonts/bold");
-            asset = new AssetManager(Content);
-            
             mainArcher = Content.Load<Texture2D>(@"textures/archer");
+            spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
+
+            asset = new AssetManager(Content);
+            MC = new Player(spriteSheet, 1, 4);            
             // TODO: use this.Content to load your game content here
         }
 
@@ -137,6 +141,7 @@ namespace OneWayOut
 
                 //GAME case
                 case GameState.GAME:
+                    MC.Update(gameTime);
                     if (SingleKeyPress(Keys.P) == true)
                     {
                         state = GameState.PAUSE;
@@ -190,8 +195,9 @@ namespace OneWayOut
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             // TODO: Add your drawing code here
+
             spriteBatch.Begin();
 
             asset.dungeon.Draw(spriteBatch);
@@ -209,7 +215,7 @@ namespace OneWayOut
 
                 //Draw Game
                 case GameState.GAME:
-                    spriteBatch.Draw(mainArcher, MC.archerlocal, Color.White);
+                    MC.Draw(spriteBatch, new Vector2(200, 50));
                     break;
 
                 //Draw Help
