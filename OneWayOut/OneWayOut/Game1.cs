@@ -200,8 +200,11 @@ namespace OneWayOut
             {
                 //Draw Menu
                 case GameState.START:
-                    spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(screenWidth / 2, screenHeight / 2), Color.White);
-                    spriteBatch.DrawString(spriteFont, "Press Enter to Start", new Vector2(screenWidth / 2, (screenHeight / 2) + 20), Color.White);
+                    spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(300, 10), Color.White);
+                    spriteBatch.DrawString(spriteFont, "Press 'Enter' to Start", new Vector2(270, 180), Color.OrangeRed);
+                    spriteBatch.DrawString(spriteFont, "Press 'H' for Help", new Vector2(280, 210), Color.OrangeRed);
+                    spriteBatch.DrawString(spriteFont, "Press 'O' for Options", new Vector2(270, 240), Color.OrangeRed);                    
+                    spriteBatch.DrawString(spriteFont, "Press 'Esc' to Quit", new Vector2(270, 440), Color.Red);
                     break;
 
                 //Draw Game
