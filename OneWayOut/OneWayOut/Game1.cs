@@ -70,7 +70,7 @@ namespace OneWayOut
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>(@"fonts/bold");
             asset = new AssetManager(Content);
-
+            
             mainArcher = Content.Load<Texture2D>(@"textures/archer");
             // TODO: use this.Content to load your game content here
         }
