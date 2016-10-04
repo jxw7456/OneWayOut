@@ -3,12 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
-
 using OneWayOut.Manager;
 
 namespace OneWayOut
 {
-
     enum GameState
     {
         START,
@@ -24,11 +22,9 @@ namespace OneWayOut
     /// </summary>
     public class Game1 : Game
     {
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
-        Texture2D mainArcher;
         Texture2D spriteSheet;
         Player MC;
         KeyboardState kbState;
@@ -71,7 +67,6 @@ namespace OneWayOut
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             spriteFont = Content.Load<SpriteFont>(@"fonts/bold");
-            mainArcher = Content.Load<Texture2D>(@"textures/archer");
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
 
             asset = new AssetManager(Content);
@@ -101,15 +96,6 @@ namespace OneWayOut
             // TODO: Add your update logic here
             previousKbState = kbState;
             kbState = Keyboard.GetState();
-
-            /*
-            START,
-            HELP,
-            GAME,
-            OPTIONS,
-            GAMEOVER,
-            PAUSE
-            */
 
             switch (state)
             {
@@ -183,7 +169,7 @@ namespace OneWayOut
                     break;
             }
 
-            MC.move();
+            MC.Move();
 
             base.Update(gameTime);
         }
@@ -237,9 +223,7 @@ namespace OneWayOut
                 case GameState.PAUSE:
 
                     break;
-            } 
-            
-            
+            }            
 
             spriteBatch.End();            
             base.Draw(gameTime);

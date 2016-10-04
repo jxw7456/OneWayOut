@@ -33,7 +33,7 @@ namespace OneWayOut.Components.Player
         {
 
         }
-        public void move()
+        public void Move()
         {
             KeyboardState kbState = Keyboard.GetState();
             direction = Direction.IDLE;
@@ -57,8 +57,6 @@ namespace OneWayOut.Components.Player
                 direction = Direction.RIGHT;
                 archerlocal.X += 3;
             }
-
         }
-
     }
 }

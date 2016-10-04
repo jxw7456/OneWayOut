@@ -14,8 +14,6 @@ namespace OneWayOut.Components.Player
     /// </summary>
     partial class Player
     {
-        const int PLAYER_SIZE = 90;
-
         //A single sprite's width and height
         const int PLAYER_TEXTURE_SIZE = 512;
 
@@ -23,9 +21,7 @@ namespace OneWayOut.Components.Player
 
         private int currentFrame;
 
-        public int sheetWidth;
-
-        public int sheetHeight;
+        public int blink = 0;
 
         public int row;
 
@@ -52,6 +48,7 @@ namespace OneWayOut.Components.Player
                 {
                     currentFrame = 0;
                 }
+                blink = (blink + 1) % 10;
                 timer = 0;
             }
         }
@@ -69,32 +66,46 @@ namespace OneWayOut.Components.Player
                 case Direction.UP:
                     row = 2;
                     column = 2;
+                    if (currentFrame == 1)
+                    {
+                        column = 1;
+                    }
                     break;
                 case Direction.DOWN:
-                    row = 1;
+                    row = 0;
                     column = 0;
+                    if (currentFrame == 1)
+                    {
+                        column = 1;
+                    }
                     break;
                 case Direction.LEFT:
-                    row = 1;
-                    column = 1;
-                    break;
                 case Direction.RIGHT:
                     row = 1;
                     column = 1;
+                    if (currentFrame == 1)
+                    {
+                        column = 2;
+                    }
                     break;
                 case Direction.IDLE:
                 default:
+                    if (blink == 0)
+                    {
+                        column = 2;
+                    }
                     break;
             }
 
             if (direction == Direction.LEFT)
             {
-                sourceRectangle = new Rectangle(row * PLAYER_TEXTURE_SIZE, column * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
+
+                sourceRectangle = new Rectangle(column * PLAYER_TEXTURE_SIZE, row * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
                 spriteBatch.Draw(Texture, archerlocal, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
             else
             {
-                sourceRectangle = new Rectangle(row * PLAYER_TEXTURE_SIZE, column * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
+                sourceRectangle = new Rectangle(column * PLAYER_TEXTURE_SIZE, row * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
                 spriteBatch.Draw(Texture, archerlocal, sourceRectangle, Color.White);
             }
         }
