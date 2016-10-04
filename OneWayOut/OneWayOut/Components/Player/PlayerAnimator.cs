@@ -16,53 +16,56 @@ namespace OneWayOut.Components.Player
     {
         const int PLAYER_SIZE = 90;
 
+        //A single sprite's width and height
         const int PLAYER_TEXTURE_SIZE = 512;
 
         public Texture2D Texture { get; set; }
 
         private int currentFrame;
 
-        private int totalFrames;
+        public int sheetWidth;
+
+        public int sheetHeight;
+
+        public int row;
+
+        public int column;
 
         //slow down animation
-        private int time = 0;
+        private float timer = 0;
 
         private int millisecondsPerFrame = 100;
 
-        public Player(Texture2D texture, int rows, int columns)
+        public Player(Texture2D texture, int row, int column)
         {
             Texture = texture;
-
         }
 
         public void Update(GameTime gameTime)
         {
-            time += gameTime.ElapsedGameTime.Milliseconds;
-            if (time > millisecondsPerFrame)
+            timer += (float)gameTime.ElapsedGameTime.Milliseconds;
+            if (timer > millisecondsPerFrame)
             {
-                time -= millisecondsPerFrame;
-
                 //increment current frame
-                currentFrame++;
-                time = 0;
-                if (currentFrame == totalFrames)
+                currentFrame++;                
+                if (currentFrame > 2)
                 {
                     currentFrame = 0;
                 }
+                timer = 0;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
             Rectangle sourceRectangle;
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, PLAYER_SIZE, PLAYER_SIZE);
 
-            int row = 0;
-            int column = 0;
+            row = 0;
+            column = 0;
 
 
             switch (direction)
-            {                
+            {
                 case Direction.UP:
                     row = 2;
                     column = 2;
@@ -73,7 +76,7 @@ namespace OneWayOut.Components.Player
                     break;
                 case Direction.LEFT:
                     row = 1;
-                    column = 2;
+                    column = 1;
                     break;
                 case Direction.RIGHT:
                     row = 1;
@@ -84,8 +87,16 @@ namespace OneWayOut.Components.Player
                     break;
             }
 
-            sourceRectangle = new Rectangle(row*PLAYER_TEXTURE_SIZE, column*PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            if (direction == Direction.LEFT)
+            {
+                sourceRectangle = new Rectangle(row * PLAYER_TEXTURE_SIZE, column * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
+                spriteBatch.Draw(Texture, archerlocal, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                sourceRectangle = new Rectangle(row * PLAYER_TEXTURE_SIZE, column * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
+                spriteBatch.Draw(Texture, archerlocal, sourceRectangle, Color.White);
+            }
         }
     }
 }
