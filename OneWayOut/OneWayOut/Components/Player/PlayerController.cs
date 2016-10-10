@@ -31,7 +31,7 @@ namespace OneWayOut.Components.Player
 
         public Player()
         {
-
+            health = 100;
         }
         public void Move()
         {

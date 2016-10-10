@@ -28,6 +28,7 @@ namespace OneWayOut
         SpriteFont spriteFont2;
         Texture2D spriteSheet;
         Texture2D background;
+        Texture2D health;
         Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
@@ -72,6 +73,7 @@ namespace OneWayOut
             spriteFont2 = Content.Load<SpriteFont>(@"fonts/biggerFont");
             background = Content.Load<Texture2D>(@"textures/dungeon");
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
+            health = Content.Load<Texture2D>(@"textures/health");
 
             asset = new AssetManager(Content);
             MC = new Player(spriteSheet, 1, 4);            
@@ -206,6 +208,9 @@ namespace OneWayOut
                 //Draw Game
                 case GameState.GAME:
                     asset.dungeon.Draw(spriteBatch);
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 41), Color.Black);
+                    spriteBatch.Draw(health, new Rectangle(5, 5,150,40), Color.White);
+                    
                     MC.Draw(spriteBatch, new Vector2(200, 50));
                     break;
 
