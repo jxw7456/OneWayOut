@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OneWayOutCP
+namespace OneWayOut
 {
     /// <summary>
     /// The main class.
