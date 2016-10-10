@@ -138,6 +138,10 @@ namespace OneWayOut
                     {
                         state = GameState.PAUSE;
                     }
+                    if (SingleKeyPress(Keys.Z) == true)
+                    {
+                        state = GameState.GAMEOVER;
+                    }
                     break;
 
                 //OPTIONS case
@@ -229,7 +233,7 @@ namespace OneWayOut
                 //Draw Game Over
                 case GameState.GAMEOVER:
                     background = Content.Load<Texture2D>(@"textures/deadArcher");
-                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.Black);
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
                     spriteBatch.DrawString(spriteFont2, "YOU ARE DEAD", new Vector2(225, 10), Color.Red);
                     spriteBatch.DrawString(spriteFont1, "Press 'G' to Restart", new Vector2(270, 410), Color.White);
                     spriteBatch.DrawString(spriteFont1, "Press 'Enter' for Main Menu", new Vector2(225, 440), Color.White);                    
