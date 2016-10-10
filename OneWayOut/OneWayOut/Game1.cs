@@ -24,8 +24,10 @@ namespace OneWayOut
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
+        SpriteFont spriteFont1;
+        SpriteFont spriteFont2;
         Texture2D spriteSheet;
+        Texture2D background;
         Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
@@ -66,7 +68,9 @@ namespace OneWayOut
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spriteFont = Content.Load<SpriteFont>(@"fonts/bold");
+            spriteFont1 = Content.Load<SpriteFont>(@"fonts/bold");
+            spriteFont2 = Content.Load<SpriteFont>(@"fonts/biggerFont");
+            background = Content.Load<Texture2D>(@"textures/dungeon");
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
 
             asset = new AssetManager(Content);
@@ -184,44 +188,51 @@ namespace OneWayOut
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin();
-
-            asset.dungeon.Draw(spriteBatch);
+            spriteBatch.Begin();          
 
             switch (state)
             {
                 //Draw Menu
                 case GameState.START:
-                    spriteBatch.DrawString(spriteFont, "One Way Out", new Vector2(300, 10), Color.White);
-                    spriteBatch.DrawString(spriteFont, "Press 'Enter' to Start", new Vector2(270, 180), Color.OrangeRed);
-                    spriteBatch.DrawString(spriteFont, "Press 'H' for Help", new Vector2(280, 210), Color.OrangeRed);
-                    spriteBatch.DrawString(spriteFont, "Press 'O' for Options", new Vector2(270, 240), Color.OrangeRed);                    
-                    spriteBatch.DrawString(spriteFont, "Press 'Esc' to Quit", new Vector2(270, 440), Color.Red);
+                    background = Content.Load<Texture2D>(@"textures/dungeon");
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);                    
+                    spriteBatch.DrawString(spriteFont2, "One Way Out", new Vector2(225, 10), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Press 'Enter' to Start", new Vector2(235, 180), Color.OrangeRed);
+                    spriteBatch.DrawString(spriteFont1, "Press 'H' for Help", new Vector2(270, 210), Color.OrangeRed);
+                    spriteBatch.DrawString(spriteFont1, "Press 'O' for Options", new Vector2(240, 240), Color.OrangeRed);                    
+                    spriteBatch.DrawString(spriteFont1, "Press 'Esc' to Quit", new Vector2(255, 440), Color.Red);
                     break;
 
                 //Draw Game
                 case GameState.GAME:
+                    asset.dungeon.Draw(spriteBatch);
                     MC.Draw(spriteBatch, new Vector2(200, 50));
                     break;
 
                 //Draw Help
                 case GameState.HELP:
-
+                    background = Content.Load<Texture2D>(@"textures/dungeonHelp");
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
                     break;
 
                 //Draw Options
                 case GameState.OPTIONS:
-
+                    background = Content.Load<Texture2D>(@"textures/dungeonOptions");
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);                    
                     break;
 
                 //Draw Game Over
                 case GameState.GAMEOVER:
-
+                    background = Content.Load<Texture2D>(@"textures/deadArcher");
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.Black);
+                    spriteBatch.DrawString(spriteFont2, "YOU ARE DEAD", new Vector2(225, 10), Color.Red);
+                    spriteBatch.DrawString(spriteFont1, "Press 'G' to Restart", new Vector2(270, 410), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Press 'Enter' for Main Menu", new Vector2(225, 440), Color.White);                    
                     break;
 
                 //Draw Pause
                 case GameState.PAUSE:
-
+                    
                     break;
             }            
 
