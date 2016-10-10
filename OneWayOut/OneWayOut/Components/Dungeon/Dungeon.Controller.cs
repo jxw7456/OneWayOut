@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneWayOut
+namespace OneWayOut.Components.Dungeon
 {
-    class InputManager
+    partial class Dungeon
     {
-
+      
     }
 }
