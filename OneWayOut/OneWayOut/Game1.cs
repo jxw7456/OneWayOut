@@ -31,7 +31,8 @@ namespace OneWayOut
         Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
-
+        Texture2D health;
+        Texture2D signPicture;
         GameState state;
 
         public int screenWidth;
