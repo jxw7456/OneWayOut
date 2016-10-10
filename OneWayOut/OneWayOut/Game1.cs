@@ -28,6 +28,7 @@ namespace OneWayOut
         SpriteFont spriteFont2;
         Texture2D spriteSheet;
         Texture2D background;
+        Texture2D signPicture;
         Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
@@ -71,6 +72,7 @@ namespace OneWayOut
             spriteFont1 = Content.Load<SpriteFont>(@"fonts/bold");
             spriteFont2 = Content.Load<SpriteFont>(@"fonts/biggerFont");
             background = Content.Load<Texture2D>(@"textures/dungeon");
+            signPicture = Content.Load<Texture2D>(@"textures/signlanguage");
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
 
             asset = new AssetManager(Content);
@@ -195,7 +197,8 @@ namespace OneWayOut
                 //Draw Menu
                 case GameState.START:
                     background = Content.Load<Texture2D>(@"textures/dungeon");
-                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);                    
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                                        
                     spriteBatch.DrawString(spriteFont2, "One Way Out", new Vector2(225, 10), Color.White);
                     spriteBatch.DrawString(spriteFont1, "Press 'Enter' to Start", new Vector2(235, 180), Color.OrangeRed);
                     spriteBatch.DrawString(spriteFont1, "Press 'H' for Help", new Vector2(270, 210), Color.OrangeRed);
@@ -213,6 +216,26 @@ namespace OneWayOut
                 case GameState.HELP:
                     background = Content.Load<Texture2D>(@"textures/dungeonHelp");
                     spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                    spriteBatch.Draw(signPicture, new Rectangle(300, 290, 200, 180), Color.White);
+
+                    //Story
+                    spriteBatch.DrawString(spriteFont1, "Story", new Vector2(0, 0), Color.Red);
+                    spriteBatch.DrawString(spriteFont1, "You are an archer and you went on an expedition", new Vector2(0, 20), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "with a large army. After going down many floors,", new Vector2(0, 40), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "you found out that everyone is dead and you are", new Vector2(0, 60), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "the only one left. You must fight your way out!", new Vector2(0, 80), Color.White);
+                    
+                    //Controls
+                    spriteBatch.DrawString(spriteFont1, "Controls", new Vector2(0, 120), Color.Red);
+                    spriteBatch.DrawString(spriteFont1, "Up - Arrow Key Up", new Vector2(0, 140), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Down - Arrow Key Down", new Vector2(350, 140), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Left - Arrow Key Left", new Vector2(0, 160), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Right - Arrow Key Right", new Vector2(350, 160), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Shoot - Each Monster has a given", new Vector2(0, 200), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "sign language", new Vector2(520, 200), Color.Red);
+                    spriteBatch.DrawString(spriteFont1, "above them. Enter the cooresponding letter on", new Vector2(0, 220), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "your keyboard to shoot your arrows.", new Vector2(0, 240), Color.White);
+                    spriteBatch.DrawString(spriteFont1, "Refer to the image given below for help: ", new Vector2(0, 260), Color.OrangeRed);
                     break;
 
                 //Draw Options
