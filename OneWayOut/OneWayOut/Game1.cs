@@ -208,8 +208,8 @@ namespace OneWayOut
                 //Draw Game
                 case GameState.GAME:
                     asset.dungeon.Draw(spriteBatch);
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 41), Color.Black);
-                    spriteBatch.Draw(health, new Rectangle(5, 5,150,40), Color.White);
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
+                    spriteBatch.Draw(health, new Rectangle(5, 5,150,30), Color.White);
                     
                     MC.Draw(spriteBatch, new Vector2(200, 50));
                     break;
