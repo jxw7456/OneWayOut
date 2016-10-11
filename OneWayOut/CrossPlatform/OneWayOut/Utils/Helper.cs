@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework;
 
 using OneWayOut.Components;
 
-namespace OneWayOut
+namespace OneWayOut.Utils
 {
-	class Utils:GameObject
+	class Helper:GameObject
 	{
-		public Utils (int x, int y, int width, int height, GraphicsDevice gp)
+		public Helper (int x, int y, int width, int height, GraphicsDevice gp)
 			: base (x, y, width, height)
 		{
 

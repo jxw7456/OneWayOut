@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using OneWayOut.Utils;
 
 namespace OneWayOut.Components.Slime
 {
@@ -27,25 +28,25 @@ namespace OneWayOut.Components.Slime
 
 
 			if (keyboardState.IsKeyDown (Keys.Left)) {
-				position.X -= Utils.MovingInterval (elapsed, MOVE_SPEED);
+				position.X -= Helper.MovingInterval (elapsed, MOVE_SPEED);
 				state = SlimeState.WALK;	
 				direction = SlimeDirection.LEFT;
 			}
 
 			if (keyboardState.IsKeyDown (Keys.Right)) {
-				position.X += Utils.MovingInterval (elapsed, MOVE_SPEED);
+				position.X += Helper.MovingInterval (elapsed, MOVE_SPEED);
 				state = SlimeState.WALK;
 				direction = SlimeDirection.RIGHT;
 			}
 
 			if (keyboardState.IsKeyDown (Keys.Up)) {
-				position.Y -= Utils.MovingInterval (elapsed, MOVE_SPEED);
+				position.Y -= Helper.MovingInterval (elapsed, MOVE_SPEED);
 				state = SlimeState.WALK;
 				direction |= SlimeDirection.UP;
 			}
 
 			if (keyboardState.IsKeyDown (Keys.Down)) {
-				position.Y += Utils.MovingInterval (elapsed, MOVE_SPEED);
+				position.Y += Helper.MovingInterval (elapsed, MOVE_SPEED);
 				state = SlimeState.WALK;
 				direction |= SlimeDirection.DOWN;
 			}
