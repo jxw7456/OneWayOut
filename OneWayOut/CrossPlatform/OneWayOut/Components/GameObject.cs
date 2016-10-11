@@ -8,41 +8,42 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Components
 {
-    class GameObject
-    {
-        public Texture2D texture;
+	class GameObject
+	{
+		public Texture2D texture;
 
-        public Rectangle position;
+		public Rectangle position;
 
-        public GameObject(Rectangle pos)
-        {
-            position = pos;
-        }
+		public GameObject (Rectangle pos)
+		{
+			position = pos;
+		}
 
-        public GameObject(int x, int y, int width, int height)
-        {
-            position = new Rectangle(x, y, width, height);
-        }
-        public void SetPosition(int x, int y)
-        {
-            position.X = x;
-            position.Y = y;
-        }
+		public GameObject (int x, int y, int width, int height)
+		{
+			position = new Rectangle (x, y, width, height);
+		}
 
-        public void SetPositionCenter(GraphicsDevice graphicDevice)
-        {
+		public void SetPosition (int x, int y)
+		{
+			position.X = x;
+			position.Y = y;
+		}
 
-            int screenWidth = graphicDevice.Viewport.Width;
+		public void SetPositionCenter (GraphicsDevice graphicDevice)
+		{
 
-            int screenHeight = graphicDevice.Viewport.Height;
+			int screenWidth = graphicDevice.Viewport.Width;
 
-            SetPosition((screenWidth - texture.Width) / 2, (screenHeight - texture.Height) / 2);
-        }
+			int screenHeight = graphicDevice.Viewport.Height;
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, position, Color.White);
-        }
+			SetPosition ((screenWidth - texture.Width) / 2, (screenHeight - texture.Height) / 2);
+		}
 
-    }
+		public void Draw (SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw (texture, position, Color.White);
+		}
+
+	}
 }

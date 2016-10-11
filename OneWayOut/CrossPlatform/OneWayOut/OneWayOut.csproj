@@ -63,6 +63,7 @@
     <Compile Include="Components\Mob\Slime\Slime.Draw.cs" />
     <Compile Include="Components\Mob\Slime\Slime.Shape.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="Components\Player\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

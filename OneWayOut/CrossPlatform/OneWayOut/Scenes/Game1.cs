@@ -80,8 +80,12 @@ namespace OneWayOut.Scenes
 
 			foregroundText = new ForegroundTextManager (Content);
 
-			MC = new Player (spriteSheet, 1, 4);            
+			MC = new Player (spriteSheet, 1, 4);  
+
+			MC.SetPositionCenter (GraphicsDevice);
+
 			// TODO: use this.Content to load your game content here
+
 		}
 
 		/// <summary>

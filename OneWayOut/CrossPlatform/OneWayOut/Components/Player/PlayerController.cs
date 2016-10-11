@@ -21,22 +21,8 @@ namespace OneWayOut.Components.Player
 	/// <summary>
 	/// Object describing a character
 	/// </summary>
-	partial class Player
+	partial class Player:GameObject
 	{
-		public string name { get; set; }
-
-		public int arrowSupply { get; set; }
-
-		public int health { get; set; }
-
-		public Rectangle archerlocal = new Rectangle (350, 200, 80, 80);
-		public Direction direction;
-
-		public Player ()
-		{
-			archerlocal = new Rectangle (350, 200, 80, 80);
-			health = 100;
-		}
 
 		public void Move ()
 		{
@@ -44,19 +30,19 @@ namespace OneWayOut.Components.Player
 			direction = Direction.IDLE;
 			if (kbState.IsKeyDown (Keys.Up)) {
 				direction = Direction.UP;
-				archerlocal.Y -= 3;
+				position.Y -= 3;
 			}
 			if (kbState.IsKeyDown (Keys.Down)) {
 				direction = Direction.DOWN;
-				archerlocal.Y += 3;
+				position.Y += 3;
 			}
 			if (kbState.IsKeyDown (Keys.Left)) {
 				direction = Direction.LEFT;
-				archerlocal.X -= 3;
+				position.X -= 3;
 			}
 			if (kbState.IsKeyDown (Keys.Right)) {
 				direction = Direction.RIGHT;
-				archerlocal.X += 3;
+				position.X += 3;
 			}
 		}
 	}

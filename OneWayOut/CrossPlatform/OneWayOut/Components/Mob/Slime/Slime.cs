@@ -11,8 +11,6 @@ namespace OneWayOut.Components.Slime
 	{
 		const int PIXEL_SIZE = 9;
 	
-		GraphicsDevice graphicDevice;
-
 		const int MOVING_INTERVAL = 1;
 		
 		SlimeState state;
@@ -24,8 +22,6 @@ namespace OneWayOut.Components.Slime
 		public Slime (int x, int y, int width, int height, GraphicsDevice gp, Random r)
 			: base (x, y, width, height)
 		{
-			graphicDevice = gp;
-
 			state = SlimeState.IDLE;
 
 			direction = SlimeDirection.RIGHT;
