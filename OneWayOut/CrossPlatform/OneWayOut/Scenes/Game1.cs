@@ -18,10 +18,6 @@ namespace OneWayOut
 
 		SpriteBatch spriteBatch;
 
-		SpriteFont spriteFont1;
-
-		SpriteFont spriteFont2;
-
 		Texture2D spriteSheet;
 
 		Player MC;
@@ -69,10 +65,6 @@ namespace OneWayOut
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch (GraphicsDevice);
-
-			spriteFont1 = Content.Load<SpriteFont> (@"fonts/bold");
-
-			spriteFont2 = Content.Load<SpriteFont> (@"fonts/biggerFont");
 
 			signPicture = Content.Load<Texture2D> (@"textures/signlanguage");
 
