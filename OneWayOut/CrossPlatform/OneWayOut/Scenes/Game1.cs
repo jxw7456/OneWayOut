@@ -5,7 +5,7 @@ using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
 using OneWayOut.Manager;
 
-namespace OneWayOut
+namespace OneWayOut.Scenes
 {
  
 
@@ -29,9 +29,9 @@ namespace OneWayOut
 
 		Texture2D signPicture;
 
-		GameState state;
-
 		AssetManager asset;
+
+		GameManager game;
 
 		BackgroundManager background;
 
@@ -53,6 +53,8 @@ namespace OneWayOut
 		protected override void Initialize ()
 		{
 			// TODO: Add your initialization logic here
+
+			game = new GameManager ();
 
 			base.Initialize ();
 		}
@@ -105,26 +107,26 @@ namespace OneWayOut
 			previousKbState = kbState;
 			kbState = Keyboard.GetState ();
 
-			switch (state) {
+			switch (game.state) {
 			//START case
 			case GameState.START:
 				if (SingleKeyPress (Keys.Enter)) {
-					state = GameState.GAME;
+					game.state = GameState.GAME;
 				}
 
 				if (SingleKeyPress (Keys.H)) {
-					state = GameState.HELP;
+					game.state = GameState.HELP;
 				}
 
 				if (SingleKeyPress (Keys.O)) {
-					state = GameState.OPTIONS;
+					game.state = GameState.OPTIONS;
 				}
 				break;
 
 			//HELP case
 			case GameState.HELP:
 				if (SingleKeyPress (Keys.H)) {
-					state = GameState.START;
+					game.state = GameState.START;
 				}
 				break;
 
@@ -132,39 +134,39 @@ namespace OneWayOut
 			case GameState.GAME:
 				MC.Update (gameTime);
 				if (SingleKeyPress (Keys.P)) {
-					state = GameState.PAUSE;
+					game.state = GameState.PAUSE;
 				}
 				if (SingleKeyPress (Keys.Z)) {
-					state = GameState.GAMEOVER;
+					game.state = GameState.GAMEOVER;
 				}
 				break;
 
 			//OPTIONS case
 			case GameState.OPTIONS:
 				if (SingleKeyPress (Keys.O)) {
-					state = GameState.START;
+					game.state = GameState.START;
 				}
 				break;
 
 			//GAME OVER case
 			case GameState.GAMEOVER:
 				if (SingleKeyPress (Keys.G)) {
-					state = GameState.GAME;
+					game.state = GameState.GAME;
 				}
 
 				if (SingleKeyPress (Keys.Enter)) {
-					state = GameState.START;
+					game.state = GameState.START;
 				}
 				break;
                 
 			//PAUSE case
 			case GameState.PAUSE:
 				if (SingleKeyPress (Keys.P)) {
-					state = GameState.GAME;
+					game.state = GameState.GAME;
 				}
 
 				if (SingleKeyPress (Keys.Q)) {
-					state = GameState.START;
+					game.state = GameState.START;
 				}
 				break;
 			}
@@ -186,7 +188,7 @@ namespace OneWayOut
 
 			spriteBatch.Begin ();          
 
-			switch (state) {
+			switch (game.state) {
 			//Draw Menu
 			case GameState.START:
 
