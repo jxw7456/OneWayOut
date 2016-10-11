@@ -13,10 +13,20 @@ using System.Diagnostics;
 
 namespace OneWayOut.Manager
 {
-    class GameManager
-    {
-        //need to make enums first
+	enum GameState
+	{
+		START,
+		HELP,
+		GAME,
+		OPTIONS,
+		GAMEOVER,
+		PAUSE
+	}
+
+	class GameManager
+	{
+		//need to make enums first
 
 
-    }
+	}
 }

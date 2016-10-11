@@ -13,19 +13,22 @@ using OneWayOut.Components.Dungeon;
 
 namespace OneWayOut.Manager
 {
-    class AssetManager
-    {
-        Random random;
+	class AssetManager
+	{
 
-        public Dungeon dungeon;
+		Random random;
 
-        public AssetManager(ContentManager Content)
-        {
-            random = new Random();
+		public Dungeon dungeon;
 
-            dungeon = new Dungeon(Content);
+		public AssetManager (ContentManager Content)
+		{
+			random = new Random ();
 
-            dungeon.GenerateTiles(random);
-        }
-    }
+			dungeon = new Dungeon (Content);
+
+			dungeon.GenerateTiles (random);
+
+		}
+
+	}
 }
