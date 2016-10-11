@@ -58,13 +58,17 @@
     <Compile Include="Scenes\Game1.cs" />
     <Compile Include="Manager\BackgroundManager.cs" />
     <Compile Include="Manager\ForegroundTextManager.cs" />
+    <Compile Include="Components\Mob\Slime\Slime.cs" />
+    <Compile Include="Components\Mob\Slime\Slime.Animation.cs" />
+    <Compile Include="Components\Mob\Slime\Slime.Draw.cs" />
+    <Compile Include="Components\Mob\Slime\Slime.Shape.cs" />
+    <Compile Include="Utils\Helper.cs" />
+    <Compile Include="Components\Player\Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="NVorbis, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -98,5 +102,8 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scenes\" />
+    <Folder Include="Components\Mob\Slime\" />
+  </ItemGroup>
 </Project>

@@ -14,29 +14,6 @@ namespace OneWayOut.Components.Player
 	/// </summary>
 	partial class Player
 	{
-		//A single sprite's width and height
-		const int PLAYER_TEXTURE_SIZE = 512;
-
-		public Texture2D Texture { get; set; }
-
-		private int currentFrame;
-
-		public int blink = 0;
-
-		public int row;
-
-		public int column;
-
-		//slow down animation
-		private float timer = 0;
-
-		private int millisecondsPerFrame = 100;
-
-		public Player (Texture2D texture, int row, int column)
-		{
-			Texture = texture;
-		}
-
 		public void Update (GameTime gameTime)
 		{
 			timer += (float)gameTime.ElapsedGameTime.Milliseconds;
@@ -57,7 +34,6 @@ namespace OneWayOut.Components.Player
 
 			row = 0;
 			column = 0;
-
 
 			switch (direction) {
 			case Direction.UP:
@@ -91,10 +67,11 @@ namespace OneWayOut.Components.Player
 			}
 
 			sourceRectangle = new Rectangle (column * PLAYER_TEXTURE_SIZE, row * PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE, PLAYER_TEXTURE_SIZE);
+
 			if (direction == Direction.LEFT) {
-				spriteBatch.Draw (Texture, archerlocal, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+				spriteBatch.Draw (texture, position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
 			} else {
-				spriteBatch.Draw (Texture, archerlocal, sourceRectangle, Color.White);
+				spriteBatch.Draw (texture, position, sourceRectangle, Color.White);
 			}
 		}
 	}
