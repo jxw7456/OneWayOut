@@ -23,7 +23,6 @@ namespace OneWayOut.Components.Player
 	/// </summary>
 	partial class Player:GameObject
 	{
-
 		public void Move ()
 		{
 			KeyboardState kbState = Keyboard.GetState ();
