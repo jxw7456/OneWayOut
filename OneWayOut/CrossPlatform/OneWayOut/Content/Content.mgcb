@@ -157,3 +157,15 @@
 /processorParam:TextureFormat=Color
 /build:textures/signlanguage.jpg
 
+#begin media/menu.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/menu.wma
+
+#begin media/help.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/help.wma
+
