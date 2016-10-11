@@ -74,7 +74,7 @@ namespace OneWayOut.Scenes
 
 			health = Content.Load<Texture2D> (@"textures/health");
 
-			asset = new AssetManager (Content);
+			asset = new AssetManager (Content, GraphicsDevice);
 
 			background = new BackgroundManager (Content);
 
@@ -143,6 +143,13 @@ namespace OneWayOut.Scenes
 				if (SingleKeyPress (Keys.Z)) {
 					game.state = GameState.GAMEOVER;
 				}
+
+				game.ScreenWrap (GraphicsDevice, asset.slime);
+
+				game.ScreenWrap (GraphicsDevice, MC);
+
+				asset.slime.ProcessInput (gameTime);
+
 				break;
 
 			//OPTIONS case
@@ -209,6 +216,9 @@ namespace OneWayOut.Scenes
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
                     
 				MC.Draw (spriteBatch, new Vector2 (200, 50));
+
+				asset.slime.Draw (spriteBatch);
+
 				break;
 
 			//Draw Help
