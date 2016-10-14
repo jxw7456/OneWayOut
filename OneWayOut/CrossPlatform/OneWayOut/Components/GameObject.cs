@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Components
 {
-	class GameObject
+	public class GameObject
 	{
 		public Texture2D texture;
 

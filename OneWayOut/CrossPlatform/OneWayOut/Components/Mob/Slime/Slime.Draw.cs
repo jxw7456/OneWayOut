@@ -34,8 +34,8 @@ namespace OneWayOut.Components.Slime
 
 
 			// sb.Draw (texture, point, null, Color.White);
-			sb.Draw (texture, point, null, ColorGenerator.RandomColor (random));
-
+			// 8sb.Draw (texture, point, null, ColorGenerator.RandomColor (random));
+			sb.Draw (texture, point, null, color);
 		}
 
 		public void DrawShape (SpriteBatch sb, byte[][] shape)
@@ -107,8 +107,15 @@ namespace OneWayOut.Components.Slime
 				shape = body;
 				break;
 			}
-			
+
 			DrawShape (sb, shape);
+		}
+
+		public void DrawName (SpriteBatch sb, SpriteFont sf)
+		{
+			var pos = new Vector2 ((float)position.Left, (float)(position.Top - sf.LineSpacing));
+
+			sb.DrawString (sf, name, pos, Color.White);
 		}
 	}
 }

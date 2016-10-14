@@ -137,18 +137,24 @@ namespace OneWayOut.Scenes
 			//GAME case
 			case GameState.GAME:
 				MC.Update (gameTime);
+				game.ScreenWrap (GraphicsDevice, MC);
+
+				foreach (var slime in asset.slimes) {
+					slime.Chase (MC, gameTime);
+					game.ScreenWrap (GraphicsDevice, slime);
+				}
+
 				if (SingleKeyPress (Keys.P)) {
 					game.state = GameState.PAUSE;
 				}
+
+				if (SingleKeyPress (Keys.P)) {
+					game.state = GameState.PAUSE;
+				}
+
 				if (SingleKeyPress (Keys.Z)) {
 					game.state = GameState.GAMEOVER;
 				}
-
-				game.ScreenWrap (GraphicsDevice, asset.slime);
-
-				game.ScreenWrap (GraphicsDevice, MC);
-
-				asset.slime.ProcessInput (gameTime);
 
 				break;
 
@@ -214,10 +220,14 @@ namespace OneWayOut.Scenes
 				asset.dungeon.Draw (spriteBatch);
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
-                    
+                
 				MC.Draw (spriteBatch, new Vector2 (200, 50));
 
-				asset.slime.Draw (spriteBatch);
+				foreach (var slime in asset.slimes) {
+					slime.Draw (spriteBatch);
+					foregroundText.DrawSlimeName (spriteBatch, slime);
+				}
+
 
 				break;
 

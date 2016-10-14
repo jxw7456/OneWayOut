@@ -7,7 +7,6 @@ namespace OneWayOut.Components.Slime
 {
 	partial class Slime
 	{
-		const int MOVE_SPEED = 270;
 
 		[Flags]
 		enum SlimeDirection
@@ -18,44 +17,32 @@ namespace OneWayOut.Components.Slime
 			DOWN = 0x8,
 		}
 
-		public void ProcessInput (GameTime gameTime)
+		public void WalkLeft (TimeSpan elapsed)
 		{
-			var keyboardState = Keyboard.GetState ();
+			position.X -= Helper.MovingInterval (elapsed, speed);
+			direction = SlimeDirection.LEFT;
+			state = SlimeState.WALK;	
+		}
 
-			var elapsed = gameTime.ElapsedGameTime;
+		public void WalkRight (TimeSpan elapsed)
+		{
+			position.X += Helper.MovingInterval (elapsed, speed);
+			direction = SlimeDirection.RIGHT;			
+			state = SlimeState.WALK;
+		}
 
-			state = SlimeState.IDLE;
+		public void WalkUp (TimeSpan elapsed)
+		{
+			position.Y -= Helper.MovingInterval (elapsed, speed);
+			direction |= SlimeDirection.UP;
+			state = SlimeState.WALK;
+		}
 
-
-			if (keyboardState.IsKeyDown (Keys.Left)) {
-				position.X -= Helper.MovingInterval (elapsed, MOVE_SPEED);
-				state = SlimeState.WALK;	
-				direction = SlimeDirection.LEFT;
-			}
-
-			if (keyboardState.IsKeyDown (Keys.Right)) {
-				position.X += Helper.MovingInterval (elapsed, MOVE_SPEED);
-				state = SlimeState.WALK;
-				direction = SlimeDirection.RIGHT;
-			}
-
-			if (keyboardState.IsKeyDown (Keys.Up)) {
-				position.Y -= Helper.MovingInterval (elapsed, MOVE_SPEED);
-				state = SlimeState.WALK;
-				direction |= SlimeDirection.UP;
-			}
-
-			if (keyboardState.IsKeyDown (Keys.Down)) {
-				position.Y += Helper.MovingInterval (elapsed, MOVE_SPEED);
-				state = SlimeState.WALK;
-				direction |= SlimeDirection.DOWN;
-			}
-
-
-			if (keyboardState.IsKeyDown (Keys.D)) {
-				state = SlimeState.BLOPPED;
-			}
+		public void WalkDown (TimeSpan elapsed)
+		{
+			position.Y += Helper.MovingInterval (elapsed, speed);
+			direction |= SlimeDirection.DOWN;
+			state = SlimeState.WALK;
 		}
 	}
 }
-

@@ -8,47 +8,47 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Components.Dungeon
 {
-    partial class Dungeon
-    {
+	partial class Dungeon
+	{
 
-        const int TILE_SIZE = 45;
+		const int TILE_SIZE = 45;
 
-        const int DUNGEON_SIZE = 90; // n x n 
+		const int DUNGEON_SIZE = 90;
+		// n x n
 
-        const string TILE_TEXTURE = @"textures/floor";
+		const string TILE_TEXTURE = @"textures/ground";
 
-        Texture2D tileTexture;
+		//const string TILE_TEXTURE = @"textures/floor";
 
-        List<GameObject> tiles;
+		Texture2D tileTexture;
 
-        public Dungeon(ContentManager Content)
-        {
-            tileTexture = Content.Load<Texture2D>(TILE_TEXTURE);
-            tiles = new List<GameObject>();
-        }
+		List<GameObject> tiles;
 
-        public void GenerateTiles(Random random)
-        {
+		public Dungeon (ContentManager Content)
+		{
+			tileTexture = Content.Load<Texture2D> (TILE_TEXTURE);
+			tiles = new List<GameObject> ();
+		}
 
-            for (int i = 0; i < DUNGEON_SIZE; i++)
-            {
-                for (int j = 0; j < DUNGEON_SIZE; j++)
-                {
-                    // TODO: Create a Tile Object more specific to randomize itself.
-                    var tile = new GameObject(TILE_SIZE * i, TILE_SIZE * j, TILE_SIZE, TILE_SIZE);
-                    tile.texture = tileTexture;
-                    tiles.Add(tile);
-                }
-            }
-        }
+		public void GenerateTiles (Random random)
+		{
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var tile in tiles)
-            {
-                tile.Draw(spriteBatch);
-            }
-        }
+			for (int i = 0; i < DUNGEON_SIZE; i++) {
+				for (int j = 0; j < DUNGEON_SIZE; j++) {
+					// TODO: Create a Tile Object more specific to randomize itself.
+					var tile = new GameObject (TILE_SIZE * i, TILE_SIZE * j, TILE_SIZE, TILE_SIZE);
+					tile.texture = tileTexture;
+					tiles.Add (tile);
+				}
+			}
+		}
 
-    }
+		public void Draw (SpriteBatch spriteBatch)
+		{
+			foreach (var tile in tiles) {
+				tile.Draw (spriteBatch);
+			}
+		}
+
+	}
 }

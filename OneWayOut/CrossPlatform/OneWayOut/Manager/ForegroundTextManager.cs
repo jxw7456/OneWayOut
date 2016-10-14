@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using OneWayOut.Components.Slime;
 
 namespace OneWayOut
 {
-	public class ForegroundTextManager
+	class ForegroundTextManager
 	{
 		SpriteFont boldFont;
 
@@ -16,6 +17,11 @@ namespace OneWayOut
 			boldFont = Content.Load<SpriteFont> (@"fonts/bold");
 
 			biggerFont = Content.Load<SpriteFont> (@"fonts/biggerFont");
+		}
+
+		public void DrawSlimeName (SpriteBatch sb, Slime s)
+		{
+			s.DrawName (sb, boldFont);
 		}
 
 		public void DrawGameover (SpriteBatch spriteBatch)
