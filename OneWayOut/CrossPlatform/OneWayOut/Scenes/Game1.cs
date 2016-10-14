@@ -32,7 +32,7 @@ namespace OneWayOut.Scenes
 
         GameManager game;
 
-        Song currentSong, menuSong, helpSong;
+        Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
 
         BackgroundManager background;
 
@@ -81,9 +81,14 @@ namespace OneWayOut.Scenes
 
             foregroundText = new ForegroundTextManager(Content);
 
-            menuSong = Content.Load<Song>(@"media/menu");
-            currentSong = menuSong;
+            //Songs for all screens
+            menuSong = Content.Load<Song>(@"media/menu");            
+            gameSong = Content.Load<Song>(@"media/game");
+            gameOverSong = Content.Load<Song>(@"media/gameOver");
+            optionsSong = Content.Load<Song>(@"media/options");
             helpSong = Content.Load<Song>(@"media/help");
+
+            currentSong = menuSong;
             MediaPlayer.Volume = 0.50f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(currentSong);
@@ -160,7 +165,11 @@ namespace OneWayOut.Scenes
 
                 //GAME case
                 case GameState.GAME:
-                    MediaPlayer.Stop();
+                    if (!MediaPlayer.Equals(currentSong, gameSong))
+                    {
+                        currentSong = gameSong;
+                        MediaPlayer.Play(currentSong);
+                    }
 
                     MC.Move();
                     MC.Update(gameTime);
@@ -184,7 +193,11 @@ namespace OneWayOut.Scenes
 
                 //OPTIONS case
                 case GameState.OPTIONS:
-                    MediaPlayer.Stop();
+                    if (!MediaPlayer.Equals(currentSong, optionsSong))
+                    {
+                        currentSong = optionsSong;
+                        MediaPlayer.Play(currentSong);
+                    }
 
                     if (SingleKeyPress(Keys.O))
                     {
@@ -194,7 +207,11 @@ namespace OneWayOut.Scenes
 
                 //GAME OVER case
                 case GameState.GAMEOVER:
-                    MediaPlayer.Stop();
+                    if (!MediaPlayer.Equals(currentSong, gameOverSong))
+                    {
+                        currentSong = gameOverSong;
+                        MediaPlayer.Play(currentSong);
+                    }
 
                     if (SingleKeyPress(Keys.G))
                     {
@@ -209,7 +226,7 @@ namespace OneWayOut.Scenes
 
                 //PAUSE case
                 case GameState.PAUSE:
-                    MediaPlayer.Stop();
+                    MediaPlayer.Pause();
 
                     if (SingleKeyPress(Keys.P))
                     {
