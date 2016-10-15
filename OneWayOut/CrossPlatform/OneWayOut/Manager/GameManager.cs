@@ -14,6 +14,9 @@ using OneWayOut.Components;
 
 namespace OneWayOut.Manager
 {
+	/// <summary>
+	/// Game state enums.
+	/// </summary>
 	enum GameState
 	{
 		START,
@@ -24,12 +27,16 @@ namespace OneWayOut.Manager
 		PAUSE
 	}
 
+	/// <summary>
+	/// Game manager.
+	/// In charge of Handling Game State and Helper methods managing game
+	/// </summary>
 	class GameManager
 	{
 		public GameState state;
 
 		/// <summary>
-		/// Initialize with timer to default value, state to menu
+		/// Initialize with state to start
 		/// </summary>
 		public GameManager ()
 		{

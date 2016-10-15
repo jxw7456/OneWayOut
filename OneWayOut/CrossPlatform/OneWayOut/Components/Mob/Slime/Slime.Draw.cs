@@ -5,6 +5,9 @@ using OneWayOut.Utils;
 
 namespace OneWayOut.Components.Slime
 {
+	/// <summary>
+	/// Slime Draw Helper.
+	/// </summary>
 	partial class Slime
 	{
 		
@@ -16,6 +19,11 @@ namespace OneWayOut.Components.Slime
 			IDLE
 		}
 
+		/// <summary>
+		/// Helper to draw a point.
+		/// </summary>
+		/// <param name="sb">Spritebatch</param>
+		/// <param name="pos">Position of point</param>
 		public void DrawPoint (
 			SpriteBatch sb,
 			Vector2 pos
@@ -38,6 +46,11 @@ namespace OneWayOut.Components.Slime
 			sb.Draw (texture, point, null, color);
 		}
 
+		/// <summary>
+		/// Draws the shape provided.
+		/// </summary>
+		/// <param name="sb">Sb.</param>
+		/// <param name="shape">Shape.</param>
 		public void DrawShape (SpriteBatch sb, byte[][] shape)
 		{
 
@@ -49,6 +62,7 @@ namespace OneWayOut.Components.Slime
 
 					var point = (SlimeTextureMap)row [j];
 
+					// Skip 0 bits
 					if (point.Equals (SlimeTextureMap.NULL)) {
 						continue;
 					}
@@ -57,20 +71,24 @@ namespace OneWayOut.Components.Slime
 
 					int y = position.Y + i * PIXEL_SIZE;
 
+					// Rotate across the X axis if look left
 					if ((direction & SlimeDirection.LEFT) != 0) {
 						x = position.X + (row.Length - j) * PIXEL_SIZE;
 					} 
 
+					// Rotate across the Y axis if look down
 					if ((direction & SlimeDirection.DOWN) != 0) {
 						y = position.Y + (shape.Length - i) * PIXEL_SIZE;
 					}
 
 					var pos = new Vector2 (x, y);
 
+					// Switch between type of texture
 					switch (point) {
 					case SlimeTextureMap.EYE:
 
-						if (random.NextDouble () > 0.81) {
+						// Simulate a blinking effect...
+						if (random.NextDouble () > 0.81) { 
 							DrawPoint (sb, pos);
 						}
 						break;
@@ -84,11 +102,15 @@ namespace OneWayOut.Components.Slime
 		}
 
 
+		/// <summary>
+		/// Draw the sprite.
+		/// </summary>
+		/// <param name="sb">Sb.</param>
 		public new void Draw (SpriteBatch sb)
 		{
 
 			byte[][] shape;
-
+			// Switch the shape based on the slime state
 			switch (state) {
 			case SlimeState.BLOPPED:
 				shape = blop;
@@ -111,8 +133,15 @@ namespace OneWayOut.Components.Slime
 			DrawShape (sb, shape);
 		}
 
+		/// <summary>
+		/// Draws the name of the slime.
+		/// </summary>
+		/// <param name="sb">Sprite Batch</param>
+		/// <param name="sf">Font</param>
 		public void DrawName (SpriteBatch sb, SpriteFont sf)
 		{
+			// Get the position, top-left of the sprite, topped with the font line spacing.
+			// y run from top to bottom thus the '-' sign
 			var pos = new Vector2 ((float)position.Left, (float)(position.Top - sf.LineSpacing));
 
 			sb.DrawString (sf, name, pos, Color.White);

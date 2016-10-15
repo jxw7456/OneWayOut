@@ -6,6 +6,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OneWayOut.Manager
 {
+	/// <summary>
+	/// Background Music manager.
+	/// In charge of changing the music
+	/// </summary>
 	public class BgmManager
 	{
 		const string MENU_BGM = @"media/menu";
@@ -20,6 +24,11 @@ namespace OneWayOut.Manager
 
 		Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Manager.BgmManager"/> class.
+		/// Cache all song object and set the media object state
+		/// </summary>
+		/// <param name="Content">Content.</param>
 		public BgmManager (ContentManager Content)
 		{
 			menuSong = Content.Load<Song> (MENU_BGM);            
@@ -37,6 +46,10 @@ namespace OneWayOut.Manager
 			MediaPlayer.Play (currentSong);
 		}
 
+		/// <summary>
+		/// Helper method to switch between bgm
+		/// </summary>
+		/// <param name="targetBgm">Target bgm.</param>
 		void SwitchBgm (Song targetBgm)
 		{
 			if (!MediaPlayer.Equals (currentSong, targetBgm)) {
@@ -45,36 +58,57 @@ namespace OneWayOut.Manager
 			}
 		}
 
+		/// <summary>
+		/// Resume playing.
+		/// </summary>
 		public void Resume ()
 		{
 			MediaPlayer.Resume ();			
 		}
 
+		/// <summary>
+		/// Pause the Media.
+		/// </summary>
 		public void Pause ()
 		{
 			MediaPlayer.Pause ();
 		}
 
+		/// <summary>
+		/// Play the menu song.
+		/// </summary>
 		public void PlayMenu ()
 		{
 			SwitchBgm (menuSong);
 		}
 
+		/// <summary>
+		/// Play the game song.
+		/// </summary>
 		public void PlayGame ()
 		{
 			SwitchBgm (gameSong);
 		}
 
+		/// <summary>
+		/// Play the gameover song.
+		/// </summary>
 		public void PlayGameOver ()
 		{
 			SwitchBgm (gameOverSong);
 		}
 
+		/// <summary>
+		/// Play the options song.
+		/// </summary>
 		public void PlayOptions ()
 		{
 			SwitchBgm (optionsSong);
 		}
 
+		/// <summary>
+		/// Play the help song.
+		/// </summary>
 		public void PlayHelp ()
 		{
 			SwitchBgm (helpSong);

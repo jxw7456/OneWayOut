@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace OneWayOut.Components.Slime
 {
+	/// <summary>
+	/// Slime main class, contain constructors and fields.
+	/// </summary>
 	partial class Slime: GameObject
 	{
 		const int PIXEL_SIZE = 9;
@@ -34,6 +37,17 @@ namespace OneWayOut.Components.Slime
 
 		float slimeDelay;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
+		/// And assigning the properties value
+		/// </summary>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coordinate.</param>
+		/// <param name="width">Width.</param>
+		/// <param name="height">Height.</param>
+		/// <param name="gp">Graphic </param>
+		/// <param name="r">Random object</param>
+		/// <param name="n">Asigned name</param>
 		public Slime (int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
 			: base (x, y, width, height)
 		{

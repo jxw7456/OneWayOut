@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace OneWayOut.Components.Player
 {
+	/// <summary>
+	/// Player Main Class.
+	/// Fields and Constructor
+	/// </summary>
 	partial class Player : GameObject
 	{
 		//A single sprite's width and height
@@ -33,6 +37,12 @@ namespace OneWayOut.Components.Player
 
 		private int millisecondsPerFrame = 100;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
+		/// </summary>
+		/// <param name="t">T.</param>
+		/// <param name="r">The red component.</param>
+		/// <param name="c">C.</param>
 		public Player (Texture2D t, int r, int c) : base (new Rectangle (0, 0, PLAYER_SIZE, PLAYER_SIZE))
 		{
 			texture = t;
@@ -43,6 +53,10 @@ namespace OneWayOut.Components.Player
 			column = c;
 		}
 
+		/// <summary>
+		/// Sets the position to center of screen.
+		/// </summary>
+		/// <param name="graphicDevice">Graphic device.</param>
 		public new void SetPositionCenter (GraphicsDevice graphicDevice)
 		{
 

@@ -8,13 +8,16 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Components.Dungeon
 {
+	/// <summary>
+	/// Dungeon Generator Class.
+	/// </summary>
 	partial class Dungeon
 	{
 
 		const int TILE_SIZE = 45;
 
-		const int DUNGEON_SIZE = 90;
 		// n x n
+		const int DUNGEON_SIZE = 90;
 
 		const string TILE_TEXTURE = @"textures/ground";
 
@@ -24,12 +27,20 @@ namespace OneWayOut.Components.Dungeon
 
 		List<GameObject> tiles;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Components.Dungeon.Dungeon"/> class.
+		/// </summary>
+		/// <param name="Content">Content.</param>
 		public Dungeon (ContentManager Content)
 		{
 			tileTexture = Content.Load<Texture2D> (TILE_TEXTURE);
 			tiles = new List<GameObject> ();
 		}
 
+		/// <summary>
+		/// Generates the tiles and their position.
+		/// </summary>
+		/// <param name="random">Random.</param>
 		public void GenerateTiles (Random random)
 		{
 
@@ -43,6 +54,10 @@ namespace OneWayOut.Components.Dungeon
 			}
 		}
 
+		/// <summary>
+		/// Draw the dungeon (each and every tiles).
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
 		public void Draw (SpriteBatch spriteBatch)
 		{
 			foreach (var tile in tiles) {

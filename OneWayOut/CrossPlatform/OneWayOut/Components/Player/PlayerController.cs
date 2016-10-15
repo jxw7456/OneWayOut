@@ -19,10 +19,13 @@ namespace OneWayOut.Components.Player
 	}
 
 	/// <summary>
-	/// Object describing a character
+	/// Player Controller Methods
 	/// </summary>
 	partial class Player:GameObject
 	{
+		/// <summary>
+		/// Moving Handler
+		/// </summary>
 		public void Move ()
 		{
 			KeyboardState kbState = Keyboard.GetState ();

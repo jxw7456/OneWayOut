@@ -5,14 +5,27 @@ using OneWayOut.Utils;
 
 namespace OneWayOut.Components.Slime
 {
+	/// <summary>
+	/// Slime Behavior Helper.
+	/// </summary>
 	partial class Slime
 	{
 
+		/// <summary>
+		/// Chase the specified obj using gameTime to calculate speed.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		/// <param name="gameTime">Game time.</param>
 		public void Chase (GameObject obj, GameTime gameTime)
 		{
 			ChaseZiggly (obj, gameTime);
 		}
 
+		/// <summary>
+		/// Chases straight behavior.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		/// <param name="gameTime">Game time.</param>
 		public void ChaseStraight (GameObject obj, GameTime gameTime)
 		{
 			var elapsed = gameTime.ElapsedGameTime;
@@ -36,7 +49,11 @@ namespace OneWayOut.Components.Slime
 			}
 		}
 
-
+		/// <summary>
+		/// Chases uniformly.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		/// <param name="gameTime">Game time.</param>
 		public void ChaseUniformly (GameObject obj, GameTime gameTime)
 		{
 			var elapsed = gameTime.ElapsedGameTime;
@@ -54,6 +71,11 @@ namespace OneWayOut.Components.Slime
 			}
 		}
 
+		/// <summary>
+		/// Chases ziggly.
+		/// </summary>
+		/// <param name="obj">Object.</param>
+		/// <param name="gameTime">Game time.</param>
 		public void ChaseZiggly (GameObject obj, GameTime gameTime)
 		{
 			var elapsed = gameTime.ElapsedGameTime;
@@ -95,6 +117,10 @@ namespace OneWayOut.Components.Slime
 			}
 		}
 
+		/// <summary>
+		/// Manual control if needed
+		/// </summary>
+		/// <param name="gameTime">Game time.</param>
 		public void ProcessInput (GameTime gameTime)
 		{
 			var keyboardState = Keyboard.GetState ();

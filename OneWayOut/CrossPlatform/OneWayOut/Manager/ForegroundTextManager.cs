@@ -6,12 +6,21 @@ using OneWayOut.Components.Slime;
 
 namespace OneWayOut
 {
+	/// <summary>
+	/// Foreground text manager.
+	/// In charge on rendering text for each scene
+	/// </summary>
 	class ForegroundTextManager
 	{
 		SpriteFont boldFont;
 
 		SpriteFont biggerFont;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.ForegroundTextManager"/> class.
+		/// Cached all font objects
+		/// </summary>
+		/// <param name="Content">Content.</param>
 		public ForegroundTextManager (ContentManager Content)
 		{
 			boldFont = Content.Load<SpriteFont> (@"fonts/bold");
@@ -19,16 +28,29 @@ namespace OneWayOut
 			biggerFont = Content.Load<SpriteFont> (@"fonts/biggerFont");
 		}
 
+		/// <summary>
+		/// Draws the name of the slime.
+		/// </summary>
+		/// <param name="sb">SpriteBatch.</param>
+		/// <param name="s">Slime to Draw.</param>
 		public void DrawSlimeName (SpriteBatch sb, Slime s)
 		{
 			s.DrawName (sb, boldFont);
 		}
 
+		/// <summary>
+		/// Draws the gameover text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawGameover (SpriteBatch spriteBatch)
 		{
 
 		}
 
+		/// <summary>
+		/// Draws the help text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawHelp (SpriteBatch spriteBatch)
 		{
 			//Story
@@ -52,14 +74,21 @@ namespace OneWayOut
 
 		}
 
+		/// <summary>
+		/// Draws the option text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawOption (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "YOU ARE DEAD", new Vector2 (225, 10), Color.Red);
 			spriteBatch.DrawString (boldFont, "Press 'G' to Restart", new Vector2 (270, 410), Color.White);
 			spriteBatch.DrawString (boldFont, "Press 'Enter' for Main Menu", new Vector2 (225, 440), Color.White);                    
-
 		}
 
+		/// <summary>
+		/// Draws the start text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawStart (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "One Way Out", new Vector2 (225, 10), Color.White);
@@ -69,11 +98,15 @@ namespace OneWayOut
 			spriteBatch.DrawString (boldFont, "Press 'Esc' to Quit", new Vector2 (255, 440), Color.Red);
 		}
 
-        public void DrawPause(SpriteBatch spriteBatch)
-        {
-            spriteBatch.DrawString(biggerFont, "PAUSED", new Vector2(300, 200), Color.DarkOrange);
-            spriteBatch.DrawString(boldFont, "Press 'Q' to Quit", new Vector2(255, 440), Color.DarkRed);
-        }
-    }
+		/// <summary>
+		/// Draws the pause text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
+		public void DrawPause (SpriteBatch spriteBatch)
+		{
+			spriteBatch.DrawString (biggerFont, "PAUSED", new Vector2 (300, 200), Color.DarkOrange);
+			spriteBatch.DrawString (boldFont, "Press 'Q' to Quit", new Vector2 (255, 440), Color.DarkRed);
+		}
+	}
 }
 

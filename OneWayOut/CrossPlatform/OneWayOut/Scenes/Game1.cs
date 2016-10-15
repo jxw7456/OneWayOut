@@ -159,7 +159,7 @@ namespace OneWayOut.Scenes
 				if (SingleKeyPress (Keys.P)) {
 					game.state = GameState.PAUSE;
 				}
-					
+
 				if (SingleKeyPress (Keys.Z)) {
 					game.state = GameState.GAMEOVER;
 				}
@@ -233,17 +233,16 @@ namespace OneWayOut.Scenes
 
 			//Draw Game
 			case GameState.GAME:
-				asset.dungeon.Draw (spriteBatch);
+
+				asset.DrawDungeon (spriteBatch);
+
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
+
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
                 
 				player.Draw (spriteBatch, new Vector2 (200, 50));
 
-				foreach (var slime in asset.slimes) {
-					slime.Draw (spriteBatch);
-					foregroundText.DrawSlimeName (spriteBatch, slime);
-				}
-
+				asset.DrawSlimes (spriteBatch, foregroundText);
 
 				break;
 
@@ -270,14 +269,15 @@ namespace OneWayOut.Scenes
 
 				background.DrawGameover (spriteBatch, GraphicsDevice);
 
-				foregroundText.DrawOption (spriteBatch);
+				foregroundText.DrawGameover (spriteBatch);
 
 				break;
 
 			//Draw Pause
 			case GameState.PAUSE:
                 
-				asset.dungeon.Draw (spriteBatch);
+				asset.DrawDungeon (spriteBatch);
+
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
 

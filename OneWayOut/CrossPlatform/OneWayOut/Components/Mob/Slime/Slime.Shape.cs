@@ -4,6 +4,9 @@ using System.Collections;
 
 namespace OneWayOut.Components.Slime
 {
+	/// <summary>
+	/// Slime shape values.
+	/// </summary>
 	partial class Slime
 	{
 		enum SlimeTextureMap

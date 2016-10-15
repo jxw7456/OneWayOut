@@ -6,6 +6,12 @@ using System.IO;
 
 namespace OneWayOut.Components
 {
+	/// <summary>
+	/// Markov Model name generator.
+	/// Generate name based on a sample. The algorithm
+	/// works by generate letter based on pattern 
+	/// from the samples.
+	/// </summary>
 	public partial class MarkovNameGenerator
 	{
 		const string SAMPLE_FILE = @"./SampleName.txt";
@@ -14,82 +20,85 @@ namespace OneWayOut.Components
 
 		const int SAMPLE_LENGTH = 3;
 
-
 		#region fields
 
-		private Dictionary<string, List<char>> _chains = new Dictionary<string, List<char>> ();
-		private List<string> _samples = new List<string> ();
-		private List<string> _used = new List<string> ();
-		private Random _rnd = new Random ();
-		private int _order;
-		private int _minLength;
+		private Dictionary<string, List<char>> chains = new Dictionary<string, List<char>> ();
+
+		private List<string> samples = new List<string> ();
+
+		private List<string> used = new List<string> ();
+
+		private Random random = new Random ();
+
+		private int order;
+
+		private int minLength;
 
 		#endregion
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Components.MarkovNameGenerator"/> class.
+		/// Read the samples and warmup the markov table
+		/// </summary>
 		public MarkovNameGenerator ()
 		{
-			List<string> names = new List<string> ();
-			
 			using (var reader = new StreamReader (SAMPLE_FILE)) {
 				string line;
 				while ((line = reader.ReadLine ()) != null) {
-					names.Add (line);
+					samples.Add (line);
 				}
-				Warmup (names, SAMPLE_ORDER, SAMPLE_LENGTH);
+				Warmup (SAMPLE_ORDER, SAMPLE_LENGTH);
 			}
 		}
 
-		//constructor
-		public void Warmup (IEnumerable<string> sampleNames, int order, int minLength)
+		/// <summary>
+		/// Warmup the markov chain table, under the specified order 
+		/// and a minimum length.
+		/// </summary>
+		/// <param name="sampleNames">Sample names.</param>
+		/// <param name="o">Order.</param>
+		/// <param name="m">Minimum length.</param>
+		public void Warmup (int o, int m)
 		{
+
+			// Just in case this is used outside
+			if (o < 1)
+				o = 1;
 			
+			if (m < 1)
+				m = 1;
 
-			//fix parameter values
-			if (order < 1)
-				order = 1;
-			if (minLength < 1)
-				minLength = 1;
+			order = o;
 
-			_order = order;
-			_minLength = minLength;
-
-			//split comma delimited lines
-			foreach (string line in sampleNames) {
-				string[] tokens = line.Split (',');
-				foreach (string word in tokens) {
-					string upper = word.Trim ().ToUpper ();
-					if (upper.Length < order + 1)
-						continue;                   
-					_samples.Add (upper);
-				}
-			}
+			minLength = m;
 
 			//Build chains            
-			foreach (string word in _samples) {              
-				for (int letter = 0; letter < word.Length - order; letter++) {
-					string token = word.Substring (letter, order);
+			foreach (string name in samples) {
+				
+				for (int letter = 0; letter < name.Length - o; letter++) {
+
+					// Token is a substring of word of order 'o'.
+					// e.g: name: "alice", o: 3,
+					// tokens are: ali, lic, ice
+					string token = name.Substring (letter, o);
+
 					List<char> entry = null;
-					if (_chains.ContainsKey (token))
-						entry = _chains [token];
-					else {
+
+					// If the token does not exist in the chains,
+					// instantiate a list of char for it.
+					// Otherwise grab the instance from the chains
+					if (!chains.ContainsKey (token)) {
 						entry = new List<char> ();
-						_chains [token] = entry;
+						chains [token] = entry;
+					} else {
+						entry = chains [token];
 					}
-					entry.Add (word [letter + order]);
+
+					// Add the letter into the chain
+					entry.Add (name [letter + o]);
 				}
 			}
 		}
-
-		//Get a random letter from the chain
-		private char GetLetter (string token)
-		{
-			if (!_chains.ContainsKey (token))
-				return '?';
-			List<char> letters = _chains [token];
-			int n = _rnd.Next (letters.Count);
-			return letters [n];
-		}
-
 	}
 }
 
