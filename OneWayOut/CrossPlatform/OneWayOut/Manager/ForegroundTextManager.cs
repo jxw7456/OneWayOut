@@ -68,6 +68,12 @@ namespace OneWayOut
 			spriteBatch.DrawString (boldFont, "Press 'O' for Options", new Vector2 (240, 240), Color.OrangeRed);                    
 			spriteBatch.DrawString (boldFont, "Press 'Esc' to Quit", new Vector2 (255, 440), Color.Red);
 		}
-	}
+
+        public void DrawPause(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(biggerFont, "PAUSED", new Vector2(300, 200), Color.DarkOrange);
+            spriteBatch.DrawString(boldFont, "Press 'Q' to Quit", new Vector2(255, 440), Color.DarkRed);
+        }
+    }
 }
 

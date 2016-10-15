@@ -157,3 +157,33 @@
 /processorParam:TextureFormat=Color
 /build:textures/signlanguage.jpg
 
+#begin media/menu.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/menu.wma
+
+#begin media/help.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/help.wma
+
+#begin media/game.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/game.mp3
+
+#begin media/gameOver.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/gameOver.mp3
+
+#begin media/options.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:media/options.mp3
+

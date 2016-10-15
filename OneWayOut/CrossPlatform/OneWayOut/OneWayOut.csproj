@@ -68,6 +68,7 @@
     <Compile Include="Components\MarkovNameGenerator\MarkovNameGenerator.cs" />
     <Compile Include="Components\MarkovNameGenerator\MarkovNameGenerator.Utils.cs" />
     <Compile Include="Components\Mob\Slime\Slime.Behavior.cs" />
+    <Compile Include="Manager\BackgroundMusicManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

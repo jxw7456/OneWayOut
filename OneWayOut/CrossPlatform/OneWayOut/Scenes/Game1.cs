@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
 using OneWayOut.Manager;
 
 namespace OneWayOut.Scenes
 {
- 
-
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
@@ -20,9 +19,10 @@ namespace OneWayOut.Scenes
 
 		Texture2D spriteSheet;
 
-		Player MC;
+		Player player;
 
 		KeyboardState kbState;
+
 		KeyboardState previousKbState;
 
 		Texture2D health;
@@ -32,6 +32,8 @@ namespace OneWayOut.Scenes
 		AssetManager asset;
 
 		GameManager game;
+
+		BgmManager bgm;
 
 		BackgroundManager background;
 
@@ -80,9 +82,11 @@ namespace OneWayOut.Scenes
 
 			foregroundText = new ForegroundTextManager (Content);
 
-			MC = new Player (spriteSheet, 1, 4);  
+			bgm = new BgmManager (Content);
 
-			MC.SetPositionCenter (GraphicsDevice);
+			player = new Player (spriteSheet, 1, 4);  
+
+			player.SetPositionCenter (GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
 
@@ -112,8 +116,9 @@ namespace OneWayOut.Scenes
 			kbState = Keyboard.GetState ();
 
 			switch (game.state) {
-			//START case
 			case GameState.START:
+				bgm.PlayMenu ();
+
 				if (SingleKeyPress (Keys.Enter)) {
 					game.state = GameState.GAME;
 				}
@@ -129,6 +134,8 @@ namespace OneWayOut.Scenes
 
 			//HELP case
 			case GameState.HELP:
+				bgm.PlayHelp ();
+
 				if (SingleKeyPress (Keys.H)) {
 					game.state = GameState.START;
 				}
@@ -136,22 +143,23 @@ namespace OneWayOut.Scenes
 
 			//GAME case
 			case GameState.GAME:
-				MC.Update (gameTime);
-				game.ScreenWrap (GraphicsDevice, MC);
+				bgm.PlayGame ();
+
+				player.Move ();
+
+				player.Update (gameTime);
+
+				game.ScreenWrap (GraphicsDevice, player);
 
 				foreach (var slime in asset.slimes) {
-					slime.Chase (MC, gameTime);
+					slime.Chase (player, gameTime);
 					game.ScreenWrap (GraphicsDevice, slime);
 				}
 
 				if (SingleKeyPress (Keys.P)) {
 					game.state = GameState.PAUSE;
 				}
-
-				if (SingleKeyPress (Keys.P)) {
-					game.state = GameState.PAUSE;
-				}
-
+					
 				if (SingleKeyPress (Keys.Z)) {
 					game.state = GameState.GAMEOVER;
 				}
@@ -160,6 +168,9 @@ namespace OneWayOut.Scenes
 
 			//OPTIONS case
 			case GameState.OPTIONS:
+
+				bgm.PlayOptions ();
+
 				if (SingleKeyPress (Keys.O)) {
 					game.state = GameState.START;
 				}
@@ -167,6 +178,9 @@ namespace OneWayOut.Scenes
 
 			//GAME OVER case
 			case GameState.GAMEOVER:
+
+				bgm.PlayGameOver ();
+
 				if (SingleKeyPress (Keys.G)) {
 					game.state = GameState.GAME;
 				}
@@ -178,8 +192,12 @@ namespace OneWayOut.Scenes
                 
 			//PAUSE case
 			case GameState.PAUSE:
+				
+				bgm.Pause ();
+
 				if (SingleKeyPress (Keys.P)) {
 					game.state = GameState.GAME;
+					bgm.Resume ();
 				}
 
 				if (SingleKeyPress (Keys.Q)) {
@@ -187,8 +205,6 @@ namespace OneWayOut.Scenes
 				}
 				break;
 			}
-
-			MC.Move ();
 
 			base.Update (gameTime);
 		}
@@ -221,7 +237,7 @@ namespace OneWayOut.Scenes
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
                 
-				MC.Draw (spriteBatch, new Vector2 (200, 50));
+				player.Draw (spriteBatch, new Vector2 (200, 50));
 
 				foreach (var slime in asset.slimes) {
 					slime.Draw (spriteBatch);
@@ -244,12 +260,14 @@ namespace OneWayOut.Scenes
 
 			//Draw Options
 			case GameState.OPTIONS:
+				
 				background.DrawOption (spriteBatch, GraphicsDevice);
 
 				break;
 
 			//Draw Game Over
 			case GameState.GAMEOVER:
+
 				background.DrawGameover (spriteBatch, GraphicsDevice);
 
 				foregroundText.DrawOption (spriteBatch);
@@ -258,7 +276,15 @@ namespace OneWayOut.Scenes
 
 			//Draw Pause
 			case GameState.PAUSE:
-                    
+                
+				asset.dungeon.Draw (spriteBatch);
+				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
+				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
+
+				player.Draw (spriteBatch, new Vector2 (200, 50));
+
+				foregroundText.DrawPause (spriteBatch);
+
 				break;
 			}            
 
@@ -278,5 +304,6 @@ namespace OneWayOut.Scenes
 			}
 			return valid;
 		}
+	
 	}
 }
