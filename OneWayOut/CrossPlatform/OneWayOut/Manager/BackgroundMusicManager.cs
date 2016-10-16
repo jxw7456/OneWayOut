@@ -32,6 +32,8 @@ namespace OneWayOut.Manager
 
         Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
 
+        public float vol = 0.50f;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Manager.BgmManager"/> class.
 		/// Cache all song object and set the media object state
@@ -49,7 +51,7 @@ namespace OneWayOut.Manager
 
 			currentSong = menuSong;
 
-			MediaPlayer.Volume = volume;
+			MediaPlayer.Volume = 0.50f;
 
 			MediaPlayer.IsRepeating = true;
 
