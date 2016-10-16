@@ -31,16 +31,30 @@ namespace one_way_outexternal_tool
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            int number = trackBar1.Value;
+            string hello = number.ToString();
+            textBox1.Text = hello;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            System.IO.StreamWriter settings = new System.IO.StreamWriter()
-            if (trackBar1.Value == 5) ;
+            StreamWriter settings = new StreamWriter("settings.txt");
+            int number = trackBar1.Value;
+            if (number == 5)
             {
-
+                settings.WriteLine("2");
             }
+            else if (number== 10)
+            {
+                settings.WriteLine("3");
+            }
+                
+            else if (number == 0)
+            {
+                 settings.WriteLine("1");
+            }
+            settings.Close(); 
+
         }
     }
 }
