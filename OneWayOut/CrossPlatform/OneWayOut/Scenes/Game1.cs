@@ -59,6 +59,7 @@ namespace OneWayOut.Scenes
 			game = new GameManager ();
 
 			base.Initialize ();
+	
 		}
 
 		/// <summary>
