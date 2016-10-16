@@ -38,20 +38,20 @@ namespace one_way_outexternal_tool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            StreamWriter settings = new StreamWriter("settings.txt");
+            StreamWriter settings = new StreamWriter("../../../../OneWayOut/CrossPlatform/OneWayOut/bin/DesktopGL/x86/Debug/settings.txt");
             int number = trackBar1.Value;
             if (number == 5)
             {
-                settings.WriteLine("2");
+                settings.WriteLine("1");
             }
             else if (number== 10)
             {
-                settings.WriteLine("3");
+                settings.WriteLine("2");
             }
                 
             else if (number == 0)
             {
-                 settings.WriteLine("1");
+                 settings.WriteLine("0");
             }
             settings.Close(); 
 
