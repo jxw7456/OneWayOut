@@ -8,302 +8,320 @@ using OneWayOut.Manager;
 
 namespace OneWayOut.Scenes
 {
-	/// <summary>
-	/// This is the main type for your game.
-	/// </summary>
-	public class Game1 : Game
-	{
-		GraphicsDeviceManager graphics;
+    /// <summary>
+    /// This is the main type for your game.
+    /// </summary>
+    public class Game1 : Game
+    {
+        GraphicsDeviceManager graphics;
 
-		SpriteBatch spriteBatch;
+        SpriteBatch spriteBatch;
 
-		Texture2D spriteSheet;
+        Texture2D spriteSheet;
 
-		Player player;
+        Player player;
 
-		KeyboardState kbState;
+        KeyboardState kbState;
 
-		KeyboardState previousKbState;
+        KeyboardState previousKbState;
 
-		Texture2D health;
+        Texture2D health;
 
-		Texture2D signPicture;
+        Texture2D signPicture;
 
-		AssetManager asset;
+        AssetManager asset;
 
-		GameManager game;
+        GameManager game;
 
-		BgmManager bgm;
+        BgmManager bgm;
 
-		BackgroundManager background;
+        BackgroundManager background;
 
-		ForegroundTextManager foregroundText;
+        ForegroundTextManager foregroundText;
 
-		public Game1 ()
-		{
-			graphics = new GraphicsDeviceManager (this);
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
 
-			Content.RootDirectory = "Content";
-		}
+            Content.RootDirectory = "Content";
+        }
 
-		/// <summary>
-		/// Allows the game to perform any initialization it needs to before starting to run.
-		/// This is where it can query for any required services and load any non-graphic
-		/// related content.  Calling base.Initialize will enumerate through any components
-		/// and initialize them as well.
-		/// </summary>
-		protected override void Initialize ()
-		{
-			// TODO: Add your initialization logic here
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            // TODO: Add your initialization logic here
 
-			game = new GameManager ();
+            game = new GameManager();
 
-			base.Initialize ();
-		}
+            base.Initialize();
+        }
 
-		/// <summary>
-		/// LoadContent will be called once per game and is the place to load
-		/// all of your content.
-		/// </summary>
-		protected override void LoadContent ()
-		{
-			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch (GraphicsDevice);
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			signPicture = Content.Load<Texture2D> (@"textures/signlanguage");
+            signPicture = Content.Load<Texture2D>(@"textures/signlanguage");
 
-			spriteSheet = Content.Load<Texture2D> (@"textures/ArcherSpritesheet");
+            spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
 
-			health = Content.Load<Texture2D> (@"textures/health");
+            health = Content.Load<Texture2D>(@"textures/health");
 
-			asset = new AssetManager (Content, GraphicsDevice);
+            asset = new AssetManager(Content, GraphicsDevice);
 
-			background = new BackgroundManager (Content);
+            background = new BackgroundManager(Content);
 
-			foregroundText = new ForegroundTextManager (Content);
+            foregroundText = new ForegroundTextManager(Content);
 
-			bgm = new BgmManager (Content);
+            bgm = new BgmManager(Content);
 
-			player = new Player (spriteSheet, 1, 4);  
+            player = new Player(spriteSheet, 1, 4);
 
-			player.SetPositionCenter (GraphicsDevice);
+            player.SetPositionCenter(GraphicsDevice);
 
-			// TODO: use this.Content to load your game content here
+            // TODO: use this.Content to load your game content here
 
-		}
+        }
 
-		/// <summary>
-		/// UnloadContent will be called once per game and is the place to unload
-		/// game-specific content.
-		/// </summary>
-		protected override void UnloadContent ()
-		{
-			// TODO: Unload any non ContentManager content here
-		}
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
 
-		/// <summary>
-		/// Allows the game to run logic such as updating the world,
-		/// checking for collisions, gathering input, and playing audio.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Update (GameTime gameTime)
-		{
-			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState ().IsKeyDown (Keys.Escape))
-				Exit ();
+        /// <summary>
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            // TODO: Add your update logic here
+            previousKbState = kbState;
+            kbState = Keyboard.GetState();
+
+            switch (game.state)
+            {
+                case GameState.START:
+                    bgm.PlayMenu();
+
+                    if (SingleKeyPress(Keys.Enter))
+                    {
+                        game.state = GameState.GAME;
+                    }
+
+                    if (SingleKeyPress(Keys.H))
+                    {
+                        game.state = GameState.HELP;
+                    }
+
+                    if (SingleKeyPress(Keys.O))
+                    {
+                        game.state = GameState.OPTIONS;
+                    }
+                    break;
+
+                //HELP case
+                case GameState.HELP:
+                    bgm.PlayHelp();
+
+                    if (SingleKeyPress(Keys.H))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
 
-			// TODO: Add your update logic here
-			previousKbState = kbState;
-			kbState = Keyboard.GetState ();
-
-			switch (game.state) {
-			case GameState.START:
-				bgm.PlayMenu ();
-
-				if (SingleKeyPress (Keys.Enter)) {
-					game.state = GameState.GAME;
-				}
+                //GAME case
+                case GameState.GAME:
+                    bgm.PlayGame();
 
-				if (SingleKeyPress (Keys.H)) {
-					game.state = GameState.HELP;
-				}
+                    player.Move();
 
-				if (SingleKeyPress (Keys.O)) {
-					game.state = GameState.OPTIONS;
-				}
-				break;
+                    player.Update(gameTime);
 
-			//HELP case
-			case GameState.HELP:
-				bgm.PlayHelp ();
+                    game.ScreenWrap(GraphicsDevice, player);
 
-				if (SingleKeyPress (Keys.H)) {
-					game.state = GameState.START;
-				}
-				break;
+                    foreach (var slime in asset.slimes)
+                    {
+                        slime.Chase(player, gameTime);
+                        game.ScreenWrap(GraphicsDevice, slime);
+                    }
 
-			//GAME case
-			case GameState.GAME:
-				bgm.PlayGame ();
+                    if (SingleKeyPress(Keys.P))
+                    {
+                        game.state = GameState.PAUSE;
+                    }
 
-				player.Move ();
+                    if (SingleKeyPress(Keys.Z))
+                    {
+                        game.state = GameState.GAMEOVER;
+                    }
 
-				player.Update (gameTime);
+                    break;
 
-				game.ScreenWrap (GraphicsDevice, player);
+                //OPTIONS case
+                case GameState.OPTIONS:
 
-				foreach (var slime in asset.slimes) {
-					slime.Chase (player, gameTime);
-					game.ScreenWrap (GraphicsDevice, slime);
-				}
+                    bgm.PlayOptions();
 
-				if (SingleKeyPress (Keys.P)) {
-					game.state = GameState.PAUSE;
-				}
+                    if (SingleKeyPress(Keys.O))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
 
-				if (SingleKeyPress (Keys.Z)) {
-					game.state = GameState.GAMEOVER;
-				}
+                //GAME OVER case
+                case GameState.GAMEOVER:
 
-				break;
+                    bgm.PlayGameOver();
 
-			//OPTIONS case
-			case GameState.OPTIONS:
+                    if (SingleKeyPress(Keys.G))
+                    {
+                        game.state = GameState.GAME;
+                    }
 
-				bgm.PlayOptions ();
+                    if (SingleKeyPress(Keys.Enter))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
 
-				if (SingleKeyPress (Keys.O)) {
-					game.state = GameState.START;
-				}
-				break;
+                //PAUSE case
+                case GameState.PAUSE:
 
-			//GAME OVER case
-			case GameState.GAMEOVER:
+                    bgm.Pause();
 
-				bgm.PlayGameOver ();
+                    if (SingleKeyPress(Keys.P))
+                    {
+                        game.state = GameState.GAME;
+                        bgm.Resume();
+                    }
 
-				if (SingleKeyPress (Keys.G)) {
-					game.state = GameState.GAME;
-				}
+                    if (SingleKeyPress(Keys.Q))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
+            }
 
-				if (SingleKeyPress (Keys.Enter)) {
-					game.state = GameState.START;
-				}
-				break;
-                
-			//PAUSE case
-			case GameState.PAUSE:
-				
-				bgm.Pause ();
+            base.Update(gameTime);
+        }
 
-				if (SingleKeyPress (Keys.P)) {
-					game.state = GameState.GAME;
-					bgm.Resume ();
-				}
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-				if (SingleKeyPress (Keys.Q)) {
-					game.state = GameState.START;
-				}
-				break;
-			}
+            // TODO: Add your drawing code here
 
-			base.Update (gameTime);
-		}
+            spriteBatch.Begin();
 
-		/// <summary>
-		/// This is called when the game should draw itself.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw (GameTime gameTime)
-		{
-			GraphicsDevice.Clear (Color.CornflowerBlue);
+            switch (game.state)
+            {
+                //Draw Menu
+                case GameState.START:
 
-			// TODO: Add your drawing code here
+                    background.DrawStart(spriteBatch, GraphicsDevice);
 
-			spriteBatch.Begin ();          
+                    foregroundText.DrawStart(spriteBatch);
 
-			switch (game.state) {
-			//Draw Menu
-			case GameState.START:
+                    break;
 
-				background.DrawStart (spriteBatch, GraphicsDevice);
+                //Draw Game
+                case GameState.GAME:
 
-				foregroundText.DrawStart (spriteBatch);
+                    asset.DrawDungeon(spriteBatch);
 
-				break;
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
 
-			//Draw Game
-			case GameState.GAME:
+                    spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
 
-				asset.DrawDungeon (spriteBatch);
+                    player.Draw(spriteBatch, new Vector2(200, 50));
 
-				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
+                    asset.DrawSlimes(spriteBatch, foregroundText);
 
-				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
-                
-				player.Draw (spriteBatch, new Vector2 (200, 50));
+                    break;
 
-				asset.DrawSlimes (spriteBatch, foregroundText);
+                //Draw Help
+                case GameState.HELP:
 
-				break;
+                    background.DrawHelp(spriteBatch, GraphicsDevice);
 
-			//Draw Help
-			case GameState.HELP:
+                    spriteBatch.Draw(signPicture, new Rectangle(300, 290, 200, 180), Color.White);
 
-				background.DrawHelp (spriteBatch, GraphicsDevice);
+                    foregroundText.DrawHelp(spriteBatch);
 
-				spriteBatch.Draw (signPicture, new Rectangle (300, 290, 200, 180), Color.White);
+                    break;
 
-				foregroundText.DrawHelp (spriteBatch);
+                //Draw Options
+                case GameState.OPTIONS:
 
-				break;
+                    background.DrawOption(spriteBatch, GraphicsDevice);
 
-			//Draw Options
-			case GameState.OPTIONS:
-				
-				background.DrawOption (spriteBatch, GraphicsDevice);
+                    break;
 
-				break;
+                //Draw Game Over
+                case GameState.GAMEOVER:
 
-			//Draw Game Over
-			case GameState.GAMEOVER:
+                    background.DrawGameover(spriteBatch, GraphicsDevice);
 
-				background.DrawGameover (spriteBatch, GraphicsDevice);
+                    foregroundText.DrawGameover(spriteBatch);
 
-				foregroundText.DrawGameover (spriteBatch);
+                    break;
 
-				break;
+                //Draw Pause
+                case GameState.PAUSE:
 
-			//Draw Pause
-			case GameState.PAUSE:
-                
-				asset.DrawDungeon (spriteBatch);
+                    asset.DrawDungeon(spriteBatch);
 
-				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
-				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
+                    spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
 
-				player.Draw (spriteBatch, new Vector2 (200, 50));
+                    player.Draw(spriteBatch, new Vector2(200, 50));
 
-				foregroundText.DrawPause (spriteBatch);
+                    asset.DrawSlimes(spriteBatch, foregroundText);
 
-				break;
-			}            
+                    foregroundText.DrawPause(spriteBatch);
 
-			spriteBatch.End ();            
-			base.Draw (gameTime);
-		}
+                    break;
+            }
 
-		//Returns a bool for a key press
-		public bool SingleKeyPress (Keys keys)
-		{
-			bool valid = false;
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
 
-			if (kbState.IsKeyDown (keys) == true) {
-				if (previousKbState.IsKeyUp (keys) == true) {
-					valid = true;
-				}
-			}
-			return valid;
-		}
-	
-	}
+        //Returns a bool for a key press
+        public bool SingleKeyPress(Keys keys)
+        {
+            bool valid = false;
+
+            if (kbState.IsKeyDown(keys) == true)
+            {
+                if (previousKbState.IsKeyUp(keys) == true)
+                {
+                    valid = true;
+                }
+            }
+            return valid;
+        }
+
+    }
 }

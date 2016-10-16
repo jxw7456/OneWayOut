@@ -44,8 +44,10 @@ namespace OneWayOut
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawGameover (SpriteBatch spriteBatch)
 		{
-
-		}
+            spriteBatch.DrawString(biggerFont, "YOU ARE DEAD", new Vector2(225, 10), Color.Red);
+            spriteBatch.DrawString(boldFont, "Press 'G' to Restart", new Vector2(270, 410), Color.White);
+            spriteBatch.DrawString(boldFont, "Press 'Enter' for Main Menu", new Vector2(225, 440), Color.White);
+        }
 
 		/// <summary>
 		/// Draws the help text.
@@ -80,9 +82,7 @@ namespace OneWayOut
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawOption (SpriteBatch spriteBatch)
 		{
-			spriteBatch.DrawString (biggerFont, "YOU ARE DEAD", new Vector2 (225, 10), Color.Red);
-			spriteBatch.DrawString (boldFont, "Press 'G' to Restart", new Vector2 (270, 410), Color.White);
-			spriteBatch.DrawString (boldFont, "Press 'Enter' for Main Menu", new Vector2 (225, 440), Color.White);                    
+			                  
 		}
 
 		/// <summary>
