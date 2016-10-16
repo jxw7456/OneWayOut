@@ -26,12 +26,12 @@ namespace OneWayOut.Components.Player
         public string name { get; set; }
         public int arrowSupply { get; set; }
         public int health { get; set; }
-        public Rectangle archerlocal = new Rectangle(0, 0, 200,200);
+        public Rectangle archerlocal = new Rectangle(350, 180 , 80, 80);
         public Direction direction;
 
         public Player()
         {
-            archerlocal = new Rectangle(0, 0, 200, 200);
+            archerlocal = new Rectangle(350, 180, 80, 80);
             health = 100;
         }
         public void Move()

@@ -28,6 +28,8 @@ namespace OneWayOut
         SpriteFont spriteFont2;
         Texture2D spriteSheet;
         Texture2D background;
+        Texture2D health;
+        Texture2D signPicture;
         Player MC;
         KeyboardState kbState;
         KeyboardState previousKbState;
@@ -138,6 +140,11 @@ namespace OneWayOut
                     {
                         state = GameState.PAUSE;
                     }
+
+                    if (SingleKeyPress(Keys.Z) == true)
+                    {
+                        state = GameState.GAMEOVER;
+                    }
                     break;
 
                 //OPTIONS case
@@ -174,7 +181,6 @@ namespace OneWayOut
                     }
                     break;
             }
-
             MC.Move();
 
             base.Update(gameTime);
@@ -219,7 +225,7 @@ namespace OneWayOut
                 case GameState.HELP:
                     background = Content.Load<Texture2D>(@"textures/dungeonHelp");
                     spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
-                    spriteBatch.Draw(signPicture, new Rectangle(300, 290, 200, 180), Color.White);
+                    spriteBatch.Draw(signPicture, new Rectangle(280, 290, 200, 180), Color.White);
 
                     //Story
                     spriteBatch.DrawString(spriteFont1, "Story", new Vector2(0, 0), Color.Red);
@@ -239,18 +245,22 @@ namespace OneWayOut
                     spriteBatch.DrawString(spriteFont1, "above them. Enter the cooresponding letter on", new Vector2(0, 220), Color.White);
                     spriteBatch.DrawString(spriteFont1, "your keyboard to shoot your arrows.", new Vector2(0, 240), Color.White);
                     spriteBatch.DrawString(spriteFont1, "Refer to the image given below for help: ", new Vector2(0, 260), Color.OrangeRed);
+
+                    spriteBatch.DrawString(spriteFont1, "Press 'H' To Return", new Vector2(490, 440), Color.Red);
                     break;
 
                 //Draw Options
                 case GameState.OPTIONS:
                     background = Content.Load<Texture2D>(@"textures/dungeonOptions");
-                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);                    
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
+                    spriteBatch.DrawString(spriteFont1, "Press 'O' To Return", new Vector2(490, 440), Color.Red);
                     break;
 
                 //Draw Game Over
                 case GameState.GAMEOVER:
                     background = Content.Load<Texture2D>(@"textures/deadArcher");
-                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.Black);
+                    spriteBatch.Draw(background, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
                     spriteBatch.DrawString(spriteFont2, "YOU ARE DEAD", new Vector2(225, 10), Color.Red);
                     spriteBatch.DrawString(spriteFont1, "Press 'G' to Restart", new Vector2(270, 410), Color.White);
                     spriteBatch.DrawString(spriteFont1, "Press 'Enter' for Main Menu", new Vector2(225, 440), Color.White);                    
