@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
-
+using System.IO;
 namespace OneWayOut.Manager
 {
 	/// <summary>
@@ -22,7 +22,17 @@ namespace OneWayOut.Manager
 
 		const string HELP_BGM = @"media/help";
 
-		Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
+        StreamReader settings = new StreamReader("settings.txt");
+
+        float volume;
+
+        string readIn;
+        const float RegVolume = 0.50f;
+        
+
+        Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
+
+        public float vol = 0.50f;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Manager.BgmManager"/> class.
@@ -31,6 +41,8 @@ namespace OneWayOut.Manager
 		/// <param name="Content">Content.</param>
 		public BgmManager (ContentManager Content)
 		{
+            readIn = settings.ReadToEnd();
+            volume = RegVolume * float.Parse(readIn);
 			menuSong = Content.Load<Song> (MENU_BGM);            
 			gameSong = Content.Load<Song> (GAME_BGM);
 			gameOverSong = Content.Load<Song> (GAMEOVER_BGM);

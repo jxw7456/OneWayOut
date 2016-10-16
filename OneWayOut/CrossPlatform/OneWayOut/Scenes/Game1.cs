@@ -59,7 +59,6 @@ namespace OneWayOut.Scenes
 			game = new GameManager ();
 
 			base.Initialize ();
-	
 		}
 
 		/// <summary>
@@ -85,7 +84,7 @@ namespace OneWayOut.Scenes
 
 			bgm = new BgmManager (Content);
 
-			player = new Player (spriteSheet, 1, 4);  
+			player = new Player (spriteSheet, 1, 4);
 
 			player.SetPositionCenter (GraphicsDevice);
 
@@ -190,10 +189,10 @@ namespace OneWayOut.Scenes
 					game.state = GameState.START;
 				}
 				break;
-                
+
 			//PAUSE case
 			case GameState.PAUSE:
-				
+
 				bgm.Pause ();
 
 				if (SingleKeyPress (Keys.P)) {
@@ -220,7 +219,7 @@ namespace OneWayOut.Scenes
 
 			// TODO: Add your drawing code here
 
-			spriteBatch.Begin ();          
+			spriteBatch.Begin ();
 
 			switch (game.state) {
 			//Draw Menu
@@ -240,7 +239,7 @@ namespace OneWayOut.Scenes
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
 
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
-                
+
 				player.Draw (spriteBatch, new Vector2 (200, 50));
 
 				asset.DrawSlimes (spriteBatch, foregroundText);
@@ -260,7 +259,7 @@ namespace OneWayOut.Scenes
 
 			//Draw Options
 			case GameState.OPTIONS:
-				
+
 				background.DrawOption (spriteBatch, GraphicsDevice);
 
 				break;
@@ -276,7 +275,7 @@ namespace OneWayOut.Scenes
 
 			//Draw Pause
 			case GameState.PAUSE:
-                
+
 				asset.DrawDungeon (spriteBatch);
 
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
@@ -284,12 +283,14 @@ namespace OneWayOut.Scenes
 
 				player.Draw (spriteBatch, new Vector2 (200, 50));
 
+				asset.DrawSlimes (spriteBatch, foregroundText);
+
 				foregroundText.DrawPause (spriteBatch);
 
 				break;
-			}            
+			}
 
-			spriteBatch.End ();            
+			spriteBatch.End ();
 			base.Draw (gameTime);
 		}
 
@@ -305,6 +306,6 @@ namespace OneWayOut.Scenes
 			}
 			return valid;
 		}
-	
+
 	}
 }
