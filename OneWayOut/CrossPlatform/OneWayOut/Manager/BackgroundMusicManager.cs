@@ -23,13 +23,9 @@ namespace OneWayOut.Manager
 
 		const string HELP_BGM = @"media/help";
 
-		StreamReader settings = new StreamReader ("settings.txt");
-
 		float volume;
 
-		string readIn;
-
-		const float RegVolume = 0.50f;
+		const float REGULAR_VOLUME = 0.50f;
 
 		Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
 
@@ -40,12 +36,21 @@ namespace OneWayOut.Manager
 		/// <param name="Content">Content.</param>
 		public BgmManager (ContentManager Content)
 		{
-//            readIn = settings.ReadToEnd();
-//
-//			volume = RegVolume * float.Parse(readIn);
+            volume = REGULAR_VOLUME;
 
-			volume = 50;
+            try
+            {
+                using (var settings = new StreamReader("settings.txt"))
+                {
+                    volume = REGULAR_VOLUME * float.Parse(settings.ReadToEnd());
+                }
 
+            }
+            catch (FileNotFoundException ex)
+            {
+                
+            }
+                        
 			menuSong = Content.Load<Song> (MENU_BGM);            
 			gameSong = Content.Load<Song> (GAME_BGM);
 			gameOverSong = Content.Load<Song> (GAMEOVER_BGM);

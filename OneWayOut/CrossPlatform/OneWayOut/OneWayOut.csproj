@@ -80,6 +80,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="settings.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Icon.ico" />
     <Content Include="OpenTK.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -108,11 +111,7 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Scenes\" />
-    <Folder Include="Components\Mob\Slime\" />
-    <Folder Include="Components\MarkovNameGenerator\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="SampleName.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

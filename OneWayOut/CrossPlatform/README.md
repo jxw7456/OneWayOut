@@ -1,6 +1,9 @@
 # OneWayOut
 
-A dungeon crawling game.
+A dungeon crawling game
+
+## Run
++ Please install openal (run the `oalinst`) for cross platform sound.
 
 You are an archer
 
