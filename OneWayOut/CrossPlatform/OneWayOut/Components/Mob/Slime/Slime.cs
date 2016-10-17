@@ -9,72 +9,98 @@ using System.Threading;
 
 namespace OneWayOut.Components.Slime
 {
-	/// <summary>
-	/// Slime main class, contain constructors and fields.
-	/// </summary>
-	partial class Slime: GameObject
-	{
-		const int PIXEL_SIZE = 9;
+    /// <summary>
+    /// Slime main class, contain constructors and fields.
+    /// </summary>
+    partial class Slime : GameObject
+    {
+        const int PIXEL_SIZE = 9;
 
-		const int MAX_MOVE_SPEED = 500;
+        const int MAX_MOVE_SPEED = 500;
 
-		const int MIN_MOVE_SPEED = 200;
+        const int MIN_MOVE_SPEED = 200;
 
-		const string IDLE_SHAPE = "mob.owo";
+        const string IDLE_SHAPE = "mob.owo";
 
-		SlimeState state;
+        SlimeState state;
 
-		SlimeDirection direction;
+        SlimeDirection direction;
 
-		Random random;
+        public Random random;
 
-		string name;
+        public string name;
 
-		int speed;
+        public int speed;
 
-		Color color;
+        private int damage;
 
-		//Time elapsed since the last check
-		float elapsedTime = 0;
+        public int Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
 
-		float slimeDelay;
+        public int health;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
-		/// And assigning the properties value
-		/// </summary>
-		/// <param name="x">The x coordinate.</param>
-		/// <param name="y">The y coordinate.</param>
-		/// <param name="width">Width.</param>
-		/// <param name="height">Height.</param>
-		/// <param name="gp">Graphic </param>
-		/// <param name="r">Random object</param>
-		/// <param name="n">Asigned name</param>
-		public Slime (int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
-			: base (x, y, width, height)
-		{
-			state = SlimeState.IDLE;
+        Color color;
 
-			direction = SlimeDirection.RIGHT;
+        //Time elapsed since the last check
+        public float elapsedTime = 0;
 
-			random = r;
+        public float slimeDelay;
 
-			speed = random.Next (MIN_MOVE_SPEED, MAX_MOVE_SPEED);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
+        /// And assigning the properties value
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
+        /// <param name="gp">Graphic </param>
+        /// <param name="r">Random object</param>
+        /// <param name="n">Asigned name</param>
+        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n, int health)
+            : base(x, y, width, height)
+        {
+            state = SlimeState.IDLE;
 
-			name = n;
+            direction = SlimeDirection.RIGHT;
 
-			//name += speed;
+            random = r;
 
-			slimeDelay = (float)random.NextDouble () / 2;
-			
-			color = ColorGenerator.RandomColor (r);
+            speed = random.Next(MIN_MOVE_SPEED, MAX_MOVE_SPEED);
 
-			var iShape = ReadBitMap (IDLE_SHAPE);
+            name = n;
 
-			if (iShape != null) {
-				body = iShape;
-			}
-		}
-	}
+            damage = Damage;
+
+            health = 100;
+
+            //name += speed;
+
+            slimeDelay = (float)random.NextDouble() / 2;
+
+            color = ColorGenerator.RandomColor(r);
+
+            var iShape = ReadBitMap(IDLE_SHAPE);
+
+            if (iShape != null)
+            {
+                body = iShape;
+            }
+        }
+
+        //handles when the slime dies
+        public bool EnemyDeath()
+        {
+            if (health <= 0)
+            {
+                IsActive = false;
+                return true;
+            }
+            return false;
+        }
+    }
 }
 

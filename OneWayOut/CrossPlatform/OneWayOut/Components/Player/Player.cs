@@ -24,12 +24,14 @@ namespace OneWayOut.Components.Player
 
 		public int column;
 
+        public int score;
+
 		//slow down animation
 		internal float timer;
 
 		public string name { get; set; }
 
-		public int arrowSupply { get; set; }
+		public Arrow.Arrow arrowSupply { get; set; }
 
 		public int health { get; set; }
 
@@ -51,6 +53,7 @@ namespace OneWayOut.Components.Player
 			blink = 0;
 			row = r;
 			column = c;
+            IsActive = true;
 		}
 
 		/// <summary>

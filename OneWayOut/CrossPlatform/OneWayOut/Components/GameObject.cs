@@ -19,6 +19,14 @@ namespace OneWayOut.Components
 
 		public Rectangle position;
 
+        private bool isActive;
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Components.GameObject"/> class.
 		/// </summary>
