@@ -82,7 +82,7 @@ namespace OneWayOut
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawOption (SpriteBatch spriteBatch)
 		{
-			                  
+			 //external tool not drawn on screen yet
 		}
 
 		/// <summary>
@@ -105,7 +105,7 @@ namespace OneWayOut
 		public void DrawPause (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "PAUSED", new Vector2 (300, 200), Color.DarkOrange);
-			spriteBatch.DrawString (boldFont, "Press 'Q' to Quit", new Vector2 (255, 440), Color.DarkRed);
+            spriteBatch.DrawString (boldFont, "Press 'Q' to Quit", new Vector2 (255, 440), Color.DarkRed);
 		}
 	}
 }

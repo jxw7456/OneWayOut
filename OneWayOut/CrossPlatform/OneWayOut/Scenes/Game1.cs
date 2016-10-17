@@ -89,7 +89,6 @@ namespace OneWayOut.Scenes
             player.SetPositionCenter(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
         }
 
         /// <summary>
@@ -117,6 +116,7 @@ namespace OneWayOut.Scenes
 
             switch (game.state)
             {
+                //START case: leads to GAME, OPTIONS, or HELP
                 case GameState.START:
                     bgm.PlayMenu();
 
@@ -136,7 +136,7 @@ namespace OneWayOut.Scenes
                     }
                     break;
 
-                //HELP case
+                //HELP case: leads back to START
                 case GameState.HELP:
                     bgm.PlayHelp();
 
@@ -146,7 +146,7 @@ namespace OneWayOut.Scenes
                     }
                     break;
 
-                //GAME case
+                //GAME case: PLAYS GAME; leads to PAUSE or GAME OVER
                 case GameState.GAME:
                     bgm.PlayGame();
 
@@ -174,7 +174,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-                //OPTIONS case
+                //OPTIONS case: leads back to START
                 case GameState.OPTIONS:
 
                     bgm.PlayOptions();
@@ -185,7 +185,7 @@ namespace OneWayOut.Scenes
                     }
                     break;
 
-                //GAME OVER case
+                //GAME OVER case: leads back to GAME or START
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
@@ -201,7 +201,7 @@ namespace OneWayOut.Scenes
                     }
                     break;
 
-                //PAUSE case
+                //PAUSE case: leads back to GAME or START
                 case GameState.PAUSE:
 
                     bgm.Pause();

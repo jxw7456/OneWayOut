@@ -8,8 +8,7 @@ using System.IO;
 namespace OneWayOut.Manager
 {
 	class Highscore
-	{
-        
+	{        
 		public static string readScore ()
 		{
 			int score = 0;

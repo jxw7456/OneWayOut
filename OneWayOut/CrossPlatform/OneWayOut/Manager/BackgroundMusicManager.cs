@@ -27,12 +27,10 @@ namespace OneWayOut.Manager
         float volume;
 
         string readIn;
-        const float RegVolume = 0.50f;
-        
+
+        const float RegVolume = 0.50f;        
 
         Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
-
-        public float vol = 0.50f;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Manager.BgmManager"/> class.
@@ -51,7 +49,7 @@ namespace OneWayOut.Manager
 
 			currentSong = menuSong;
 
-			MediaPlayer.Volume = 0.50f;
+			MediaPlayer.Volume = volume;
 
 			MediaPlayer.IsRepeating = true;
 
