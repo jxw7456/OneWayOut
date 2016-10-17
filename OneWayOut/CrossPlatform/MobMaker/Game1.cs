@@ -27,6 +27,8 @@ namespace MobMaker
 
 		SaveButton saveBtn;
 
+		const string OUTPUT_FILE = "mob.owo";
+
 		string debugMsg = "";
 
 		public Game1 ()
@@ -97,10 +99,10 @@ namespace MobMaker
 				int y = mouseState.Y;
 
 				if (saveBtn.Clicked (mouseState.Position)) {
-
+					canvas.Save (OUTPUT_FILE);
 					debugMsg = "SAVED!";
-
 				} else {
+					debugMsg = "";
 					canvas.ToggleTile (x, y);
 				}
 			}

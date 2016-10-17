@@ -20,6 +20,8 @@ namespace OneWayOut.Components.Slime
 
 		const int MIN_MOVE_SPEED = 200;
 
+		const string IDLE_SHAPE = "mob.owo";
+
 		SlimeState state;
 
 		SlimeDirection direction;
@@ -66,6 +68,12 @@ namespace OneWayOut.Components.Slime
 			slimeDelay = (float)random.NextDouble () / 2;
 			
 			color = ColorGenerator.RandomColor (r);
+
+			var iShape = ReadBitMap (IDLE_SHAPE);
+
+			if (iShape != null) {
+				body = iShape;
+			}
 		}
 	}
 }

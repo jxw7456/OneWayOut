@@ -37,6 +37,24 @@ namespace Components
 
 		Tile clickedTile;
 
+		public byte[][] GenerateBitMap ()
+		{
+			byte[][] shape = new byte[CANVAS_WIDTH] [];
+
+			for (int i = 0; i < shape.Length; ++i) {
+
+				shape [i] = new byte[CANVAS_HEIGHT];
+
+				var row = shape [i];
+
+				for (int j = 0; j < row.Length; ++j) {
+					row [j] = (byte)tiles [i * CANVAS_HEIGHT + j].type;
+				}
+			}
+
+			return shape;
+		}
+
 		public bool Contains (Point p)
 		{
 			foreach (var tile in tiles) {
