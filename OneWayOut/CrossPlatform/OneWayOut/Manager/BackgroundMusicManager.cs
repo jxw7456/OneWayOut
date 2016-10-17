@@ -40,10 +40,11 @@ namespace OneWayOut.Manager
 		/// <param name="Content">Content.</param>
 		public BgmManager (ContentManager Content)
 		{
-//            readIn = settings.ReadToEnd();
-//
-//			volume = RegVolume * float.Parse(readIn);
+            //readIn = settings.ReadToEnd();
 
+			//volume = RegVolume * float.Parse(readIn);
+
+            settings.Close();
 			volume = 50;
 
 			menuSong = Content.Load<Song> (MENU_BGM);            
