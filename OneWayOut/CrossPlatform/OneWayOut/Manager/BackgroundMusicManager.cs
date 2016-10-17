@@ -23,11 +23,11 @@ namespace OneWayOut.Manager
 
 		const string HELP_BGM = @"media/help";
 
-		StreamReader settings = new StreamReader ("settings.txt");
+		//StreamReader settings = new StreamReader ("settings.txt");
 
 		float volume;
 
-		string readIn;
+		//string readIn;
 
 		const float RegVolume = 0.50f;
 
@@ -40,9 +40,10 @@ namespace OneWayOut.Manager
 		/// <param name="Content">Content.</param>
 		public BgmManager (ContentManager Content)
 		{
-//            readIn = settings.ReadToEnd();
-//
-//			volume = RegVolume * float.Parse(readIn);
+
+            //readIn = settings.ReadToEnd();
+
+            //volume = RegVolume * float.Parse(readIn);
 
 			volume = 50;
 
