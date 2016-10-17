@@ -20,18 +20,22 @@ namespace OneWayOut.Components.Slime
 			try {
 				using (var binaryReader = new BinaryReader (File.OpenRead (fileName))) {
 
-					var w = (int)binaryReader.ReadByte ();
-					var h = (int)binaryReader.ReadByte ();
+					var v = binaryReader.ReadByte ();
+
+					var w = binaryReader.ReadInt32 ();
+
+					var h = binaryReader.ReadInt32 ();
 
 					byte[][] shape = new byte[w] [];
 
 					for (int i = 0; i < shape.Length; ++i) {
-
+//					for (int i = shape.Length - 1; i >= 0; --i) {
 						shape [i] = new byte[h];
 
 						var row = shape [i];
 
-						for (int j = 0; j < row.Length; ++j) {
+//						for (int j = 0; j < row.Length; ++j) {
+						for (int j = row.Length - 1; j >= 0; --j) {
 							row [j] = binaryReader.ReadByte ();
 						}
 					}

@@ -48,7 +48,7 @@ namespace Components
 				var row = shape [i];
 
 				for (int j = 0; j < row.Length; ++j) {
-					row [j] = (byte)tiles [i * CANVAS_HEIGHT + j].type;
+					row [j] = (byte)(int)tiles [i * CANVAS_HEIGHT + j].type;
 				}
 			}
 
@@ -98,8 +98,8 @@ namespace Components
 				for (int j = 0; j < CANVAS_HEIGHT; j++) {
 					// TODO: Create a Tile Object more specific to randomize itself.
 					var rect = new Rectangle (
-						           widthOffset + (TILE_SIZE + CANVAS_OFFSET) * i, 
 						           heightOffset + (TILE_SIZE + CANVAS_OFFSET) * j, 
+						           widthOffset + (TILE_SIZE + CANVAS_OFFSET) * i, 
 						           TILE_SIZE, 
 						           TILE_SIZE);
 

@@ -57,7 +57,6 @@ namespace Components
 		/// <param name="graphicDevice">Graphic device.</param>
 		public void SetPositionCenter (GraphicsDevice graphicDevice)
 		{
-
 			int screenWidth = graphicDevice.Viewport.Width;
 
 			int screenHeight = graphicDevice.Viewport.Height;
