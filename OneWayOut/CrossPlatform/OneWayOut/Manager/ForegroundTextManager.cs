@@ -16,6 +16,8 @@ namespace OneWayOut
 
 		SpriteFont biggerFont;
 
+		SpriteFont owoFont;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.ForegroundTextManager"/> class.
 		/// Cached all font objects
@@ -26,6 +28,8 @@ namespace OneWayOut
 			boldFont = Content.Load<SpriteFont> (@"fonts/bold");
 
 			biggerFont = Content.Load<SpriteFont> (@"fonts/biggerFont");
+
+			owoFont = Content.Load<SpriteFont> (@"fonts/owo");
 		}
 
 		/// <summary>
@@ -35,7 +39,7 @@ namespace OneWayOut
 		/// <param name="s">Slime to Draw.</param>
 		public void DrawSlimeName (SpriteBatch sb, Slime s)
 		{
-			s.DrawName (sb, boldFont);
+			s.DrawName (sb, owoFont);
 		}
 
 		/// <summary>
@@ -44,10 +48,10 @@ namespace OneWayOut
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawGameover (SpriteBatch spriteBatch)
 		{
-            spriteBatch.DrawString(biggerFont, "YOU ARE DEAD", new Vector2(225, 10), Color.Red);
-            spriteBatch.DrawString(boldFont, "Press 'G' to Restart", new Vector2(270, 410), Color.White);
-            spriteBatch.DrawString(boldFont, "Press 'Enter' for Main Menu", new Vector2(225, 440), Color.White);
-        }
+			spriteBatch.DrawString (biggerFont, "YOU ARE DEAD", new Vector2 (225, 10), Color.Red);
+			spriteBatch.DrawString (boldFont, "Press 'G' to Restart", new Vector2 (270, 410), Color.White);
+			spriteBatch.DrawString (boldFont, "Press 'Enter' for Main Menu", new Vector2 (225, 440), Color.White);
+		}
 
 		/// <summary>
 		/// Draws the help text.
@@ -82,7 +86,7 @@ namespace OneWayOut
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawOption (SpriteBatch spriteBatch)
 		{
-			 //external tool not drawn on screen yet
+			//external tool not drawn on screen yet
 		}
 
 		/// <summary>
@@ -105,7 +109,7 @@ namespace OneWayOut
 		public void DrawPause (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "PAUSED", new Vector2 (300, 200), Color.DarkOrange);
-            spriteBatch.DrawString (boldFont, "Press 'Q' to Quit", new Vector2 (255, 440), Color.DarkRed);
+			spriteBatch.DrawString (boldFont, "Press 'Q' to Quit", new Vector2 (255, 440), Color.DarkRed);
 		}
 	}
 }
