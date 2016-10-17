@@ -50,6 +50,7 @@
     <Compile Include="Components\Canvas.cs" />
     <Compile Include="Managers\CanvasManager.cs" />
     <Compile Include="Components\Tile.cs" />
+    <Compile Include="Components\SaveButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

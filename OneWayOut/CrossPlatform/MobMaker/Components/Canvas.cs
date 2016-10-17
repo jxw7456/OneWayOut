@@ -13,7 +13,8 @@ namespace Components
 		const int CANVAS_OFFSET = 10;
 
 		// n x n
-		const int CANVAS_SIZE = 9;
+		const int CANVAS_HEIGHT = 4;
+		const int CANVAS_WIDTH = 5;
 
 		Texture2D tileTexture;
 
@@ -71,12 +72,12 @@ namespace Components
 
 			int screenHeight = Graphics.Viewport.Height;
 
-			int widthOffset = (screenWidth - CANVAS_SIZE * (TILE_SIZE + CANVAS_OFFSET)) / 2;
+			int widthOffset = (screenWidth - CANVAS_WIDTH * (TILE_SIZE + CANVAS_OFFSET)) / 2;
 
-			int heightOffset = (screenHeight - CANVAS_SIZE * (TILE_SIZE + CANVAS_OFFSET)) / 2;
+			int heightOffset = (screenHeight - CANVAS_HEIGHT * (TILE_SIZE + CANVAS_OFFSET)) / 2;
 
-			for (int i = 0; i < CANVAS_SIZE; i++) {
-				for (int j = 0; j < CANVAS_SIZE; j++) {
+			for (int i = 0; i < CANVAS_WIDTH; i++) {
+				for (int j = 0; j < CANVAS_HEIGHT; j++) {
 					// TODO: Create a Tile Object more specific to randomize itself.
 					var rect = new Rectangle (
 						           widthOffset + (TILE_SIZE + CANVAS_OFFSET) * i, 

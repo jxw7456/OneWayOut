@@ -13,12 +13,21 @@ namespace MobMaker
 	/// </summary>
 	public class Game1 : Game
 	{
+		//const float FPS = 30.0f;
+
 		GraphicsDeviceManager graphics;
+
 		SpriteBatch spriteBatch;
 
 		CanvasManager canvas;
 
 		MouseState oldState;
+
+		SpriteFont spriteFont;
+
+		SaveButton saveBtn;
+
+		string debugMsg = "";
 
 		public Game1 ()
 		{
@@ -42,6 +51,8 @@ namespace MobMaker
 			base.Initialize ();
 
 			this.IsMouseVisible = true;
+
+			// base.TargetElapsedTime = TimeSpan.FromSeconds (1.0f / FPS);
 		}
 
 		/// <summary>
@@ -55,6 +66,9 @@ namespace MobMaker
 
 			canvas = new CanvasManager (Content, GraphicsDevice);
 
+			spriteFont = Content.Load<SpriteFont> (@"fonts/main");
+
+			saveBtn = new SaveButton (GraphicsDevice);
 			//TODO: use this.Content to load your game content here 
 		}
 
@@ -76,13 +90,19 @@ namespace MobMaker
             
 			MouseState mouseState = Mouse.GetState ();
 
-			if (mouseState.LeftButton == ButtonState.Pressed) {
+			if (mouseState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released) {
 				// do something here
 				int x = mouseState.X;
 
 				int y = mouseState.Y;
 
-				canvas.ToggleTile (x, y);
+				if (saveBtn.Clicked (mouseState.Position)) {
+
+					debugMsg = "SAVED!";
+
+				} else {
+					canvas.ToggleTile (x, y);
+				}
 			}
 
 			oldState = mouseState; // this reassigns the old state so that it is ready for next time
@@ -103,6 +123,15 @@ namespace MobMaker
 			spriteBatch.Begin ();
 
 			canvas.Draw (spriteBatch);
+
+			saveBtn.Draw (spriteBatch, spriteFont);
+
+			spriteBatch.DrawString (
+				spriteFont, 
+				debugMsg, 
+				new Vector2 (GraphicsDevice.Viewport.Bounds.Center.X - 50, 10),
+				Color.White
+			);	
 
 			spriteBatch.End ();
 

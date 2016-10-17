@@ -1,7 +1,9 @@
-﻿#----------------------------- Global Properties ----------------------------#
+
+#----------------------------- Global Properties ----------------------------#
 
 /outputDir:bin/$(Platform)
 /intermediateDir:obj/$(Platform)
+/platform:Windows
 /config:
 /profile:Reach
 /compress:False
@@ -10,3 +12,10 @@
 
 
 #---------------------------------- Content ---------------------------------#
+
+#begin fonts/main.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/main.spritefont
+
