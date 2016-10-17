@@ -20,7 +20,7 @@ namespace OneWayOut.Components.Arrow
         int timer;
 
         //Constructor
-        public Arrow(int health, Texture2D img, int x, int y, int width, int height) : base(x, y, width, height)
+        public Arrow(int health, Texture2D texture, int x, int y, int width, int height) : base(x, y, width, height)
         {
             IsActive = true;
             timer = 0;

@@ -329,6 +329,5 @@ namespace OneWayOut.Scenes
             }
             return valid;
         }
-
     }
 }

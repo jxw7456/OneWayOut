@@ -14,9 +14,12 @@ namespace OneWayOut
     class Highscore
     {
         List<string> entireFile = new List<string>();
+
         SpriteFont font;
+
         Vector2 pos = new Vector2(600, 180);
-        string line;
+
+        public string line;
         public Highscore(ContentManager Content)
         {
             font = Content.Load<SpriteFont>(@"fonts/bold");

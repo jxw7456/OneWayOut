@@ -60,7 +60,7 @@ namespace OneWayOut.Components.Slime
         /// <param name="gp">Graphic </param>
         /// <param name="r">Random object</param>
         /// <param name="n">Asigned name</param>
-        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n, int health)
+        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
             : base(x, y, width, height)
         {
             state = SlimeState.IDLE;
