@@ -2,6 +2,8 @@
 
 A dungeon crawling game.
 
+You are an archer
+
 ## MobMaker
 
 How to use:
