@@ -1,11 +1,12 @@
 # OneWayOut
 
 A dungeon crawling game
+You are an archer
 
 ## Run
 + Please install openal (run the `oalinst`) for cross platform sound.
 
-You are an archer
+---
 
 ## MobMaker
 
