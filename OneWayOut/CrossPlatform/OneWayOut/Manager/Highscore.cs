@@ -15,13 +15,12 @@ namespace OneWayOut
     {
         List<string> entireFile = new List<string>();
         SpriteFont font;
-        Vector2 pos = new Vector2(200, 200);
+        Vector2 pos = new Vector2(600, 180);
         string line;
         public Highscore(ContentManager Content)
         {
             font = Content.Load<SpriteFont>(@"fonts/bold");
         }
-
 
         public void readScore()
         {
@@ -36,18 +35,12 @@ namespace OneWayOut
             catch (Exception e)
             {
 
-
             }
         }
 
         public void DrawScore(SpriteBatch sb)
         {
-            //sb.DrawString(font, line, pos, Color.Red);
-            //for (int i =0; i<entireFile.Count;i++)
-            // {
             sb.DrawString(font, line, pos, Color.Red);
-            
-            //}
         }
     }
 }

@@ -24,7 +24,8 @@ namespace OneWayOut.Components
 					int n = random.Next (samples.Count);
 
 					int nameLength = samples [n].Length; 
-
+                    
+                    //has BUG on it
 					int start = random.Next (0, samples [n].Length - order); 
 
 					// Get a random token
