@@ -4,33 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
-namespace OneWayOut.Manager
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using OneWayOut;
+using Microsoft.Xna.Framework.Content;
+namespace OneWayOut
 {
-	class Highscore
-	{        
-		public static string readScore ()
-		{
-			int score = 0;
+    class Highscore
+    {
+        List<string> entireFile = new List<string>();
+        SpriteFont font;
+        Vector2 pos = new Vector2(200, 200);
+        string line;
+        public Highscore(ContentManager Content)
+        {
+            font = Content.Load<SpriteFont>(@"fonts/bold");
+        }
 
-			List<string> entireFile = new List<string> ();
 
-			string recordScore = null;
+        public void readScore()
+        {
+            try
+            {
+                using (var highScore = new StreamReader("highscore.txt"))
+                {
+                    line = highScore.ReadToEnd();
+                    highScore.Close();
+                }
+            }
+            catch (Exception e)
+            {
 
-			try {
-				StreamReader input = new StreamReader ("Content/highScore");
-				string line = null;
 
-				while ((line = input.ReadLine ()) != null) {
-					entireFile.Add (line);
-				}
-				input.Close ();
-			} catch (Exception e) {
-				Environment.Exit (0);
-			
-			}
+            }
+        }
 
-			return entireFile [0];
-		}
-	}
+        public void DrawScore(SpriteBatch sb)
+        {
+            //sb.DrawString(font, line, pos, Color.Red);
+            //for (int i =0; i<entireFile.Count;i++)
+            // {
+            sb.DrawString(font, line, pos, Color.Red);
+            
+            //}
+        }
+    }
 }

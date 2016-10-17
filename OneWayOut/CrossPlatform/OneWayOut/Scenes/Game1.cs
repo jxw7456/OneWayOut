@@ -39,6 +39,8 @@ namespace OneWayOut.Scenes
 
 		ForegroundTextManager foregroundText;
 
+        Highscore highscoreText;
+
 		public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
@@ -85,6 +87,8 @@ namespace OneWayOut.Scenes
 			bgm = new BgmManager (Content);
 
 			player = new Player (spriteSheet, 1, 4);
+
+            highscoreText = new Highscore(Content);
 
 			player.SetPositionCenter (GraphicsDevice);
 
@@ -270,7 +274,12 @@ namespace OneWayOut.Scenes
 
 				background.DrawGameover (spriteBatch, GraphicsDevice);
 
+                    
 				foregroundText.DrawGameover (spriteBatch);
+                    highscoreText.readScore();
+                highscoreText.DrawScore(spriteBatch);
+
+
 
 				break;
 
