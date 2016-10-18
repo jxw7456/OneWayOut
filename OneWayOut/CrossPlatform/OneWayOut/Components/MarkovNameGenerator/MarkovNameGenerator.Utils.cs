@@ -9,6 +9,28 @@ namespace OneWayOut.Components
 	public partial class MarkovNameGenerator
 	{
 
+		const float UPPERCASE_CHANCE = 0.5f;
+
+		string RandomizeCase (string s)
+		{
+			int l = s.Length;
+
+			int uppercaseAmount = random.Next (l);
+
+			var sArray = s.ToCharArray ();
+
+			string o = "";
+
+			for (int i = 0; i < l; ++i) {
+				if (i > uppercaseAmount) {
+					sArray [i] = char.ToUpper (sArray [i]);
+				}
+				o += sArray [i];
+			}
+
+			return o;
+		}
+
 		//Get the next random name
 		/// <summary>
 		/// Generate the next random name.
@@ -24,7 +46,8 @@ namespace OneWayOut.Components
 					int n = random.Next (samples.Count);
 
 					int nameLength = samples [n].Length; 
-
+                    
+					//has BUG on it
 					int start = random.Next (0, samples [n].Length - order); 
 
 					// Get a random token
@@ -32,7 +55,7 @@ namespace OneWayOut.Components
 
 					// Fill the remaining length with letter matching the token pattern
 					while (s.Length < nameLength) {
-					
+						
 						string token = s.Substring (s.Length - order, order);
 
 						char c = GetLetter (token);
@@ -67,7 +90,7 @@ namespace OneWayOut.Components
 
 				used.Add (s);
 	
-				return s;
+				return RandomizeCase (s);
 			}
 		}
 

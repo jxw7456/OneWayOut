@@ -2,6 +2,7 @@
 using OneWayOut.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace OneWayOut.Components.Player
 {
@@ -24,12 +25,16 @@ namespace OneWayOut.Components.Player
 
 		public int column;
 
+        public int score;
+
 		//slow down animation
 		internal float timer;
 
 		public string name { get; set; }
 
-		public int arrowSupply { get; set; }
+		public Arrow.Arrow arrow { get; set; }
+
+        public int arrowSupply;
 
 		public int health { get; set; }
 
@@ -47,10 +52,12 @@ namespace OneWayOut.Components.Player
 		{
 			texture = t;
 			health = 100;
-			timer = 0;
+            arrowSupply = 10;
+            timer = 0;
 			blink = 0;
 			row = r;
 			column = c;
+            IsActive = true;
 		}
 
 		/// <summary>
@@ -59,7 +66,6 @@ namespace OneWayOut.Components.Player
 		/// <param name="graphicDevice">Graphic device.</param>
 		public new void SetPositionCenter (GraphicsDevice graphicDevice)
 		{
-
 			int screenWidth = graphicDevice.Viewport.Width;
 
 			int screenHeight = graphicDevice.Viewport.Height;
@@ -67,6 +73,41 @@ namespace OneWayOut.Components.Player
 			SetPosition ((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
 		}
 
-	}
+        public void PlayerShoot(KeyboardState kbState)
+        {
+            if (kbState.IsKeyDown(Keys.Space) == true)
+            {
+                //arrow = new Arrow.Arrow(100, @"textures/arrow" , this.position.X + 50, this.position.Y + 10, 10, 10);
+                arrow.IsActive = true;
+                while (arrow.IsActive)
+                {
+                    arrow.position = new Rectangle(arrow.position.X + 10, arrow.position.Y, arrow.position.Width, arrow.position.Height);
+                    if (arrow.position.X > 300)
+                    {
+                        arrow.IsActive = false;
+                    }
+                }
+            }
+        }
+
+        public int ArrowCount
+        {
+            get { return arrowSupply; }
+            set { arrowSupply = value; }
+        }
+
+        public void UseArrow()
+        {
+            if (arrowSupply > 0)
+            {
+                arrowSupply--;
+            }
+        }
+
+        public void GainArrow()
+        {
+            arrowSupply += 5;
+        }
+    }
 }
 

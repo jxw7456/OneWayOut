@@ -116,15 +116,7 @@ namespace OneWayOut.Manager
 		{
 			var vp = Graphics.Viewport;
 			
-			var s = new	Slime (
-				        random.Next (vp.Width), 
-				        random.Next (vp.Height), 
-				        SLIME_SIZE, 
-				        SLIME_SIZE, 
-				        Graphics, 
-				        random, 
-				        nameGen.NextName
-			        );
+			var s = new	Slime (random.Next (vp.Width), random.Next (vp.Height), SLIME_SIZE, SLIME_SIZE, Graphics, random, nameGen.NextName);
 
 			s.texture = slimeTexture;
 
