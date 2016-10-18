@@ -40,7 +40,7 @@ namespace OneWayOut.Components.Slime
             set { damage = value; }
         }
 
-        public int health;
+        private int health;
 
         Color color;
 
@@ -89,6 +89,12 @@ namespace OneWayOut.Components.Slime
             {
                 body = iShape;
             }
+        }
+
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
         }
 
         //handles when the slime dies

@@ -73,11 +73,11 @@ namespace OneWayOut.Components.Player
 			SetPosition ((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
 		}
 
-        public void PlayerShoot(KeyboardState kbState)
+        public void PlayerShoot(KeyboardState kbState, Texture2D texture)
         {
-            if (kbState.IsKeyDown(Keys.Space) == true)
+            if (kbState.IsKeyDown(Keys.Space) == true && IsActive == false)
             {
-                //arrow = new Arrow.Arrow(100, @"textures/arrow" , this.position.X + 50, this.position.Y + 10, 10, 10);
+                arrow = new Arrow.Arrow(100, texture , this.position.X + 50, this.position.Y, 10, 10);
                 arrow.IsActive = true;
                 while (arrow.IsActive)
                 {

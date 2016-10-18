@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using OneWayOut.Components.Player;
 using OneWayOut.Components.Arrow;
+using OneWayOut.Components.Slime;
 using OneWayOut.Manager;
 
 namespace OneWayOut.Scenes
@@ -22,6 +23,10 @@ namespace OneWayOut.Scenes
 
         Player player;
 
+        Slime slime;
+
+        Arrow arrow;
+
         KeyboardState kbState;
 
         KeyboardState previousKbState;
@@ -29,6 +34,8 @@ namespace OneWayOut.Scenes
         Texture2D health;
 
         Texture2D signPicture;
+
+        Texture2D arrowPicture;
 
         AssetManager asset;
 
@@ -41,6 +48,8 @@ namespace OneWayOut.Scenes
         ForegroundTextManager foregroundText;
 
         Highscore highscoreText;
+
+        bool arrowExist;
 
         public Game1()
         {
@@ -61,6 +70,8 @@ namespace OneWayOut.Scenes
 
             game = new GameManager();
 
+            arrowExist = false;
+
             base.Initialize();
         }
 
@@ -79,6 +90,8 @@ namespace OneWayOut.Scenes
 
             health = Content.Load<Texture2D>(@"textures/health");
 
+            arrowPicture = Content.Load<Texture2D>(@"textures/arrow");
+
             asset = new AssetManager(Content, GraphicsDevice);
 
             background = new BackgroundManager(Content);
@@ -94,7 +107,6 @@ namespace OneWayOut.Scenes
             player.SetPositionCenter(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
         }
 
         /// <summary>
@@ -158,6 +170,45 @@ namespace OneWayOut.Scenes
 
                     player.Move();
 
+                    //player.PlayerShoot(kbState, arrow);
+
+                    //Arrows
+                    if (player.arrowSupply > 0)
+                    {
+
+                        if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
+                        {
+                            arrow = new Arrow(100, arrowPicture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                            arrowExist = true;
+                            arrow.Collision(slime, asset);
+                            player.timer = 0;
+
+                            if (player.direction == Direction.RIGHT)
+                            {
+                                arrow = new Arrow(100, arrowPicture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                                arrowExist = true;
+                                arrow.Collision(slime, asset);
+                            }
+
+                            if (player.direction == Direction.LEFT)
+                            {
+                                arrow = new Arrow(100, arrowPicture, player.position.X - 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                                arrowExist = true;
+                                arrow.Collision(slime, asset);
+                            }
+                            player.UseArrow();
+                        }
+
+                        if (arrowExist == true)
+                        {
+                            if (player.timer > 60)
+                            {
+                                arrowExist = false;
+                                player.timer = 0;
+                            }
+                        }
+                    }
+
                     player.Update(gameTime);
 
                     game.ScreenWrap(GraphicsDevice, player);
@@ -220,7 +271,7 @@ namespace OneWayOut.Scenes
 
                     if (SingleKeyPress(Keys.Q))
                     {
-                        game.state = GameState.START;
+                        game.state = GameState.GAMEOVER;
                     }
                     break;
             }
@@ -260,6 +311,21 @@ namespace OneWayOut.Scenes
                     spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
 
                     player.Draw(spriteBatch, new Vector2(200, 50));
+
+                    if (arrowExist == true && player.arrowSupply > 0)
+                    {
+                        if (IsActive)
+                        {
+                            if (player.direction == Direction.RIGHT)
+                            {
+                                spriteBatch.Draw(arrowPicture, arrow.position, Color.White);
+                            }
+                            if (player.direction == Direction.LEFT)
+                            {
+                                spriteBatch.Draw(arrowPicture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                            }
+                        }
+                    }
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
