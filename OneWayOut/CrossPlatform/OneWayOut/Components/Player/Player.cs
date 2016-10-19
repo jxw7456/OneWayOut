@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace OneWayOut.Components.Player
+namespace OneWayOut.Components
 {
 	/// <summary>
 	/// Player Main Class.
@@ -25,16 +25,16 @@ namespace OneWayOut.Components.Player
 
 		public int column;
 
-        public int score;
+		public int score;
 
 		//slow down animation
 		internal float timer;
 
 		public string name { get; set; }
 
-		public Arrow.Arrow arrow { get; set; }
+		public Arrow arrow { get; set; }
 
-        public int arrowSupply;
+		public int arrowSupply;
 
 		public int health { get; set; }
 
@@ -52,12 +52,12 @@ namespace OneWayOut.Components.Player
 		{
 			texture = t;
 			health = 100;
-            arrowSupply = 10;
-            timer = 0;
+			arrowSupply = 10;
+			timer = 0;
 			blink = 0;
 			row = r;
 			column = c;
-            IsActive = true;
+			IsActive = true;
 		}
 
 		/// <summary>
@@ -73,41 +73,36 @@ namespace OneWayOut.Components.Player
 			SetPosition ((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
 		}
 
-        public void PlayerShoot(KeyboardState kbState, Texture2D texture)
-        {
-            if (kbState.IsKeyDown(Keys.Space) == true && IsActive == false)
-            {
-                arrow = new Arrow.Arrow(100, texture , this.position.X + 50, this.position.Y, 10, 10);
-                arrow.IsActive = true;
-                while (arrow.IsActive)
-                {
-                    arrow.position = new Rectangle(arrow.position.X + 10, arrow.position.Y, arrow.position.Width, arrow.position.Height);
-                    if (arrow.position.X > 300)
-                    {
-                        arrow.IsActive = false;
-                    }
-                }
-            }
-        }
+		public void PlayerShoot (KeyboardState kbState, Texture2D texture)
+		{
+			if (kbState.IsKeyDown (Keys.Space) == true && IsActive == false) {
+				arrow = new Arrow (100, texture, this.position.X + 50, this.position.Y, 10, 10);
+				arrow.IsActive = true;
+				while (arrow.IsActive) {
+					arrow.position = new Rectangle (arrow.position.X + 10, arrow.position.Y, arrow.position.Width, arrow.position.Height);
+					if (arrow.position.X > 300) {
+						arrow.IsActive = false;
+					}
+				}
+			}
+		}
 
-        public int ArrowCount
-        {
-            get { return arrowSupply; }
-            set { arrowSupply = value; }
-        }
+		public int ArrowCount {
+			get { return arrowSupply; }
+			set { arrowSupply = value; }
+		}
 
-        public void UseArrow()
-        {
-            if (arrowSupply > 0)
-            {
-                arrowSupply--;
-            }
-        }
+		public void UseArrow ()
+		{
+			if (arrowSupply > 0) {
+				arrowSupply--;
+			}
+		}
 
-        public void GainArrow()
-        {
-            arrowSupply += 5;
-        }
-    }
+		public void GainArrow ()
+		{
+			arrowSupply += 5;
+		}
+	}
 }
 

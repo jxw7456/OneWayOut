@@ -8,7 +8,7 @@ using OneWayOut.Utils;
 using System.Threading;
 using System.IO;
 
-namespace OneWayOut.Components.Slime
+namespace OneWayOut.Components
 {
 	/// <summary>
 	/// Slime file class, processing owo mob shape files.

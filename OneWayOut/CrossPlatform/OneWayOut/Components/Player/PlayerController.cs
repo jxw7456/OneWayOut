@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace OneWayOut.Components.Player
+namespace OneWayOut.Components
 {
 	enum Direction
 	{

@@ -2,7 +2,7 @@
 
 using System.Collections;
 
-namespace OneWayOut.Components.Slime
+namespace OneWayOut.Components
 {
 	/// <summary>
 	/// Slime shape values.

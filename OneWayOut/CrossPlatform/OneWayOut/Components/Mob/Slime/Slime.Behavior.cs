@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using OneWayOut.Utils;
 
-namespace OneWayOut.Components.Slime
+namespace OneWayOut.Components
 {
 	/// <summary>
 	/// Slime Behavior Helper.
