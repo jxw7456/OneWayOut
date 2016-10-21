@@ -9,100 +9,105 @@ using System.Threading;
 
 namespace OneWayOut.Components
 {
-	/// <summary>
-	/// Slime main class, contain constructors and fields.
-	/// </summary>
-	partial class Slime : GameObject
-	{
-		const int PIXEL_SIZE = 9;
+    /// <summary>
+    /// Slime main class, contain constructors and fields.
+    /// </summary>
+    partial class Slime : GameObject
+    {
+        const int PIXEL_SIZE = 9;
 
-		const int MAX_MOVE_SPEED = 500;
+        const int MAX_MOVE_SPEED = 500;
 
-		const int MIN_MOVE_SPEED = 200;
+        const int MIN_MOVE_SPEED = 200;
 
-		const string IDLE_SHAPE = "mob.owo";
+        const string IDLE_SHAPE = "mob.owo";
 
-		SlimeState state;
+        SlimeState state;
 
-		SlimeDirection direction;
+        SlimeDirection direction;
 
-		public Random random;
+        public Random random;
 
-		public string name;
+        public string name;
 
-		public int speed;
+        public int speed;
 
-		private int damage;
+        private int damage;
 
-		public int Damage {
-			get { return damage; }
-			set { damage = value; }
-		}
+        public int Damage
+        {
+            get { return damage; }
+            set { damage = value; }
+        }
 
-		private int health;
+        private int health;
 
-		Color color;
+        Color color;
 
-		//Time elapsed since the last check
-		public float elapsedTime = 0;
+        //Time elapsed since the last check
+        public float elapsedTime = 0;
 
-		public float slimeDelay;
+        public float slimeDelay;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
-		/// And assigning the properties value
-		/// </summary>
-		/// <param name="x">The x coordinate.</param>
-		/// <param name="y">The y coordinate.</param>
-		/// <param name="width">Width.</param>
-		/// <param name="height">Height.</param>
-		/// <param name="gp">Graphic </param>
-		/// <param name="r">Random object</param>
-		/// <param name="n">Asigned name</param>
-		public Slime (int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
-			: base (x, y, width, height)
-		{
-			state = SlimeState.IDLE;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
+        /// And assigning the properties value
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
+        /// <param name="gp">Graphic </param>
+        /// <param name="r">Random object</param>
+        /// <param name="n">Asigned name</param>
+        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n) : base(x, y, width, height)
+        {
+            IsActive = true;
 
-			direction = SlimeDirection.RIGHT;
+            state = SlimeState.IDLE;
 
-			random = r;
+            direction = SlimeDirection.RIGHT;
 
-			speed = random.Next (MIN_MOVE_SPEED, MAX_MOVE_SPEED);
+            random = r;
 
-			name = n;
+            speed = random.Next(MIN_MOVE_SPEED, MAX_MOVE_SPEED);
 
-			damage = Damage;
+            name = n;
 
-			health = 100;
+            damage = Damage;
 
-			//name += speed;
+            health = 100;
 
-			slimeDelay = (float)random.NextDouble () / 2;
+            //name += speed;
 
-			color = ColorGenerator.RandomColor (r);
+            slimeDelay = (float)random.NextDouble() / 2;
 
-			var iShape = ReadBitMap (IDLE_SHAPE);
+            color = ColorGenerator.RandomColor(r);
 
-			if (iShape != null) {
-				body = iShape;
-			}
-		}
+            var iShape = ReadBitMap(IDLE_SHAPE);
 
-		public int Health {
-			get { return health; }
-			set { health = value; }
-		}
+            if (iShape != null)
+            {
+                body = iShape;
+            }
+        }
 
-		//handles when the slime dies
-		public bool EnemyDeath ()
-		{
-			if (health <= 0) {
-				IsActive = false;
-				return true;
-			}
-			return false;
-		}
-	}
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }
+
+        //handles when the slime dies
+        public bool EnemyDeath()
+        {
+            if (health <= 0)
+            {
+                IsActive = false;
+                return true;
+            }
+            return false;
+        }
+    }
 }
 

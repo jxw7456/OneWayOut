@@ -1,108 +1,113 @@
 ﻿using System;
 using OneWayOut.Components;
+using OneWayOut.Manager;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace OneWayOut.Components
 {
-	/// <summary>
-	/// Player Main Class.
-	/// Fields and Constructor
-	/// </summary>
-	partial class Player : GameObject
-	{
-		//A single sprite's width and height
-		const int PLAYER_TEXTURE_SIZE = 512;
+    /// <summary>
+    /// Player Main Class.
+    /// Fields and Constructor
+    /// </summary>
+    partial class Player : GameObject
+    {
+        //A single sprite's width and height
+        const int PLAYER_TEXTURE_SIZE = 512;
 
-		const int PLAYER_SIZE = 90;
+        const int PLAYER_SIZE = 90;
 
-		private int currentFrame;
+        private int currentFrame;
 
-		public int blink;
+        public int blink;
 
-		public int row;
+        public int row;
 
-		public int column;
+        public int column;
 
-		public int score;
+        public int score;
 
-		//slow down animation
-		internal float timer;
+        //slow down animation
+        internal float timer;
 
-		public string name { get; set; }
+        public string name { get; set; }
 
-		public Arrow arrow { get; set; }
+        public Slime slime;
 
-		public int arrowSupply;
+        public AssetManager enemy;
 
-		public int health { get; set; }
+        public int arrowSupply;
 
-		public Direction direction;
+        public int health { get; set; }
 
-		private int millisecondsPerFrame = 100;
+        public Direction direction;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
-		/// </summary>
-		/// <param name="t">T.</param>
-		/// <param name="r">The red component.</param>
-		/// <param name="c">C.</param>
-		public Player (Texture2D t, int r, int c) : base (new Rectangle (0, 0, PLAYER_SIZE, PLAYER_SIZE))
-		{
-			texture = t;
-			health = 100;
-			arrowSupply = 10;
-			timer = 0;
-			blink = 0;
-			row = r;
-			column = c;
-			IsActive = true;
-		}
+        private int millisecondsPerFrame = 100;
 
-		/// <summary>
-		/// Sets the position to center of screen.
-		/// </summary>
-		/// <param name="graphicDevice">Graphic device.</param>
-		public new void SetPositionCenter (GraphicsDevice graphicDevice)
-		{
-			int screenWidth = graphicDevice.Viewport.Width;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
+        /// </summary>
+        /// <param name="t">T.</param>
+        /// <param name="r">The red component.</param>
+        /// <param name="c">C.</param>
+        public Player(Texture2D t, int r, int c) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        {
+            texture = t;
+            health = 100;
+            arrowSupply = 10;
+            timer = 0;
+            blink = 0;
+            row = r;
+            column = c;
+            IsActive = true;
+        }
 
-			int screenHeight = graphicDevice.Viewport.Height;
+        /// <summary>
+        /// Sets the position to center of screen.
+        /// </summary>
+        /// <param name="graphicDevice">Graphic device.</param>
+        public new void SetPositionCenter(GraphicsDevice graphicDevice)
+        {
+            int screenWidth = graphicDevice.Viewport.Width;
 
-			SetPosition ((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
-		}
+            int screenHeight = graphicDevice.Viewport.Height;
 
-		public void PlayerShoot (KeyboardState kbState, Texture2D texture)
-		{
-			if (kbState.IsKeyDown (Keys.Space) == true && IsActive == false) {
-				arrow = new Arrow (100, texture, this.position.X + 50, this.position.Y, 10, 10);
-				arrow.IsActive = true;
-				while (arrow.IsActive) {
-					arrow.position = new Rectangle (arrow.position.X + 10, arrow.position.Y, arrow.position.Width, arrow.position.Height);
-					if (arrow.position.X > 300) {
-						arrow.IsActive = false;
-					}
-				}
-			}
-		}
+            SetPosition((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
+        }
 
-		public int ArrowCount {
-			get { return arrowSupply; }
-			set { arrowSupply = value; }
-		}
+        public void PlayerShoot(KeyboardState kbState, ArrowC arrow)
+        {
+            if (kbState.IsKeyDown(Keys.Space) == true && IsActive == false)
+            {
+                arrow.IsActive = true;
+                arrow = new ArrowC(100, arrow.texture, this.position.X + 50, this.position.Y + 25, 10, 10);                
+                while (arrow.IsActive)
+                {
+                    arrow.position = new Rectangle(arrow.position.X + 10, arrow.position.Y + 25, arrow.position.Width, arrow.position.Height);
+                    arrow.Distance(slime, enemy.slimes);
+                }
+            }
+        }
 
-		public void UseArrow ()
-		{
-			if (arrowSupply > 0) {
-				arrowSupply--;
-			}
-		}
+        public int ArrowCount
+        {
+            get { return arrowSupply; }
+            set { arrowSupply = value; }
+        }
 
-		public void GainArrow ()
-		{
-			arrowSupply += 5;
-		}
-	}
+        public void UseArrow()
+        {
+            if (arrowSupply > 0)
+            {
+                arrowSupply--;
+            }
+        }
+
+        public void GainArrow()
+        {
+            arrowSupply += 5;
+        }
+    }
 }
 

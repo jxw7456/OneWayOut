@@ -16,7 +16,7 @@ namespace OneWayOut.Components.Drop
         //Constructor 
         public Drop(Texture2D texure, int x, int y, int width, int height) : base(x, y, width, height)
         {
-
+            IsActive = true;
         }
     }
 }
