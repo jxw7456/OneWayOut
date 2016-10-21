@@ -31,6 +31,8 @@ namespace OneWayOut
 			biggerFont = Content.Load<SpriteFont> (@"fonts/biggerFont");
 
 			owoFont = Content.Load<SpriteFont> (@"fonts/owo");
+
+            owoFont.Spacing = 5;
 		}
 
 		/// <summary>

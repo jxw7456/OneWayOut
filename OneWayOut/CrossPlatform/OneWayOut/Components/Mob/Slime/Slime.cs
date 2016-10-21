@@ -26,7 +26,7 @@ namespace OneWayOut.Components
 
 		SlimeDirection direction;
 
-		public Random random;
+		Random random;
 
 		public string name;
 

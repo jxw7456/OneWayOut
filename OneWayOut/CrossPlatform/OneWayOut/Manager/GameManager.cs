@@ -35,12 +35,15 @@ namespace OneWayOut.Manager
 	{
 		public GameState state;
 
+        public static int level;
+
 		/// <summary>
 		/// Initialize with state to start
 		/// </summary>
 		public GameManager ()
 		{
-			state = GameState.START;
+            level = 3;
+            state = GameState.START;
 		}
 
 		/// <summary>
