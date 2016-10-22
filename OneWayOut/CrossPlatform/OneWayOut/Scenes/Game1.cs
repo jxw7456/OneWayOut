@@ -49,6 +49,7 @@ namespace OneWayOut.Scenes
 
 		Highscore highscoreText;
 
+        bool scoreChecked;
 		bool arrowExist;
 
 		public Game1 ()
@@ -286,7 +287,7 @@ namespace OneWayOut.Scenes
 			case GameState.GAME:
 
 				asset.DrawDungeon (spriteBatch);
-
+                    scoreChecked = false;
 				spriteBatch.Draw (health, new Rectangle (4, 5, 152, 31), Color.Black);
 				spriteBatch.Draw (health, new Rectangle (5, 5, 150, 30), Color.White);
 
@@ -333,6 +334,12 @@ namespace OneWayOut.Scenes
 				foregroundText.DrawGameover (spriteBatch);
 
 				highscoreText.readScore ();
+                    if(scoreChecked == false)
+                    {
+                        highscoreText.CheckScore(1100);
+                        scoreChecked = true;
+                    }
+                   
 				highscoreText.DrawScore (spriteBatch);
 				break;
 
