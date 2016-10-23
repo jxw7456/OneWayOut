@@ -59,7 +59,7 @@ namespace OneWayOut
         public void DrawGame(SpriteBatch spriteBatch, Player archer)
         {
             spriteBatch.DrawString(biggerFont, "Arrows: " + archer.arrowSupply, new Vector2(0, 50), Color.White);
-            spriteBatch.DrawString(biggerFont, "Health: " + archer.health, new Vector2(0, 70), Color.White);
+            
         }
 
         /// <summary>
