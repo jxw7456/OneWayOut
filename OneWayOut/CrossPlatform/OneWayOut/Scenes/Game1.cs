@@ -209,12 +209,12 @@ namespace OneWayOut.Scenes
                         }
 
                         //Code for Slime Attacking Commented out to Prevent From Crashing since score is not finished yet
-                        /*
+                        
                         foreach(Slime slimes in asset.slimes)
                         {
                             slimes.SlimeAttack(player);
                         }
-                        */                       
+                                               
                     }
 
                     player.Update(gameTime);
