@@ -16,12 +16,14 @@ namespace OneWayOut.Scenes
     {
         //Objects from all components and managers
         GraphicsDeviceManager graphics;
-
+        
         SpriteBatch spriteBatch;
 
         Texture2D spriteSheet;
 
         Player player;
+
+        Rectangle healthSize;
 
         Slime slime;
 
@@ -107,6 +109,7 @@ namespace OneWayOut.Scenes
 
             player.SetPositionCenter(GraphicsDevice);
 
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -170,7 +173,7 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
                     highscoreText.getScore(player.score);
                     player.Move();
-
+                    healthSize = new Rectangle(5, 5, player.health, 30);
                     //Arrows
                     if (player.arrowSupply > 0)
                     {
@@ -313,9 +316,13 @@ namespace OneWayOut.Scenes
                 //Draw Game
                 case GameState.GAME:
                     asset.DrawDungeon(spriteBatch);
+
                     scoreChecked = false;
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
-                    spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
+
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
+
+                    spriteBatch.Draw(health, healthSize, Color.White);
+
                     highscoreText.DrawScore(spriteBatch, player);
 
                     player.Draw(spriteBatch, new Vector2(200, 50));
