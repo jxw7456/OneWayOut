@@ -14,11 +14,14 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Arrow : GameObject
     {
+        
+        
         int timer;
-
+        
         //Arrow Constructor
         public Arrow(int health, Texture2D texture, int x, int y, int width, int height) : base(x, y, width, height)
         {
+            
             IsActive = true;
             timer = 0;
         }
@@ -37,6 +40,8 @@ namespace OneWayOut.Components
                         if (slime[i].Health <= 0)
                         {
                             archer.GainArrow();
+                            
+                            archer.score += 50;
                             IsActive = false;
                             slime.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows               
                         }

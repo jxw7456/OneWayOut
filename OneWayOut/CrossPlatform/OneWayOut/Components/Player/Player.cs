@@ -26,7 +26,7 @@ namespace OneWayOut.Components
 
         public int column;
 
-        public int score;
+        public int score { get; set;  }
 
         //slow down animation
         internal float timer;

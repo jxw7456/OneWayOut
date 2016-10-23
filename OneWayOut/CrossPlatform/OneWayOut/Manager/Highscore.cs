@@ -9,19 +9,21 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OneWayOut;
 using Microsoft.Xna.Framework.Content;
-
+using OneWayOut.Components;
 namespace OneWayOut
 {
     class Highscore
     {
         List<string> entireFile = new List<string>();
-
+        int score;
         SpriteFont font;
 
         Vector2 pos = new Vector2(600, 180);
         Vector2 pos1 = new Vector2(600, 210);
         Vector2 pos2 = new Vector2(600, 240);
         Vector2 pos3 = new Vector2(600, 270);
+        Vector2 gameScore = new Vector2(240, 0);
+        Vector2 yourScore = new Vector2(50, 180);
 
         public string line;
 
@@ -48,6 +50,10 @@ namespace OneWayOut
             }
         }
 
+        public void getScore(int giveMe)
+        {
+            score = giveMe;
+        }
         public void DrawScore(SpriteBatch sb)
         {
 
@@ -59,7 +65,13 @@ namespace OneWayOut
 
             sb.DrawString(font, entireFile[3], pos3, Color.Red);
 
+            sb.DrawString(font, "your score was:\n"+ score.ToString(), yourScore, Color.Red);
 
+        }
+
+        public void DrawScore(SpriteBatch sBatch,Player mc)
+        {
+            sBatch.DrawString(font, mc.score.ToString(), gameScore, Color.White);
         }
 
         public void CheckScore(int score)

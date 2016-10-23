@@ -168,7 +168,7 @@ namespace OneWayOut.Scenes
                 //GAME case: where the game is actually played and score is gathered
                 case GameState.GAME:
                     bgm.PlayGame();
-
+                    highscoreText.getScore(player.score);
                     player.Move();
 
                     //Arrows
@@ -316,6 +316,7 @@ namespace OneWayOut.Scenes
                     scoreChecked = false;
                     spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
                     spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
+                    highscoreText.DrawScore(spriteBatch, player);
 
                     player.Draw(spriteBatch, new Vector2(200, 50));
 
@@ -368,7 +369,7 @@ namespace OneWayOut.Scenes
                     highscoreText.readScore();
                     if (scoreChecked == false)
                     {
-                        highscoreText.CheckScore(1100);
+                        highscoreText.CheckScore(player.score);
                         scoreChecked = true;
                     }
 
