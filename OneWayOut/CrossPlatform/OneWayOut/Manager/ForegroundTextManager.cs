@@ -56,11 +56,16 @@ namespace OneWayOut
 			spriteBatch.DrawString (boldFont, "Press 'Enter' for Main Menu", new Vector2 (225, 440), Color.White);
 		}
 
-		/// <summary>
-		/// Draws the help text.
-		/// </summary>
-		/// <param name="spriteBatch">Sprite batch.</param>
-		public void DrawHelp (SpriteBatch spriteBatch)
+        public void DrawGame(SpriteBatch spriteBatch, Player archer)
+        {
+            spriteBatch.DrawString(biggerFont, "Arrows: " + archer.arrowSupply, new Vector2(0, 50), Color.White);
+        }
+
+        /// <summary>
+        /// Draws the help text.
+        /// </summary>
+        /// <param name="spriteBatch">Sprite batch.</param>
+        public void DrawHelp (SpriteBatch spriteBatch)
 		{
 			//Story
 			spriteBatch.DrawString (boldFont, "Story", new Vector2 (0, 0), Color.Red);

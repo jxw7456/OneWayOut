@@ -3,106 +3,133 @@ using OneWayOut.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace OneWayOut.Components
 {
-	/// <summary>
-	/// Player Main Class.
-	/// Fields and Constructor
-	/// </summary>
-	partial class Player : GameObject
-	{
-		//A single sprite's width and height
-		const int PLAYER_TEXTURE_SIZE = 512;
+    /// <summary>
+    /// Player Main Class.
+    /// Fields and Constructor
+    /// </summary>
+    partial class Player : GameObject
+    {
+        //A single sprite's width and height
+        const int PLAYER_TEXTURE_SIZE = 512;
 
-		const int PLAYER_SIZE = 90;
+        const int PLAYER_SIZE = 90;
 
-		private int currentFrame;
+        private int currentFrame;
 
-		public int blink;
+        public int blink;
 
-		public int row;
+        public int row;
 
-		public int column;
+        public int column;
 
-		public int score;
+        public int score;
 
-		//slow down animation
-		internal float timer;
+        //slow down animation
+        internal float timer;
 
-		public string name { get; set; }
+        public string name { get; set; }
 
-		public Arrow arrow { get; set; }
+        public Arrow arrow { get; set; }
 
-		public int arrowSupply;
+        public int arrowSupply;
 
-		public int health { get; set; }
+        public int health { get; set; }
 
-		public Direction direction;
+        public Direction direction;
 
-		private int millisecondsPerFrame = 100;
+        private int millisecondsPerFrame = 100;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
-		/// </summary>
-		/// <param name="t">T.</param>
-		/// <param name="r">The red component.</param>
-		/// <param name="c">C.</param>
-		public Player (Texture2D t, int r, int c) : base (new Rectangle (0, 0, PLAYER_SIZE, PLAYER_SIZE))
-		{
-			texture = t;
-			health = 100;
-			arrowSupply = 10;
-			timer = 0;
-			blink = 0;
-			row = r;
-			column = c;
-			IsActive = true;
-		}
+        bool arrowExist;
 
-		/// <summary>
-		/// Sets the position to center of screen.
-		/// </summary>
-		/// <param name="graphicDevice">Graphic device.</param>
-		public new void SetPositionCenter (GraphicsDevice graphicDevice)
-		{
-			int screenWidth = graphicDevice.Viewport.Width;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
+        /// </summary>
+        /// <param name="t">T.</param>
+        /// <param name="r">The red component.</param>
+        /// <param name="c">C.</param>
+        public Player(Texture2D t, int r, int c) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        {
+            texture = t;
+            health = 100;
+            arrowSupply = 5;
+            timer = 0;
+            blink = 0;
+            row = r;
+            column = c;
+            IsActive = true;
+            arrowExist = false;
+        }
 
-			int screenHeight = graphicDevice.Viewport.Height;
+        /// <summary>
+        /// Sets the position to center of screen.
+        /// </summary>
+        /// <param name="graphicDevice">Graphic device.</param>
+        public new void SetPositionCenter(GraphicsDevice graphicDevice)
+        {
+            int screenWidth = graphicDevice.Viewport.Width;
 
-			SetPosition ((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
-		}
+            int screenHeight = graphicDevice.Viewport.Height;
 
-		public void PlayerShoot (KeyboardState kbState, Texture2D texture)
-		{
-			if (kbState.IsKeyDown (Keys.Space) == true && IsActive == false) {
-				arrow = new Arrow (100, texture, this.position.X + 50, this.position.Y, 10, 10);
-				arrow.IsActive = true;
-				while (arrow.IsActive) {
-					arrow.position = new Rectangle (arrow.position.X + 10, arrow.position.Y, arrow.position.Width, arrow.position.Height);
-					if (arrow.position.X > 300) {
-						arrow.IsActive = false;
-					}
-				}
-			}
-		}
+            SetPosition((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
+        }
 
-		public int ArrowCount {
-			get { return arrowSupply; }
-			set { arrowSupply = value; }
-		}
+        public void PlayerShoot(KeyboardState kbState, Texture2D texture, Arrow arrow, Player player, List<Slime> slimes)
+        {
+            if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
+            {
+                arrow = new Arrow(100, texture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                arrowExist = true;
+                arrow.Collision(slimes, player);
+                player.timer = 0;
 
-		public void UseArrow ()
-		{
-			if (arrowSupply > 0) {
-				arrowSupply--;
-			}
-		}
+                if (player.direction == Direction.RIGHT)
+                {
+                    arrow = new Arrow(100, texture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                    arrowExist = true;
+                    arrow.Collision(slimes, player);
+                }
 
-		public void GainArrow ()
-		{
-			arrowSupply += 5;
-		}
-	}
+                if (player.direction == Direction.LEFT)
+                {
+                    arrow = new Arrow(100, texture, player.position.X - 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
+                    arrowExist = true;
+                    arrow.Collision(slimes, player);
+                }
+                player.UseArrow();
+            }
+
+            if (arrowExist == true)
+            {
+                if (player.timer > 60)
+                {
+                    arrowExist = false;
+                    player.timer = 0;
+                }
+            }
+        }
+
+        public int ArrowCount
+        {
+            get { return arrowSupply; }
+            set { arrowSupply = value; }
+        }
+
+        public void UseArrow()
+        {
+            if (arrowSupply > 0)
+            {
+                arrowSupply -= 1;
+            }
+        }
+
+        public void GainArrow()
+        {
+            arrowSupply += 2;
+        }
+    }
 }
 
