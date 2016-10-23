@@ -206,7 +206,15 @@ namespace OneWayOut.Scenes
                                 arrowExist = false;
                                 player.timer = 0;
                             }
-                        }                        
+                        }
+
+                        //Code for Slime Attacking Commented out to Prevent From Crashing since score is not finished yet
+                        /*
+                        foreach(Slime slimes in asset.slimes)
+                        {
+                            slimes.SlimeAttack(player);
+                        }
+                        */                       
                     }
 
                     player.Update(gameTime);
@@ -224,7 +232,7 @@ namespace OneWayOut.Scenes
                         game.state = GameState.PAUSE;
                     }
 
-                    if (SingleKeyPress(Keys.Z))
+                    if (SingleKeyPress(Keys.Z) || player.health == 0)
                     {
                         game.state = GameState.GAMEOVER;
                     }

@@ -25,7 +25,6 @@ namespace OneWayOut
 
         public string line;
 
-
         public Highscore(ContentManager Content)
         {
             font = Content.Load<SpriteFont>(@"fonts/bold");
@@ -41,8 +40,6 @@ namespace OneWayOut
                     {
                         entireFile.Add(line);
                     }
-
-
                 }
             }
             catch (Exception e)
@@ -64,6 +61,7 @@ namespace OneWayOut
 
 
         }
+
         public void CheckScore(int score)
         {
             if (score >= int.Parse(entireFile[1]))
@@ -71,8 +69,8 @@ namespace OneWayOut
                 entireFile[3] = entireFile[2];
                 entireFile[2] = entireFile[1];
                 entireFile[1] = score.ToString();
-
             }
+
             else
             {
                 if (score >= int.Parse(entireFile[2]))
@@ -80,13 +78,14 @@ namespace OneWayOut
                     entireFile[3] = entireFile[2];
                     entireFile[2] = score.ToString();
                 }
+
                 else
                 {
                     if (score >= int.Parse(entireFile[3]))
                     {
                         entireFile[3] = score.ToString();
-
                     }
+
                     else
                     {
 
@@ -103,7 +102,6 @@ namespace OneWayOut
             high.WriteLine(entireFile[3]);
 
             high.Close();
-
         }
     }
 }
