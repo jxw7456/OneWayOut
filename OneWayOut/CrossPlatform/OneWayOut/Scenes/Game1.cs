@@ -173,14 +173,16 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
 
                     highscoreText.getScore(player.score);
-                    
-                    player.Move();
+
+                    player.Move();                    
 
                     player.Update(gameTime);
 
                     healthSize = new Rectangle(5, 5, player.health, 30);
-               
+
                     game.ScreenWrap(GraphicsDevice, player);
+
+                    //arrow.Move(player.direction);
 
                     for (int i = 0; i < asset.slimes.Count; i++)
                     {
@@ -198,7 +200,7 @@ namespace OneWayOut.Scenes
 
                             slime.IsActive = false;
 
-                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows           
+                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
 
@@ -243,8 +245,10 @@ namespace OneWayOut.Scenes
                         {
                             arrowExist = false;
                             arrow.timer = 0;
-                        }
+                        }                        
                     }
+
+                    
 
                     if (SingleKeyPress(Keys.P))
                     {
@@ -276,8 +280,6 @@ namespace OneWayOut.Scenes
 
                         firstProc.WaitForExit();
                         */
-                        
-                        
                     }
                     break;
 
@@ -342,7 +344,7 @@ namespace OneWayOut.Scenes
                     break;
 
                 //Draw Game
-                case GameState.GAME:                    
+                case GameState.GAME:
                     asset.DrawDungeon(spriteBatch);
 
                     scoreChecked = false;
@@ -417,10 +419,13 @@ namespace OneWayOut.Scenes
 
                     asset.DrawDungeon(spriteBatch);
 
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
-                    spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
+                    spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
+
+                    spriteBatch.Draw(health, healthSize, Color.White);
 
                     player.Draw(spriteBatch);
+
+                    highscoreText.DrawScore(spriteBatch, player);
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
@@ -456,6 +461,12 @@ namespace OneWayOut.Scenes
             player.arrowSupply = 5;
             player.Draw(spriteBatch);
             asset.DrawSlimes(spriteBatch, foregroundText);
+        }
+
+        //Draws new slime after clearing out all slime
+        public void NextWave()
+        {
+            
         }
     }
 }

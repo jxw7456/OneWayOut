@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 using Microsoft.Xna.Framework.Graphics;
 
 using OneWayOut.Components;
@@ -100,7 +100,7 @@ namespace OneWayOut.Components
 
         public void SlimeAttack(Player player)
         {
-            Damage = 10;
+            Damage = 1;
 
             if (this.position.Intersects(player.position))
             {

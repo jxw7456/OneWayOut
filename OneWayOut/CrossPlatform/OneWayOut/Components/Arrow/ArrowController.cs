@@ -31,5 +31,23 @@ namespace OneWayOut.Components
                 }
             }
         }
+
+        public void Move(Direction playerDirection)
+        {
+            if (playerDirection == Direction.RIGHT)
+            {
+                position.X++;
+            }
+
+            if (playerDirection == Direction.LEFT)
+            {
+                position.X--;
+            }
+
+            if(position.X >= 480 || position.X <= 0)
+            {
+                IsActive = false;
+            }
+        }
     }
 }

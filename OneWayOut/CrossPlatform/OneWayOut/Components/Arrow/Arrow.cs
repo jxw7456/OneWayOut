@@ -33,31 +33,5 @@ namespace OneWayOut.Components
             IsActive = true;
             timer = 0;
         }
-
-        public void Draw(SpriteBatch spriteBatch, Direction playerDirection)
-        {
-            if (!IsActive)
-            {
-                return;
-            }
-
-            switch (playerDirection)
-            {
-                case Direction.LEFT:
-                    spriteBatch.Draw(texture, position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-                    break;
-                case Direction.RIGHT:
-                    spriteBatch.Draw(texture, position, Color.White);
-                    break;
-                case Direction.UP:
-                    break;
-                case Direction.DOWN:
-                    break;
-                case Direction.IDLE:
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 }

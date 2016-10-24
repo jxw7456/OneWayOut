@@ -61,8 +61,6 @@ namespace OneWayOut.Manager
 
 			arrowTexture = Content.Load<Texture2D> (@"textures/arrow");
 
-            collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
-
             InitSlime(Graphics);
 
 			slimes = new List<Slime> ();
@@ -83,7 +81,6 @@ namespace OneWayOut.Manager
             {
                 slime.Draw(spriteBatch);
                 foreGroundText.DrawSlimeName(spriteBatch, slime);
-                spriteBatch.Draw(collision, slime.position, Color.Green);
             }
         }
 
