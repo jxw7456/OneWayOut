@@ -37,6 +37,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Arrow\Arrow.cs" />
     <Compile Include="Utils\ColorGenerator.cs" />
     <Compile Include="Components\Arrow\ArrowController.cs" />
     <Compile Include="Components\Arrow\ArrowTest.cs" />

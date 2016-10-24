@@ -18,6 +18,10 @@ namespace OneWayOut.Components
 
         const int PLAYER_SIZE = 90;
 
+        const int PLAYER_TEXTURE_START_R = 1;
+
+        const int PLAYER_TEXTURE_START_C = 4;
+
         private int currentFrame;
 
         public int blink;
@@ -26,14 +30,12 @@ namespace OneWayOut.Components
 
         public int column;
 
-        public int score { get; set;  }
+        public int score { get; set; }
 
         //slow down animation
         internal float timer;
 
         public string name { get; set; }
-
-        public Arrow arrow { get; set; }
 
         public int arrowSupply;
 
@@ -43,25 +45,22 @@ namespace OneWayOut.Components
 
         private int millisecondsPerFrame = 100;
 
-        bool arrowExist;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
         /// </summary>
-        /// <param name="t">T.</param>
+        /// <param name="Texture">T.</param>
         /// <param name="r">The red component.</param>
         /// <param name="c">C.</param>
-        public Player(Texture2D t, int r, int c) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        public Player(Texture2D Texture) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
-            texture = t;
+            texture = Texture;
             health = 100;
             arrowSupply = 5;
             timer = 0;
             blink = 0;
-            row = r;
-            column = c;
+            row = PLAYER_TEXTURE_START_R;
+            column = PLAYER_TEXTURE_START_C;
             IsActive = true;
-            arrowExist = false;
         }
 
         /// <summary>
@@ -77,39 +76,9 @@ namespace OneWayOut.Components
             SetPosition((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
         }
 
-        public void PlayerShoot(KeyboardState kbState, Texture2D texture, Arrow arrow, Player player, List<Slime> slimes)
+        public void PlayerShoot()
         {
-            if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
-            {
-                arrow = new Arrow(100, texture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                arrowExist = true;
-                arrow.Collision(slimes, player);
-                player.timer = 0;
 
-                if (player.direction == Direction.RIGHT)
-                {
-                    arrow = new Arrow(100, texture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                    arrowExist = true;
-                    arrow.Collision(slimes, player);
-                }
-
-                if (player.direction == Direction.LEFT)
-                {
-                    arrow = new Arrow(100, texture, player.position.X - 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                    arrowExist = true;
-                    arrow.Collision(slimes, player);
-                }
-                player.UseArrow();
-            }
-
-            if (arrowExist == true)
-            {
-                if (player.timer > 60)
-                {
-                    arrowExist = false;
-                    player.timer = 0;
-                }
-            }
         }
 
         public int ArrowCount

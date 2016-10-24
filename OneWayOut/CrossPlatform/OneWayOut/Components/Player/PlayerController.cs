@@ -9,43 +9,47 @@ using Microsoft.Xna.Framework.Input;
 
 namespace OneWayOut.Components
 {
-	enum Direction
-	{
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN,
-		IDLE
-	}
+    enum Direction
+    {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN,
+        IDLE
+    }
 
-	/// <summary>
-	/// Player Controller Methods
-	/// </summary>
-	partial class Player:GameObject
-	{
-		/// <summary>
-		/// Moving Handler
-		/// </summary>
-		public void Move ()
-		{
-			KeyboardState kbState = Keyboard.GetState ();
-			direction = Direction.IDLE;
-			if (kbState.IsKeyDown (Keys.Up)) {
-				direction = Direction.UP;
-				position.Y -= 3;
-			}
-			if (kbState.IsKeyDown (Keys.Down)) {
-				direction = Direction.DOWN;
-				position.Y += 3;
-			}
-			if (kbState.IsKeyDown (Keys.Left)) {
-				direction = Direction.LEFT;
-				position.X -= 3;
-			}
-			if (kbState.IsKeyDown (Keys.Right)) {
-				direction = Direction.RIGHT;
-				position.X += 3;
-			}
-		}
-	}
+    /// <summary>
+    /// Player Controller Methods
+    /// </summary>
+    partial class Player : GameObject
+    {
+        /// <summary>
+        /// Moving Handler
+        /// </summary>
+        public void Move()
+        {
+            KeyboardState kbState = Keyboard.GetState();
+            direction = Direction.IDLE;
+            if (kbState.IsKeyDown(Keys.Up))
+            {
+                direction = Direction.UP;
+                position.Y -= 3;
+            }
+            if (kbState.IsKeyDown(Keys.Down))
+            {
+                direction = Direction.DOWN;
+                position.Y += 3;
+            }
+            if (kbState.IsKeyDown(Keys.Left))
+            {
+                direction = Direction.LEFT;
+                position.X -= 3;
+            }
+            if (kbState.IsKeyDown(Keys.Right))
+            {
+                direction = Direction.RIGHT;
+                position.X += 3;
+            }
+        }
+    }
 }

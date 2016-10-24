@@ -112,18 +112,6 @@ namespace OneWayOut.Components
                 }
             }
         }
-
-        //POSSIBLY DELETE
-        //handles when the slime dies
-        public bool EnemyDeath()
-        {
-            if (health <= 0)
-            {
-                IsActive = false;
-                return true;
-            }
-            return false;
-        }
     }
 }
 

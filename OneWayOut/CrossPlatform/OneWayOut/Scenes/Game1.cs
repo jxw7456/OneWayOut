@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 using OneWayOut.Components;
 
 using OneWayOut.Manager;
+using System.Collections.Generic;
 
 namespace OneWayOut.Scenes
 {
@@ -16,7 +16,7 @@ namespace OneWayOut.Scenes
     {
         //Objects from all components and managers
         GraphicsDeviceManager graphics;
-        
+
         SpriteBatch spriteBatch;
 
         Texture2D spriteSheet;
@@ -24,10 +24,6 @@ namespace OneWayOut.Scenes
         Player player;
 
         Rectangle healthSize;
-
-        Slime slime;
-
-        Arrow arrow;
 
         KeyboardState kbState;
 
@@ -37,7 +33,7 @@ namespace OneWayOut.Scenes
 
         Texture2D signPicture;
 
-        Texture2D arrowPicture;
+        Arrow arrow;
 
         AssetManager asset;
 
@@ -52,6 +48,7 @@ namespace OneWayOut.Scenes
         Highscore highscoreText;
 
         bool scoreChecked;
+
         bool arrowExist;
 
         public Game1()
@@ -93,8 +90,6 @@ namespace OneWayOut.Scenes
 
             health = Content.Load<Texture2D>(@"textures/health");
 
-            arrowPicture = Content.Load<Texture2D>(@"textures/arrow");
-
             asset = new AssetManager(Content, GraphicsDevice);
 
             background = new BackgroundManager(Content);
@@ -103,13 +98,12 @@ namespace OneWayOut.Scenes
 
             bgm = new BgmManager(Content);
 
-            player = new Player(spriteSheet, 1, 4);
-
             highscoreText = new Highscore(Content);
+
+            player = new Player(spriteSheet);
 
             player.SetPositionCenter(GraphicsDevice);
 
-            
             // TODO: use this.Content to load your game content here
         }
 
@@ -171,63 +165,70 @@ namespace OneWayOut.Scenes
                 //GAME case: where the game is actually played and score is gathered
                 case GameState.GAME:
                     bgm.PlayGame();
+
                     highscoreText.getScore(player.score);
+
                     player.Move();
+
                     healthSize = new Rectangle(5, 5, player.health, 30);
+                    
                     //Arrows
                     if (player.arrowSupply > 0)
                     {
-                        //player.PlayerShoot(kbState, arrowPicture, arrow, player, asset.slimes); does the code below, but the ARROW does not draw                        
-
                         if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
                         {
-                            arrow = new Arrow(100, arrowPicture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                            arrowExist = true;
-                            arrow.Collision(asset.slimes, player);
-                            player.timer = 0;
+                            int arrowX = player.position.X + 100;
+                            int arrowY = player.position.Y + 40;
 
                             if (player.direction == Direction.RIGHT)
                             {
-                                arrow = new Arrow(100, arrowPicture, player.position.X + 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                                arrowExist = true;
-                                arrow.Collision(asset.slimes, player);
+
                             }
 
                             if (player.direction == Direction.LEFT)
                             {
-                                arrow = new Arrow(100, arrowPicture, player.position.X - 100, player.position.Y + 25, player.position.Width + 20, player.position.Height);
-                                arrowExist = true;
-                                arrow.Collision(asset.slimes, player);
+                                arrowX -= 200;
                             }
+                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
+
+                            arrowExist = true;
+
+                            arrow.Collision(asset.slimes);
+
+                            player.timer = 0;
+
                             player.UseArrow();
                         }
 
-                        if (arrowExist == true)
+                        if (player.timer > 60)
                         {
-                            if (player.timer > 60)
-                            {
-                                arrowExist = false;
-                                player.timer = 0;
-                            }
+                            arrowExist = false;
+                            player.timer = 0;
                         }
-
-                        //Code for Slime Attacking Commented out to Prevent From Crashing since score is not finished yet
-                        
-                        foreach(Slime slimes in asset.slimes)
-                        {
-                            slimes.SlimeAttack(player);
-                        }
-                                               
                     }
 
                     player.Update(gameTime);
 
                     game.ScreenWrap(GraphicsDevice, player);
 
-                    foreach (var slime in asset.slimes)
+                    for (int i = 0; i < asset.slimes.Count; i++)
                     {
+                        var slime = asset.slimes[i];
                         slime.Chase(player, gameTime);
                         game.ScreenWrap(GraphicsDevice, slime);
+                        //slime.SlimeAttack(player);
+
+                        //handles when the slime dies
+                        if (slime.Health <= 0)
+                        {
+                            player.GainArrow();
+
+                            player.score += 50;
+
+                            slime.IsActive = false;
+
+                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows           
+                        }
                     }
 
                     if (SingleKeyPress(Keys.P))
@@ -333,11 +334,11 @@ namespace OneWayOut.Scenes
                         {
                             if (player.direction == Direction.RIGHT)
                             {
-                                spriteBatch.Draw(arrowPicture, arrow.position, Color.White);
+                                spriteBatch.Draw(asset.arrowTexture, arrow.position, Color.White);
                             }
                             if (player.direction == Direction.LEFT)
                             {
-                                spriteBatch.Draw(arrowPicture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                                spriteBatch.Draw(asset.arrowTexture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
                             }
                         }
                     }
@@ -374,6 +375,7 @@ namespace OneWayOut.Scenes
                     foregroundText.DrawGameover(spriteBatch);
 
                     highscoreText.readScore();
+
                     if (scoreChecked == false)
                     {
                         highscoreText.CheckScore(player.score);
