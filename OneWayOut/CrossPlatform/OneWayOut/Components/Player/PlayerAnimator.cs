@@ -79,6 +79,7 @@ namespace OneWayOut.Components
             {
                 spriteBatch.Draw(texture, position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
+
             else
             {
                 spriteBatch.Draw(texture, position, sourceRectangle, Color.White);

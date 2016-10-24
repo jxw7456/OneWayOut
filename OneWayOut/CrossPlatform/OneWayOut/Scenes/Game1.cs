@@ -33,8 +33,6 @@ namespace OneWayOut.Scenes
 
         Texture2D signPicture;
 
-        Texture2D collision;
-
         Arrow arrow;
 
         AssetManager asset;
@@ -108,8 +106,6 @@ namespace OneWayOut.Scenes
 
             player.SetPositionCenter(GraphicsDevice);
 
-            collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -174,7 +170,7 @@ namespace OneWayOut.Scenes
 
                     highscoreText.getScore(player.score);
 
-                    player.Move();                    
+                    player.Move();
 
                     player.Update(gameTime);
 
@@ -182,6 +178,7 @@ namespace OneWayOut.Scenes
 
                     game.ScreenWrap(GraphicsDevice, player);
 
+                    //TODO
                     //arrow.Move(player.direction);
 
                     for (int i = 0; i < asset.slimes.Count; i++)
@@ -189,7 +186,7 @@ namespace OneWayOut.Scenes
                         var slime = asset.slimes[i];
                         slime.Chase(player, gameTime);
                         game.ScreenWrap(GraphicsDevice, slime);
-                        //slime.SlimeAttack(player);
+                        slime.SlimeAttack(player);
 
                         //handles when the slime dies
                         if (slime.Health <= 0)
@@ -245,10 +242,8 @@ namespace OneWayOut.Scenes
                         {
                             arrowExist = false;
                             arrow.timer = 0;
-                        }                        
+                        }
                     }
-
-                    
 
                     if (SingleKeyPress(Keys.P))
                     {
@@ -272,7 +267,8 @@ namespace OneWayOut.Scenes
 
                         game.state = GameState.START;
 
-                        /*Process firstProc = new Process();
+                        /*
+                        Process firstProc = new Process();
                         firstProc.StartInfo.FileName = "oneWayOutExternalTool.exe";
                         firstProc.EnableRaisingEvents = true;
 
@@ -290,11 +286,13 @@ namespace OneWayOut.Scenes
 
                     if (SingleKeyPress(Keys.G))
                     {
+                        ResetGame();
                         game.state = GameState.GAME;
                     }
 
                     if (SingleKeyPress(Keys.Enter))
                     {
+                        ResetGame();
                         game.state = GameState.START;
                     }
                     break;
@@ -459,14 +457,14 @@ namespace OneWayOut.Scenes
             player.health = 100;
             player.score = 0;
             player.arrowSupply = 5;
-            player.Draw(spriteBatch);
-            asset.DrawSlimes(spriteBatch, foregroundText);
+            player.SetPositionCenter(GraphicsDevice);
+            //add new slime for the player            
         }
 
         //Draws new slime after clearing out all slime
         public void NextWave()
         {
-            
+            //do what is done in the above method
         }
     }
 }

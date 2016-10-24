@@ -51,9 +51,9 @@ namespace OneWayOut.Components
         /// <param name="Texture">T.</param>
         /// <param name="r">The red component.</param>
         /// <param name="c">C.</param>
-        public Player(Texture2D Texture) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        public Player(Texture2D t) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
-            texture = Texture;
+            texture = t;
             health = 100;
             arrowSupply = 5;
             timer = 0;

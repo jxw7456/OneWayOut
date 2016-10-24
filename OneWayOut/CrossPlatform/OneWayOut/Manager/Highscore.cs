@@ -46,7 +46,7 @@ namespace OneWayOut
             }
             catch (Exception e)
             {
-
+                var highScore = new StreamWriter("highscore.txt");
             }
         }
 

@@ -65,7 +65,8 @@ namespace OneWayOut.Manager
 
 			slimes = new List<Slime> ();
              
-			for (int i = 0; i < SLIME_COUNT; i++) {
+			for (int i = 0; i < SLIME_COUNT; i++)
+            {
 				AddNewSlime (Graphics);
 			}
 		}
@@ -108,7 +109,7 @@ namespace OneWayOut.Manager
 		/// Adds new slime into the slime list.
 		/// </summary>
 		/// <param name="Graphics">Graphics.</param>
-		void AddNewSlime (GraphicsDevice Graphics)
+		public void AddNewSlime (GraphicsDevice Graphics)
 		{
 			slimes.Add (MakeNewSlime (Graphics));
 		}
@@ -118,7 +119,7 @@ namespace OneWayOut.Manager
 		/// </summary>
 		/// <returns>A new slime.</returns>
 		/// <param name="Graphics">Graphics.</param>
-		Slime MakeNewSlime (GraphicsDevice Graphics)
+		public Slime MakeNewSlime (GraphicsDevice Graphics)
 		{
 			var vp = Graphics.Viewport;
 
