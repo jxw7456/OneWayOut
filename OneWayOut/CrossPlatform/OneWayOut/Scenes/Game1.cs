@@ -104,6 +104,8 @@ namespace OneWayOut.Scenes
 
             player = new Player(spriteSheet);
 
+            arrow = new Arrow(100, asset.arrowTexture, player.position.X + 100, player.position.Y + 40);
+
             player.SetPositionCenter(GraphicsDevice);
 
             collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
@@ -177,7 +179,29 @@ namespace OneWayOut.Scenes
                     player.Update(gameTime);
 
                     healthSize = new Rectangle(5, 5, player.health, 30);
-                    
+               
+                    game.ScreenWrap(GraphicsDevice, player);
+
+                    for (int i = 0; i < asset.slimes.Count; i++)
+                    {
+                        var slime = asset.slimes[i];
+                        slime.Chase(player, gameTime);
+                        game.ScreenWrap(GraphicsDevice, slime);
+                        //slime.SlimeAttack(player);
+
+                        //handles when the slime dies
+                        if (slime.Health <= 0)
+                        {
+                            player.GainArrow();
+
+                            player.score += 50;
+
+                            slime.IsActive = false;
+
+                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows           
+                        }
+                    }
+
                     //Arrows: can be ONLY when facing left or right
                     if (player.arrowSupply > 0)
                     {
@@ -218,29 +242,7 @@ namespace OneWayOut.Scenes
                         if (player.timer > 60)
                         {
                             arrowExist = false;
-                            player.timer = 0;
-                        }
-                    }
-
-                    game.ScreenWrap(GraphicsDevice, player);
-
-                    for (int i = 0; i < asset.slimes.Count; i++)
-                    {
-                        var slime = asset.slimes[i];
-                        slime.Chase(player, gameTime);
-                        game.ScreenWrap(GraphicsDevice, slime);
-                        //slime.SlimeAttack(player);
-
-                        //handles when the slime dies
-                        if (slime.Health <= 0)
-                        {
-                            player.GainArrow();
-
-                            player.score += 50;
-
-                            slime.IsActive = false;
-
-                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows           
+                            arrow.timer = 0;
                         }
                     }
 
@@ -328,10 +330,7 @@ namespace OneWayOut.Scenes
                     break;
 
                 //Draw Game
-                case GameState.GAME:
-                    Rectangle playerBounds = new Rectangle(player.position.X, player.position.Y, player.position.Width, player.position.Height);
-                    //Rectangle arrowBounds = new Rectangle(arrow.position.X, arrow.position.Y, arrow.position.Width, arrow.position.Height);
-                    
+                case GameState.GAME:                    
                     asset.DrawDungeon(spriteBatch);
 
                     scoreChecked = false;
@@ -342,8 +341,7 @@ namespace OneWayOut.Scenes
 
                     highscoreText.DrawScore(spriteBatch, player);
 
-                    player.Draw(spriteBatch, new Vector2(200, 50));
-                    spriteBatch.Draw(collision, playerBounds, Color.Red);
+                    player.Draw(spriteBatch);
 
                     if (arrowExist == true && player.arrowSupply > 0)
                     {
@@ -352,12 +350,10 @@ namespace OneWayOut.Scenes
                             if (player.direction == Direction.RIGHT)
                             {
                                 spriteBatch.Draw(asset.arrowTexture, arrow.position, Color.White);
-                                //spriteBatch.Draw(collision, arrowBounds, Color.Red);
                             }
                             if (player.direction == Direction.LEFT)
                             {
                                 spriteBatch.Draw(asset.arrowTexture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-                                //spriteBatch.Draw(collision, arrowBounds, Color.Red);
                             }
                         }
                     }
@@ -412,7 +408,7 @@ namespace OneWayOut.Scenes
                     spriteBatch.Draw(health, new Rectangle(4, 5, 152, 31), Color.Black);
                     spriteBatch.Draw(health, new Rectangle(5, 5, 150, 30), Color.White);
 
-                    player.Draw(spriteBatch, new Vector2(200, 50));
+                    player.Draw(spriteBatch);
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
@@ -438,6 +434,16 @@ namespace OneWayOut.Scenes
                 }
             }
             return valid;
+        }
+
+        //Resets the game if player dies or quits
+        public void ResetGame()
+        {
+            player.health = 100;
+            player.score = 0;
+            player.arrowSupply = 5;
+            player.Draw(spriteBatch);
+            asset.DrawSlimes(spriteBatch, foregroundText);
         }
     }
 }

@@ -76,11 +76,6 @@ namespace OneWayOut.Components
             SetPosition((screenWidth - PLAYER_SIZE) / 2, (screenHeight - PLAYER_SIZE) / 2);
         }
 
-        public void PlayerShoot()
-        {
-
-        }
-
         public int ArrowCount
         {
             get { return arrowSupply; }

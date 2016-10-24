@@ -10,12 +10,12 @@ namespace OneWayOut.Components
 {
     partial class Arrow : GameObject
     {
-        int timer;
+        public int timer;
 
-        int damage;
+        public int damage;
 
-        const int WIDTH = 80;
-        const int HEIGHT = 60;
+        const int WIDTH = 55;
+        const int HEIGHT = 35;
 
         //Arrow Constructor
         /// <summary>

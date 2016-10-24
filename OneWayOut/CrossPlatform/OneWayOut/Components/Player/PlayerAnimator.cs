@@ -30,7 +30,7 @@ namespace OneWayOut.Components
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location)
+        public new void Draw(SpriteBatch spriteBatch)
         {
             Rectangle sourceRectangle;
 
