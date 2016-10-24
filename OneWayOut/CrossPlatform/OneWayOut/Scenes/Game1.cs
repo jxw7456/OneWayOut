@@ -33,6 +33,8 @@ namespace OneWayOut.Scenes
 
         Texture2D signPicture;
 
+        Texture2D collision;
+
         Arrow arrow;
 
         AssetManager asset;
@@ -104,6 +106,8 @@ namespace OneWayOut.Scenes
 
             player.SetPositionCenter(GraphicsDevice);
 
+            collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -172,7 +176,7 @@ namespace OneWayOut.Scenes
 
                     healthSize = new Rectangle(5, 5, player.health, 30);
                     
-                    //Arrows
+                    //Arrows: can be ONLY when facing left or right
                     if (player.arrowSupply > 0)
                     {
                         if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
@@ -182,22 +186,31 @@ namespace OneWayOut.Scenes
 
                             if (player.direction == Direction.RIGHT)
                             {
+                                arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
 
+                                arrowExist = true;
+
+                                arrow.Collision(asset.slimes);
+
+                                player.timer = 0;
+
+                                player.UseArrow();
                             }
 
                             if (player.direction == Direction.LEFT)
                             {
                                 arrowX -= 200;
+
+                                arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
+
+                                arrowExist = true;
+
+                                arrow.Collision(asset.slimes);
+
+                                player.timer = 0;
+
+                                player.UseArrow();
                             }
-                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
-
-                            arrowExist = true;
-
-                            arrow.Collision(asset.slimes);
-
-                            player.timer = 0;
-
-                            player.UseArrow();
                         }
 
                         if (player.timer > 60)
@@ -316,6 +329,9 @@ namespace OneWayOut.Scenes
 
                 //Draw Game
                 case GameState.GAME:
+                    Rectangle playerBounds = new Rectangle(player.position.X, player.position.Y, player.position.Width, player.position.Height);
+                    //Rectangle arrowBounds = new Rectangle(arrow.position.X, arrow.position.Y, arrow.position.Width, arrow.position.Height);
+                    
                     asset.DrawDungeon(spriteBatch);
 
                     scoreChecked = false;
@@ -327,6 +343,7 @@ namespace OneWayOut.Scenes
                     highscoreText.DrawScore(spriteBatch, player);
 
                     player.Draw(spriteBatch, new Vector2(200, 50));
+                    spriteBatch.Draw(collision, playerBounds, Color.Red);
 
                     if (arrowExist == true && player.arrowSupply > 0)
                     {
@@ -335,10 +352,12 @@ namespace OneWayOut.Scenes
                             if (player.direction == Direction.RIGHT)
                             {
                                 spriteBatch.Draw(asset.arrowTexture, arrow.position, Color.White);
+                                //spriteBatch.Draw(collision, arrowBounds, Color.Red);
                             }
                             if (player.direction == Direction.LEFT)
                             {
                                 spriteBatch.Draw(asset.arrowTexture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                                //spriteBatch.Draw(collision, arrowBounds, Color.Red);
                             }
                         }
                     }

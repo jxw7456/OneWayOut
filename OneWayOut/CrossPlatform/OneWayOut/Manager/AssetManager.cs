@@ -31,6 +31,8 @@ namespace OneWayOut.Manager
 
         public Texture2D arrowTexture;
 
+        public Texture2D collision;
+
         Texture2D slimeTexture;
 
         MarkovNameGenerator nameGen;
@@ -38,6 +40,8 @@ namespace OneWayOut.Manager
         public List<Slime> slimes;
 
         public Dungeon dungeon;
+
+        public Slime slime;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
@@ -56,6 +60,8 @@ namespace OneWayOut.Manager
             nameGen = new MarkovNameGenerator();
 
             arrowTexture = Content.Load<Texture2D>(@"textures/arrow");
+
+            collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
 
             InitSlime(Graphics);
 
@@ -78,6 +84,7 @@ namespace OneWayOut.Manager
             {
                 slime.Draw(spriteBatch);
                 foreGroundText.DrawSlimeName(spriteBatch, slime);
+                spriteBatch.Draw(collision, new Rectangle(slime.position.X, slime.position.Y, slime.position.Width, slime.position.Height), Color.Red);
             }
         }
 
