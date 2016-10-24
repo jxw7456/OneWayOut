@@ -171,8 +171,10 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
 
                     highscoreText.getScore(player.score);
-
+                    
                     player.Move();
+
+                    player.Update(gameTime);
 
                     healthSize = new Rectangle(5, 5, player.health, 30);
                     
@@ -219,8 +221,6 @@ namespace OneWayOut.Scenes
                             player.timer = 0;
                         }
                     }
-
-                    player.Update(gameTime);
 
                     game.ScreenWrap(GraphicsDevice, player);
 
