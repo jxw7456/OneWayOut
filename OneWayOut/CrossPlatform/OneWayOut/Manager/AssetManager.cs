@@ -14,125 +14,140 @@ using OneWayOut.Components;
 
 namespace OneWayOut.Manager
 {
-    /// <summary>
-    /// Asset manager 
-    /// Manages outstanding collections and list that 
-    /// does not require much helper method.
-    /// </summary>
-    class AssetManager
-    {
-        const int RANDOM_SEED = 999;
+	/// <summary>
+	/// Asset manager 
+	/// Manages outstanding collections and list that 
+	/// does not require much helper method.
+	/// </summary>
+	class AssetManager
+	{
+		const int RANDOM_SEED = 999;
 
-        const int SLIME_SIZE = 90;
+		const int SLIME_SIZE = 90;
 
-        const int SLIME_COUNT = 9;
+		const int SLIME_COUNT = 9;
 
-        Random random;
+		Random random;
 
-        public Texture2D arrowTexture;
+		public Texture2D arrowTexture;
 
-        public Texture2D collision;
+		Texture2D slimeTexture;
 
-        Texture2D slimeTexture;
+		MarkovNameGenerator nameGen;
 
-        MarkovNameGenerator nameGen;
+		public List<Slime> slimes;
 
-        public List<Slime> slimes;
+		public Dungeon dungeon;
 
-        public Dungeon dungeon;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
+		/// Init the Slime List and Dungeon Tiles
+		/// </summary>
+		/// <param name="Content">Content.</param>
+		/// <param name="Graphics">Graphics.</param>
+		public AssetManager (ContentManager Content, GraphicsDevice Graphics)
+		{
+			random = new Random ();
 
-        public Slime slime;
+			dungeon = new Dungeon (Content);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
-        /// Init the Slime List and Dungeon Tiles
-        /// </summary>
-        /// <param name="Content">Content.</param>
-        /// <param name="Graphics">Graphics.</param>
-        public AssetManager(ContentManager Content, GraphicsDevice Graphics)
-        {
-            random = new Random();
+			dungeon.GenerateTiles (random);
 
-            dungeon = new Dungeon(Content);
+			nameGen = new MarkovNameGenerator ();
 
-            dungeon.GenerateTiles(random);
+			arrowTexture = Content.Load<Texture2D> (@"textures/arrow");
 
-            nameGen = new MarkovNameGenerator();
+			InitSlime (Graphics);
 
-            arrowTexture = Content.Load<Texture2D>(@"textures/arrow");
+			slimes = new List<Slime> ();
 
-            collision = Content.Load<Texture2D>(@"textures/Simple_Rectangle_-_Semi-Transparent");
+			for (int i = 0; i < SLIME_COUNT; i++) {
+				AddNewSlime (Graphics);
+			}
+		}
 
-            InitSlime(Graphics);
+		/// <summary>
+		/// Draws all the slimes.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
+		/// <param name="foreGroundText">Fore ground text.</param>
+		public void DrawSlimes (SpriteBatch spriteBatch, ForegroundTextManager foreGroundText)
+		{
+			foreach (var slime in slimes) {
+				slime.Draw (spriteBatch);
+				foreGroundText.DrawSlimeName (spriteBatch, slime);
+			}
+		}
 
-            slimes = new List<Slime>();
+		/// <summary>
+		/// Draws the dungeon.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
+		public void DrawDungeon (SpriteBatch spriteBatch)
+		{
+			dungeon.Draw (spriteBatch);
+		}
 
-            for (int i = 0; i < SLIME_COUNT; i++)
-            {
-                AddNewSlime(Graphics);
-            }
-        }
+		/// <summary>
+		/// Inits the slime texture.
+		/// </summary>
+		/// <param name="Graphics">Graphics.</param>
+		void InitSlime (GraphicsDevice Graphics)
+		{
+			slimeTexture = new Texture2D (Graphics, 1, 1);
 
-        /// <summary>
-        /// Draws all the slimes.
-        /// </summary>
-        /// <param name="spriteBatch">Sprite batch.</param>
-        /// <param name="foreGroundText">Fore ground text.</param>
-        public void DrawSlimes(SpriteBatch spriteBatch, ForegroundTextManager foreGroundText)
-        {
-            foreach (var slime in slimes)
-            {
-                slime.Draw(spriteBatch);
-                foreGroundText.DrawSlimeName(spriteBatch, slime);
-                spriteBatch.Draw(collision, new Rectangle(slime.position.X, slime.position.Y, slime.position.Width, slime.position.Height), Color.Red);
-            }
-        }
+			slimeTexture.SetData<Color> (new Color[] { Color.White });
+		}
 
-        /// <summary>
-        /// Draws the dungeon.
-        /// </summary>
-        /// <param name="spriteBatch">Sprite batch.</param>
-        public void DrawDungeon(SpriteBatch spriteBatch)
-        {
-            dungeon.Draw(spriteBatch);
-        }
+		/// <summary>
+		/// Adds new slime into the slime list.
+		/// </summary>
+		/// <param name="Graphics">Graphics.</param>
+		void AddNewSlime (GraphicsDevice Graphics)
+		{
+			slimes.Add (MakeNewSlime (Graphics));
+		}
 
-        /// <summary>
-        /// Inits the slime texture.
-        /// </summary>
-        /// <param name="Graphics">Graphics.</param>
-        void InitSlime(GraphicsDevice Graphics)
-        {
-            slimeTexture = new Texture2D(Graphics, 1, 1);
+		/// <summary>
+		/// Generate a new random slime.
+		/// </summary>
+		/// <returns>A new slime.</returns>
+		/// <param name="Graphics">Graphics.</param>
+		Slime MakeNewSlime (GraphicsDevice Graphics)
+		{
+			var vp = Graphics.Viewport;
 
-            slimeTexture.SetData<Color>(new Color[] { Color.White });
-        }
+			string name = nameGen.RandomBottomCase (nameGen.NextName, GameManager.level);
 
-        /// <summary>
-        /// Adds new slime into the slime list.
-        /// </summary>
-        /// <param name="Graphics">Graphics.</param>
-        void AddNewSlime(GraphicsDevice Graphics)
-        {
-            slimes.Add(MakeNewSlime(Graphics));
-        }
+			int i = random.Next (4); 
 
-        /// <summary>
-        /// Generate a new random slime.
-        /// </summary>
-        /// <returns>A new slime.</returns>
-        /// <param name="Graphics">Graphics.</param>
-        Slime MakeNewSlime(GraphicsDevice Graphics)
-        {
-            var vp = Graphics.Viewport;
+			int slimeX = 0;
 
-            string name = nameGen.RandomBottomCase(nameGen.NextName, GameManager.level);
+			int slimeY = 0;
 
-            var s = new Slime(random.Next(vp.Width), random.Next(vp.Height), SLIME_SIZE, SLIME_SIZE, Graphics, random, name);
+			switch (i) {
+			case 0:
+				slimeX = vp.Width - SLIME_SIZE;
+				goto case 1;
+			case 1:
+				slimeY = random.Next (vp.Height);
+				break;
+			case 2:
+				slimeY = vp.Height - SLIME_SIZE;
+				goto case 3
+				;
+			case 3:
+				slimeX = random.Next (vp.Width);
+				break;
+			default:
+				break;
+			}
 
-            s.texture = slimeTexture;
+			var s = new Slime (slimeX, slimeY, SLIME_SIZE, SLIME_SIZE, Graphics, random, name);
 
-            return s;
-        }
-    }
+			s.texture = slimeTexture;
+
+			return s;
+		}
+	}
 }
