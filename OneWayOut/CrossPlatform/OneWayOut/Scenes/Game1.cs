@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Diagnostics;
 using OneWayOut.Components;
 
 using OneWayOut.Manager;
@@ -265,7 +265,19 @@ namespace OneWayOut.Scenes
 
                     if (SingleKeyPress(Keys.O))
                     {
+
                         game.state = GameState.START;
+
+                        /*Process firstProc = new Process();
+                        firstProc.StartInfo.FileName = "oneWayOutExternalTool.exe";
+                        firstProc.EnableRaisingEvents = true;
+
+                        firstProc.Start();
+
+                        firstProc.WaitForExit();
+                        */
+                        
+                        
                     }
                     break;
 
