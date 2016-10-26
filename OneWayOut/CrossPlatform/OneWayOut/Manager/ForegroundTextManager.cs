@@ -4,8 +4,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 using OneWayOut.Components;
+using Microsoft.Xna.Framework.Input;
 
-namespace OneWayOut
+namespace OneWayOut.Manager
 {
 	/// <summary>
 	/// Foreground text manager.
@@ -32,7 +33,7 @@ namespace OneWayOut
 
 			owoFont = Content.Load<SpriteFont> (@"fonts/owo");
 
-            owoFont.Spacing = 5;
+			owoFont.Spacing = 5;
 		}
 
 		/// <summary>
@@ -52,21 +53,21 @@ namespace OneWayOut
 		public void DrawGameover (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "YOU ARE DEAD", new Vector2 (225, 10), Color.Red);
-			spriteBatch.DrawString (boldFont, "Press 'Enter(F3)' to Restart", new Vector2 (270, 410), Color.White);
-			spriteBatch.DrawString (boldFont, "Press 'F1' for Main Menu", new Vector2 (225, 440), Color.White);
+			spriteBatch.DrawString (boldFont, "Press " + (Keys)GameState.GAME + " to Restart", new Vector2 (270, 410), Color.White);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.START + "' for Main Menu", new Vector2 (225, 440), Color.White);
 		}
 
-        public void DrawGame(SpriteBatch spriteBatch, Player archer)
-        {
-            spriteBatch.DrawString(biggerFont, "Arrows: " + archer.arrowSupply, new Vector2(0, 50), Color.White);
+		public void DrawGame (SpriteBatch spriteBatch, Player archer)
+		{
+			spriteBatch.DrawString (biggerFont, "Arrows: " + archer.arrowSupply, new Vector2 (0, 50), Color.White);
             
-        }
+		}
 
-        /// <summary>
-        /// Draws the help text.
-        /// </summary>
-        /// <param name="spriteBatch">Sprite batch.</param>
-        public void DrawHelp (SpriteBatch spriteBatch)
+		/// <summary>
+		/// Draws the help text.
+		/// </summary>
+		/// <param name="spriteBatch">Sprite batch.</param>
+		public void DrawHelp (SpriteBatch spriteBatch)
 		{
 			//Story
 			spriteBatch.DrawString (boldFont, "Story", new Vector2 (0, 0), Color.Red);
@@ -105,9 +106,9 @@ namespace OneWayOut
 		public void DrawStart (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "One Way Out", new Vector2 (225, 10), Color.White);
-			spriteBatch.DrawString (boldFont, "Press 'Enter(F3)' to Start", new Vector2 (235, 180), Color.OrangeRed);
-			spriteBatch.DrawString (boldFont, "Press 'F2' for Help", new Vector2 (270, 210), Color.OrangeRed);
-			spriteBatch.DrawString (boldFont, "Press 'F4' for Options", new Vector2 (240, 240), Color.OrangeRed);                    
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Start", new Vector2 (235, 180), Color.OrangeRed);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.HELP + "' for Help", new Vector2 (270, 210), Color.OrangeRed);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.OPTIONS + "' for Options", new Vector2 (240, 240), Color.OrangeRed);                    
 			spriteBatch.DrawString (boldFont, "Press 'Esc' to Quit", new Vector2 (255, 440), Color.Red);
 		}
 
@@ -118,7 +119,8 @@ namespace OneWayOut
 		public void DrawPause (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "PAUSED", new Vector2 (300, 200), Color.DarkOrange);
-			spriteBatch.DrawString (boldFont, "Press 'F5' to Quit", new Vector2 (255, 440), Color.DarkRed);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2 (240, 400), Color.DarkRed);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAMEOVER + "' to Quit", new Vector2 (255, 440), Color.DarkRed);
 		}
 	}
 }
