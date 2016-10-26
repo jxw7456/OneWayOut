@@ -225,9 +225,11 @@ namespace OneWayOut.Scenes
 
 							player.timer = 0;
 
-							player.UseArrow ();
+
+							player.UseArrow ();                                
 						}
 					}
+
 
 					if (player.timer > 60) {
 						arrowExist = false;

@@ -57,12 +57,10 @@ namespace OneWayOut.Components
 
             for (int i = 0; i < shape.Length; ++i)
             {
-
                 var row = shape[i];
 
                 for (int j = 0; j < row.Length; ++j)
                 {
-
                     var point = (SlimeTextureMap)row[j];
 
                     // Skip 0 bits
