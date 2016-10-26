@@ -53,15 +53,15 @@ namespace OneWayOut.Manager
 		public void DrawGameover (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "YOU ARE DEAD", new Vector2 (225, 10), Color.Red);
-			spriteBatch.DrawString (boldFont, "Press " + (Keys)GameState.GAME + " to Restart", new Vector2 (270, 410), Color.White);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Restart", new Vector2 (270, 410), Color.White);
 			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.START + "' for Main Menu", new Vector2 (225, 440), Color.White);
 		}
 
 		public void DrawGame (SpriteBatch spriteBatch, Player archer)
 		{
 			spriteBatch.DrawString (biggerFont, "Arrows: " + archer.arrowSupply, new Vector2 (0, 50), Color.White);
-            
-		}
+            spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(480, 440), Color.Red);
+        }
 
 		/// <summary>
 		/// Draws the help text.
@@ -88,7 +88,9 @@ namespace OneWayOut.Manager
 			spriteBatch.DrawString (boldFont, "your keyboard to shoot your arrows.", new Vector2 (0, 240), Color.White);
 			spriteBatch.DrawString (boldFont, "Refer to the image given below for help: ", new Vector2 (0, 260), Color.OrangeRed);
 
-		}
+            spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.START + "' To", new Vector2(0, 420), Color.Red);
+            spriteBatch.DrawString(boldFont, "Go Back", new Vector2(0, 440), Color.Red);
+        }
 
 		/// <summary>
 		/// Draws the option text.
@@ -96,8 +98,9 @@ namespace OneWayOut.Manager
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void DrawOption (SpriteBatch spriteBatch)
 		{
-			//external tool not drawn on screen yet
-		}
+            //external tool not drawn on screen yet
+            spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.START + "' To Go Back", new Vector2(0, 445), Color.Red);
+        }
 
 		/// <summary>
 		/// Draws the start text.
@@ -119,8 +122,8 @@ namespace OneWayOut.Manager
 		public void DrawPause (SpriteBatch spriteBatch)
 		{
 			spriteBatch.DrawString (biggerFont, "PAUSED", new Vector2 (300, 200), Color.DarkOrange);
-			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2 (240, 400), Color.DarkRed);
-			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAMEOVER + "' to Quit", new Vector2 (255, 440), Color.DarkRed);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2 (240, 400), Color.Red);
+			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAMEOVER + "' to Quit", new Vector2 (255, 440), Color.Red);
 		}
 	}
 }

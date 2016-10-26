@@ -32,16 +32,18 @@ namespace OneWayOut.Components
             }
         }
 
+        //Bullet Movement
+        /*
         public void Move(Direction playerDirection)
         {
             if (playerDirection == Direction.RIGHT)
             {
-                position.X++;
+                position.X += 5;
             }
 
             if (playerDirection == Direction.LEFT)
             {
-                position.X--;
+                position.X -= 5;
             }
 
             if(position.X >= 480 || position.X <= 0)
@@ -49,5 +51,21 @@ namespace OneWayOut.Components
                 IsActive = false;
             }
         }
+
+        
+        public void Travel(List<Slime> slime)//makes the bullet move until it hits something or travels too far. uses collision method as well
+        {
+            if (IsActive == true)
+            {
+                Collision(slime); // check for collisions
+                timer++;
+
+                if (timer > 250)
+                {
+                    IsActive = false;
+                }
+            }
+        }
+        */
     }
 }
