@@ -46,7 +46,19 @@ namespace OneWayOut
             }
             catch (Exception e)
             {
-                var highScore = new StreamWriter("highscore.txt");
+                StreamWriter check = new StreamWriter("highscore.txt");
+                check.WriteLine("Highscore:");
+                check.WriteLine("1000");
+                check.WriteLine("500");
+                check.WriteLine("100");
+                check.Close();
+                using (var highScore = new StreamReader("highscore.txt"))
+                {
+                    while ((line = highScore.ReadLine()) != null)
+                    {
+                        entireFile.Add(line);
+                    }
+                }
             }
         }
 
