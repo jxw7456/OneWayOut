@@ -52,6 +52,8 @@ namespace OneWayOut.Scenes
 
 		bool arrowExist;
 
+        bool changedOptions = false;
+
 		public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
@@ -165,6 +167,8 @@ namespace OneWayOut.Scenes
 			case GameState.GAME:
 				bgm.PlayGame ();
 
+                    changedOptions = false;
+
 				highscoreText.getScore (player.score);
 
 				player.Move ();
@@ -249,18 +253,25 @@ namespace OneWayOut.Scenes
 
 
 
-					//TODO
-					/*Code for changing volume and putting it in the options screen
+                    //TODO
+                    //Code for changing volume and putting it in the options screen
+                    if(changedOptions == false)
+                    {
+                        changedOptions = true;
                         Process firstProc = new Process();
                         
-                        Process firstProc = new Process();
-                        firstProc.StartInfo.FileName = "oneWayOutExternalTool.exe";
+                        
+                        firstProc.StartInfo.FileName = "one way outexternal tool.exe";
                         firstProc.EnableRaisingEvents = true;
 
                         firstProc.Start();
 
                         firstProc.WaitForExit();
-                        */
+
+                        
+                    }
+
+                    
 				break;
 
 			//GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START

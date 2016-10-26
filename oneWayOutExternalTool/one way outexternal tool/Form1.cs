@@ -38,7 +38,7 @@ namespace one_way_outexternal_tool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            StreamWriter settings = new StreamWriter("../../../../OneWayOut/CrossPlatform/OneWayOut/bin/DesktopGL/x86/Debug/settings.txt");
+            StreamWriter settings = new StreamWriter("settings.txt");
             int number = trackBar1.Value;
             if (number == 5)
             {
