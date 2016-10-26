@@ -108,7 +108,7 @@ namespace OneWayOut.Components
                 player.health -= Damage;
                 if (player.health == 0)
                 {
-                    player.IsActive = false;                                 
+                    player.IsActive = false;
                 }
             }
         }

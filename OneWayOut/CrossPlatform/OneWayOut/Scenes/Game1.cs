@@ -255,7 +255,7 @@ namespace OneWayOut.Scenes
 
                                 player.timer = 0;
 
-                                player.UseArrow();
+                                player.UseArrow();                                
                             }
                         }
 

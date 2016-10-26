@@ -43,13 +43,11 @@ namespace OneWayOut.Components
                             row[j] = binaryReader.ReadByte();
                         }
                     }
-
                     return shape;
                 }
             }
             catch (FileNotFoundException ex)
             {
-
                 return null;
             }
         }

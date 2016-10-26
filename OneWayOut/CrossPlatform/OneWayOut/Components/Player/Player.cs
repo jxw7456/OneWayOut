@@ -55,7 +55,7 @@ namespace OneWayOut.Components
         {
             texture = t;
             health = 100;
-            arrowSupply = 5;
+            arrowSupply = 50;   //amount of arrows play has to start with
             timer = 0;
             blink = 0;
             row = PLAYER_TEXTURE_START_R;
@@ -82,6 +82,7 @@ namespace OneWayOut.Components
             set { arrowSupply = value; }
         }
 
+        //takes a arrow away with each use
         public void UseArrow()
         {
             if (arrowSupply > 0)
@@ -90,6 +91,7 @@ namespace OneWayOut.Components
             }
         }
 
+        //gains arrow for each slime death
         public void GainArrow()
         {
             arrowSupply += 2;
