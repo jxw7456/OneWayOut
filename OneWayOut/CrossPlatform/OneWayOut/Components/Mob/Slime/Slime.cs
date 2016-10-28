@@ -42,6 +42,12 @@ namespace OneWayOut.Components
         }
 
         private int health;
+        
+        public int Health
+        {
+            get { return health; }
+            set { health = value; }
+        }
 
         Color color;
 
@@ -74,7 +80,7 @@ namespace OneWayOut.Components
 
             name = n;
 
-            damage = Damage;
+            damage = 1;
 
             health = 100;
 
@@ -92,20 +98,13 @@ namespace OneWayOut.Components
             }
         }
 
-        public int Health
-        {
-            get { return health; }
-            set { health = value; }
-        }
-
         public void SlimeAttack(Player player)
         {
-            Damage = 1;
-
             if (this.position.Intersects(player.position))
             {
                 // Use property and kill the slime (ONE HIT from arrow KILLS)
-                player.health -= Damage;
+                player.health -= damage;
+
                 if (player.health == 0)
                 {
                     player.IsActive = false;

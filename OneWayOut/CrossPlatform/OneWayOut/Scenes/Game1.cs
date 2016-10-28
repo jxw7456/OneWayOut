@@ -26,10 +26,6 @@ namespace OneWayOut.Scenes
 
         Rectangle healthSize;
 
-        KeyboardState kbState;
-
-        KeyboardState previousKbState;
-
         Texture2D health;
 
         Texture2D signPicture;
@@ -52,8 +48,8 @@ namespace OneWayOut.Scenes
 
         bool scoreChecked;
 
-        bool arrowExist;
         bool checkIt = false;
+
         Point end;
 
         public Game1()
@@ -74,8 +70,6 @@ namespace OneWayOut.Scenes
             // TODO: Add your initialization logic here
 
             game = new GameManager();
-
-            arrowExist = false;
 
             end = new Point(0, 0);
 
@@ -111,8 +105,6 @@ namespace OneWayOut.Scenes
 
             player = new Player(spriteSheet);
 
- 
-
             player.SetPositionCenter(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -137,28 +129,12 @@ namespace OneWayOut.Scenes
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            previousKbState = kbState;
+            input.CacheKeyboardState();
 
-            kbState = Keyboard.GetState();
+            input.SwitchScene(game, bgm);
 
-            // Loop through all the enum to check for clicked state instead of going through each individually
-            foreach (GameState state in Enum.GetValues(typeof(GameState)))
-            {
-                if (SingleKeyPress((Keys)state))
-                {
-                    Console.WriteLine(state);
 
-                    game.state = state;
-
-                    if (state == GameState.GAME)
-                    {
-                        bgm.Resume();
-                    }
-                }
-            }
-
-            input.Record(gameTime);
+            //input.Record(gameTime);
 
             switch (game.state)
             {
@@ -180,7 +156,7 @@ namespace OneWayOut.Scenes
 
                     checkIt = false;
 
-    				highscoreText.getScore (player.score);
+                    highscoreText.getScore(player.score);
 
                     player.Move();
 
@@ -197,7 +173,7 @@ namespace OneWayOut.Scenes
                         arrow.Collision(asset.slimes);
                     }
 
-                   
+
                     for (int i = 0; i < asset.slimes.Count; i++)
                     {
                         var slime = asset.slimes[i];
@@ -221,19 +197,19 @@ namespace OneWayOut.Scenes
                     //Arrows: can be ONLY when facing left or right
                     if (player.arrowSupply > 0)
                     {
-                        if (kbState.IsKeyDown(Keys.Space))
+                        if (input.PushShoot())
                         {
                             int arrowX = player.position.X;
                             int arrowY = player.position.Y + 40;
                             arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
                             player.timer = 0;
-                            player.UseArrow();                            
+                            player.UseArrow();
                         }
                     }
 
                     if (player.health <= 0)
                     {
-                        
+
                         game.state = GameState.GAMEOVER;
                         highscoreText.getScore(player.score);
                         ResetGame();
@@ -244,39 +220,39 @@ namespace OneWayOut.Scenes
                 case GameState.OPTIONS:
 
                     bgm.PlayOptions();
-					//TODO
-					//Code for changing volume and putting it in the options screen
-                       // Process firstProc = new Process();
-                        if(checkIt == false)
+                    //TODO
+                    //Code for changing volume and putting it in the options screen
+                    // Process firstProc = new Process();
+                    if (checkIt == false)
                     {
                         checkIt = true;
                         try
                         {
 
-                        Process firstProc = new Process();
-                        firstProc.StartInfo.FileName = "one way outexternal tool.exe";
-                        firstProc.EnableRaisingEvents = true;
+                            Process firstProc = new Process();
+                            firstProc.StartInfo.FileName = "one way outexternal tool.exe";
+                            firstProc.EnableRaisingEvents = true;
 
-                        firstProc.Start();
+                            firstProc.Start();
 
-                        firstProc.WaitForExit();
+                            firstProc.WaitForExit();
 
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
 
                         }
-                        
+
 
                     }
-                                                
-				break;
+
+                    break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
-                    
+
 
                     break;
 
@@ -297,7 +273,7 @@ namespace OneWayOut.Scenes
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
@@ -405,12 +381,6 @@ namespace OneWayOut.Scenes
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        //Returns a bool for a key press
-        public bool SingleKeyPress(Keys keys)
-        {
-            return kbState.IsKeyDown(keys) && previousKbState.IsKeyUp(keys);
         }
 
         //Resets the game if player dies or quits

@@ -29,24 +29,24 @@ namespace OneWayOut.Manager
 		PAUSE = Keys.F6
 	}
 
-	/// <summary>
-	/// Game manager.
-	/// In charge of Handling Game State and Helper methods managing game
-	/// </summary>
-	class GameManager
-	{
-		public GameState state;
+    /// <summary>
+    /// Game manager.
+    /// In charge of Handling Game State and Helper methods managing game
+    /// </summary>
+    class GameManager
+    {
+        public GameState state;
 
-		public static int level;
+        public static int level;
 
-		/// <summary>
-		/// Initialize with state to start
-		/// </summary>
-		public GameManager ()
-		{
-			level = 3;
-			state = GameState.START;
-		}
+        /// <summary>
+        /// Initialize with state to start
+        /// </summary>
+        public GameManager()
+        {
+            level = 3;
+            state = GameState.START;
+        }
 
 		/// <summary>
 		/// Warp an object so it stays inside the scene
