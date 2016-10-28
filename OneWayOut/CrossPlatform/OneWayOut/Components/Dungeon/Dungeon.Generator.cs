@@ -19,9 +19,9 @@ namespace OneWayOut.Components.Dungeon
 		// n x n
 		const int DUNGEON_SIZE = 90;
 
-		const string TILE_TEXTURE = @"textures/ground";
+		//const string TILE_TEXTURE = @"textures/ground";
 
-		//const string TILE_TEXTURE = @"textures/floor";
+		const string TILE_TEXTURE = @"textures/floor";
 
 		Texture2D tileTexture;
 
