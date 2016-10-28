@@ -86,7 +86,7 @@ namespace OneWayOut
             sBatch.DrawString(font, mc.score.ToString(), gameScore, Color.White);
         }
 
-        public void CheckScore(int score)
+        public void CheckScore()
         {
             if (score >= int.Parse(entireFile[1]))
             {
