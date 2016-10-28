@@ -48,13 +48,15 @@ namespace OneWayOut.Scenes
 
         Highscore highscoreText;
 
+        InputManager input;
+
         bool scoreChecked;
 
         bool arrowExist;
 
-		public Game1 ()
-		{
-			graphics = new GraphicsDeviceManager (this);
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
         }
@@ -100,6 +102,8 @@ namespace OneWayOut.Scenes
             bgm = new BgmManager(Content);
 
             highscoreText = new Highscore(Content);
+
+            input = new InputManager();
 
             player = new Player(spriteSheet);
 
@@ -150,6 +154,7 @@ namespace OneWayOut.Scenes
                 }
             }
 
+            input.Record(gameTime);
 
             switch (game.state)
             {
@@ -169,7 +174,7 @@ namespace OneWayOut.Scenes
                 case GameState.GAME:
                     bgm.PlayGame();
 
-				highscoreText.getScore (player.score);
+                    highscoreText.getScore(player.score);
 
                     player.Move();
 
@@ -181,7 +186,6 @@ namespace OneWayOut.Scenes
 
                     //TODO
                     //arrow.Move(player.direction);
-
                     for (int i = 0; i < asset.slimes.Count; i++)
                     {
                         var slime = asset.slimes[i];
@@ -259,8 +263,8 @@ namespace OneWayOut.Scenes
 
                     bgm.PlayOptions();
 
-					//TODO
-					/*Code for changing volume and putting it in the options screen
+                    //TODO
+                    /*Code for changing volume and putting it in the options screen
                         Process firstProc = new Process();
                         
                         Process firstProc = new Process();
@@ -271,7 +275,7 @@ namespace OneWayOut.Scenes
 
                         firstProc.WaitForExit();
                         */
-				break;
+                    break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
@@ -408,7 +412,12 @@ namespace OneWayOut.Scenes
                     break;
             }
 
+            // DEBUG:
+
+            foregroundText.DrawDebug(spriteBatch, input.TypingStack);
+
             spriteBatch.End();
+
             base.Draw(gameTime);
         }
 

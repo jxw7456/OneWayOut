@@ -125,6 +125,16 @@ namespace OneWayOut.Manager
 			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2 (240, 400), Color.Red);
 			spriteBatch.DrawString (boldFont, "Press '" + (Keys)GameState.GAMEOVER + "' to Quit", new Vector2 (255, 440), Color.Red);
 		}
-	}
+        
+        /// <summary>
+        /// Debug Drawing to test the thing
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public void DrawDebug(SpriteBatch spriteBatch, string msg)
+        {
+            spriteBatch.DrawString(owoFont, msg, new Vector2(0, 450), Color.White);
+        }
+
+    }
 }
 
