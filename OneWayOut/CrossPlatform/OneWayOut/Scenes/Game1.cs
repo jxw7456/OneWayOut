@@ -53,6 +53,8 @@ namespace OneWayOut.Scenes
         bool scoreChecked;
 
         bool arrowExist;
+        bool checkIt = false;
+        Point end;
 
         public Game1()
         {
@@ -74,6 +76,8 @@ namespace OneWayOut.Scenes
             game = new GameManager();
 
             arrowExist = false;
+
+            end = new Point(0, 0);
 
             base.Initialize();
         }
@@ -107,7 +111,7 @@ namespace OneWayOut.Scenes
 
             player = new Player(spriteSheet);
 
-            arrow = new Arrow(100, asset.arrowTexture, player.position.X + 100, player.position.Y + 40);
+ 
 
             player.SetPositionCenter(GraphicsDevice);
 
@@ -174,7 +178,9 @@ namespace OneWayOut.Scenes
                 case GameState.GAME:
                     bgm.PlayGame();
 
-                    highscoreText.getScore(player.score);
+                    checkIt = false;
+
+    				highscoreText.getScore (player.score);
 
                     player.Move();
 
@@ -184,8 +190,14 @@ namespace OneWayOut.Scenes
 
                     game.ScreenWrap(GraphicsDevice, player);
 
-                    //TODO
-                    //arrow.Move(player.direction);
+
+                    if (arrow != null && asset.slimes.Count > 0)
+                    {
+                        arrow.Move(asset.slimes[0]);
+                        arrow.Collision(asset.slimes);
+                    }
+
+                   
                     for (int i = 0; i < asset.slimes.Count; i++)
                     {
                         var slime = asset.slimes[i];
@@ -209,52 +221,22 @@ namespace OneWayOut.Scenes
                     //Arrows: can be ONLY when facing left or right
                     if (player.arrowSupply > 0)
                     {
-                        if (kbState.IsKeyDown(Keys.Space) && arrowExist == false)
+                        if (kbState.IsKeyDown(Keys.Space))
                         {
-                            int arrowX = player.position.X + 100;
+                            int arrowX = player.position.X;
                             int arrowY = player.position.Y + 40;
-
-                            if (player.direction == Direction.RIGHT)
-                            {
-                                arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
-
-                                arrowExist = true;
-
-                                arrow.Collision(asset.slimes);
-
-                                player.timer = 0;
-
-                                player.UseArrow();
-                            }
-
-                            if (player.direction == Direction.LEFT)
-                            {
-                                arrowX -= 200;
-
-                                arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
-
-                                arrowExist = true;
-
-                                arrow.Collision(asset.slimes);
-
-                                player.timer = 0;
-
-
-                                player.UseArrow();
-                            }
-                        }
-
-                        if (player.timer > 80)
-                        {
-                            arrowExist = false;
-                            arrow.timer = 0;
+                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
+                            player.timer = 0;
+                            player.UseArrow();                            
                         }
                     }
 
                     if (player.health <= 0)
                     {
-                        ResetGame();
+                        
                         game.state = GameState.GAMEOVER;
+                        highscoreText.getScore(player.score);
+                        ResetGame();
                     }
                     break;
 
@@ -262,25 +244,39 @@ namespace OneWayOut.Scenes
                 case GameState.OPTIONS:
 
                     bgm.PlayOptions();
+					//TODO
+					//Code for changing volume and putting it in the options screen
+                       // Process firstProc = new Process();
+                        if(checkIt == false)
+                    {
+                        checkIt = true;
+                        try
+                        {
 
-                    //TODO
-                    /*Code for changing volume and putting it in the options screen
                         Process firstProc = new Process();
-                        
-                        Process firstProc = new Process();
-                        firstProc.StartInfo.FileName = "oneWayOutExternalTool.exe";
+                        firstProc.StartInfo.FileName = "one way outexternal tool.exe";
                         firstProc.EnableRaisingEvents = true;
 
-                      firstProc.Start();
+                        firstProc.Start();
 
                         firstProc.WaitForExit();
-                        */
-                    break;
+
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+                        
+
+                    }
+                                                
+				break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
+                    
 
                     break;
 
@@ -333,19 +329,9 @@ namespace OneWayOut.Scenes
 
                     player.Draw(spriteBatch);
 
-                    if (arrowExist == true && player.arrowSupply > 0)
+                    if (arrow != null)
                     {
-                        if (IsActive)
-                        {
-                            if (player.direction == Direction.RIGHT)
-                            {
-                                spriteBatch.Draw(asset.arrowTexture, arrow.position, Color.White);
-                            }
-                            if (player.direction == Direction.LEFT)
-                            {
-                                spriteBatch.Draw(asset.arrowTexture, arrow.position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-                            }
-                        }
+                        arrow.Draw(spriteBatch, gameTime);
                     }
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
@@ -385,7 +371,7 @@ namespace OneWayOut.Scenes
 
                     if (scoreChecked == false)
                     {
-                        highscoreText.CheckScore(player.score);
+                        highscoreText.CheckScore();
                         scoreChecked = true;
                     }
 

@@ -13,7 +13,7 @@ namespace OneWayOut.Components
     /// This object monitor the arrow's position as well as their general property
     /// </summary>
     partial class Arrow : GameObject
-    {        
+    {
         //Check to see if rectangles intersect with a character object
         public void Collision(List<Slime> slime)
         {
@@ -21,9 +21,9 @@ namespace OneWayOut.Components
             {
                 for (int i = 0; i < slime.Count; i++)
                 {
-                    if (this.position.Intersects(slime[i].position))
+                    if (position.Intersects(slime[i].position))
                     {
-                        // TODO: Use property and kill the slime (ONE HIT from arrow KILLS)
+                        //Use property and kill the slime (ONE HIT from arrow KILLS)
                         slime[i].Health -= damage;
 
                         IsActive = false;
@@ -32,27 +32,49 @@ namespace OneWayOut.Components
             }
         }
 
-        //Bullet Movement
-        /*
-        public void Move(Direction playerDirection)
+        /// <summary>
+        /// inhert from Move Class
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Move(GameObject obj)
         {
-            if (playerDirection == Direction.RIGHT)
-            {
-                position.X += 5;
-            }
-
-            if (playerDirection == Direction.LEFT)
-            {
-                position.X -= 5;
-            }
-
-            if(position.X >= 480 || position.X <= 0)
-            {
-                IsActive = false;
-            }
+            Point p = new Point(obj.position.Left, obj.position.Top);
+            Move(p);
         }
 
-        
+        //Arrow Movement        
+        public void Move(Point end)
+        {
+            if (position.X > end.X)
+            {
+                //WalkLeft(elapsed);
+                position.X -= 5;
+                direction = Direction.LEFT;
+            }
+
+            if (position.X < end.X)
+            {
+                //WalkRight(elapsed);
+                position.X += 5;
+                direction = Direction.RIGHT;
+            }
+
+            if (position.Y > end.Y)
+            {
+                //WalkUp(elapsed);
+                position.Y -= 5;
+            }
+
+            if (position.Y < end.Y)
+            {
+                //WalkDown(elapsed);
+                position.Y += 5;
+            }
+
+
+        }
+
+
         public void Travel(List<Slime> slime)//makes the bullet move until it hits something or travels too far. uses collision method as well
         {
             if (IsActive == true)
@@ -66,6 +88,5 @@ namespace OneWayOut.Components
                 }
             }
         }
-        */
     }
 }

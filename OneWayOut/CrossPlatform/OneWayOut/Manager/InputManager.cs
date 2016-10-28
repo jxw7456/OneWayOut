@@ -23,7 +23,8 @@ namespace OneWayOut.Manager
 
         public InputManager()
         {
-            
+            TypingStack = "";
+            timer = TIMER;
         }
 
         public void Record(GameTime gameTime)
@@ -34,6 +35,8 @@ namespace OneWayOut.Manager
                 Then record it.
                 If keys is Captchas or Shift, prepare some stuffs
              */
+
+
 
         }
 
