@@ -51,7 +51,7 @@ namespace OneWayOut.Scenes
         bool scoreChecked;
 
         bool arrowExist;
-
+        bool checkIt = false;
         Point end;
 
         public Game1()
@@ -172,7 +172,9 @@ namespace OneWayOut.Scenes
                 case GameState.GAME:
                     bgm.PlayGame();
 
-                    highscoreText.getScore(player.score);
+                    checkIt = false;
+
+				highscoreText.getScore (player.score);
 
                     player.Move();
 
@@ -225,8 +227,10 @@ namespace OneWayOut.Scenes
 
                     if (player.health <= 0)
                     {
-                        ResetGame();
+                        
                         game.state = GameState.GAMEOVER;
+                        highscoreText.getScore(player.score);
+                        ResetGame();
                     }
                     break;
 
@@ -235,23 +239,38 @@ namespace OneWayOut.Scenes
 
                     bgm.PlayOptions();
 
-                    //TODO
-                    //Code for changing volume and putting it in the options screen
+					//TODO
+					//Code for changing volume and putting it in the options screen
+                       // Process firstProc = new Process();
+                        if(checkIt == false)
+                    {
+                        checkIt = true;
+                        try
+                        {
+                        Process firstProc = new Process();
+                        firstProc.StartInfo.FileName = "one way outexternal tool.exe";
+                        firstProc.EnableRaisingEvents = true;
 
-                    Process firstProc = new Process();
-                    firstProc.StartInfo.FileName = "oneWayOutExternalTool.exe";
-                    firstProc.EnableRaisingEvents = true;
+                        firstProc.Start();
 
-                    firstProc.Start();
+                        firstProc.WaitForExit();
+                        }
+                        catch(Exception ex)
+                        {
 
-                    firstProc.WaitForExit();
+                        }
+                        
 
-                    break;
+                    }
+                        
+                        
+				break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
+                    
 
                     break;
 
@@ -346,7 +365,7 @@ namespace OneWayOut.Scenes
 
                     if (scoreChecked == false)
                     {
-                        highscoreText.CheckScore(player.score);
+                        highscoreText.CheckScore();
                         scoreChecked = true;
                     }
 
