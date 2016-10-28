@@ -55,7 +55,7 @@ namespace OneWayOut.Components
         {
             texture = t;
             health = 100;
-            arrowSupply = 50;   //amount of arrows play has to start with
+            arrowSupply = 10;   //amount of arrows play has to start with
             timer = 0;
             blink = 0;
             row = PLAYER_TEXTURE_START_R;

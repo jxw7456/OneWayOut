@@ -10,12 +10,15 @@ namespace OneWayOut.Components
 {
     partial class Arrow : GameObject
     {
-        public int timer;
+        const double ARROW_TIME = 2.5;
+        public double timer;
 
         public int damage;
 
         const int WIDTH = 55;
         const int HEIGHT = 35;
+
+        Direction direction;
 
         //Arrow Constructor
         /// <summary>
@@ -31,7 +34,26 @@ namespace OneWayOut.Components
             damage = Damage;
             texture = Texture;
             IsActive = true;
-            timer = 0;
+            timer = ARROW_TIME;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            if (timer > 0)
+            {
+                timer -= gameTime.ElapsedGameTime.TotalSeconds;
+
+                switch (direction)
+                {
+                    case Direction.RIGHT:
+                        spriteBatch.Draw(texture, position, Color.White);
+                        break;
+
+                    case Direction.LEFT:
+                        spriteBatch.Draw(texture, position, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                        break;
+                }                
+            }
         }
     }
 }
