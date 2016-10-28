@@ -23,13 +23,19 @@ namespace OneWayOut.Manager
 	{
 		const int RANDOM_SEED = 999;
 
-		const int SLIME_SIZE = 90;
+		const int SLIME_WIDTH = 70;
 
 		const int SLIME_COUNT = 9;
 
+        const int SLIME_HEIGHT = 45;
+
 		Random random;
 
-		Texture2D slimeTexture;
+		public Texture2D arrowTexture;
+
+        Texture2D collision;
+
+        Texture2D slimeTexture;
 
 		MarkovNameGenerator nameGen;
 
@@ -37,15 +43,15 @@ namespace OneWayOut.Manager
 
 		public Dungeon dungeon;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
-		/// Init the Slime List and Dungeon Tiles
-		/// </summary>
-		/// <param name="Content">Content.</param>
-		/// <param name="Graphics">Graphics.</param>
-		public AssetManager (ContentManager Content, GraphicsDevice Graphics)
-		{
-			random = new Random ();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
+        /// Init the Slime List and Dungeon Tiles
+        /// </summary>
+        /// <param name="Content">Content.</param>
+        /// <param name="Graphics">Graphics.</param>
+        public AssetManager(ContentManager Content, GraphicsDevice Graphics)
+        {
+            random = new Random();
 
 			dungeon = new Dungeon (Content);
 
@@ -53,27 +59,31 @@ namespace OneWayOut.Manager
 
 			nameGen = new MarkovNameGenerator ();
 
-			InitSlime (Graphics);
+			arrowTexture = Content.Load<Texture2D> (@"textures/arrow");
+
+            InitSlime(Graphics);
 
 			slimes = new List<Slime> ();
-
-			for (int i = 0; i < SLIME_COUNT; i++) {
+             
+			for (int i = 0; i < SLIME_COUNT; i++)
+            {
 				AddNewSlime (Graphics);
 			}
 		}
 
-		/// <summary>
-		/// Draws all the slimes.
-		/// </summary>
-		/// <param name="spriteBatch">Sprite batch.</param>
-		/// <param name="foreGroundText">Fore ground text.</param>
-		public void DrawSlimes (SpriteBatch spriteBatch, ForegroundTextManager foreGroundText)
-		{
-			foreach (var slime in slimes) {
-				slime.Draw (spriteBatch);
-				foreGroundText.DrawSlimeName (spriteBatch, slime);
-			}
-		}
+        /// <summary>
+        /// Draws all the slimes.
+        /// </summary>
+        /// <param name="spriteBatch">Sprite batch.</param>
+        /// <param name="foreGroundText">Fore ground text.</param>
+        public void DrawSlimes(SpriteBatch spriteBatch, ForegroundTextManager foreGroundText)
+        {
+            foreach (var slime in slimes)
+            {
+                slime.Draw(spriteBatch);
+                foreGroundText.DrawSlimeName(spriteBatch, slime);
+            }
+        }
 
 		/// <summary>
 		/// Draws the dungeon.
@@ -99,7 +109,7 @@ namespace OneWayOut.Manager
 		/// Adds new slime into the slime list.
 		/// </summary>
 		/// <param name="Graphics">Graphics.</param>
-		void AddNewSlime (GraphicsDevice Graphics)
+		public void AddNewSlime (GraphicsDevice Graphics)
 		{
 			slimes.Add (MakeNewSlime (Graphics));
 		}
@@ -109,13 +119,37 @@ namespace OneWayOut.Manager
 		/// </summary>
 		/// <returns>A new slime.</returns>
 		/// <param name="Graphics">Graphics.</param>
-		Slime MakeNewSlime (GraphicsDevice Graphics)
+		public Slime MakeNewSlime (GraphicsDevice Graphics)
 		{
 			var vp = Graphics.Viewport;
 
-            string name = nameGen.RandomBottomCase(nameGen.NextName, GameManager.level);
+			string name = nameGen.RandomBottomCase (nameGen.NextName, GameManager.level);
 
-            var s = new Slime (random.Next (vp.Width), random.Next (vp.Height), SLIME_SIZE, SLIME_SIZE, Graphics, random, name);
+			int i = random.Next (4); 
+
+			int slimeX = 0;
+
+			int slimeY = 0;
+
+			switch (i) {
+			case 0:
+				slimeX = vp.Width - SLIME_WIDTH;
+				goto case 1;
+			case 1:
+				slimeY = random.Next (vp.Height);
+				break;
+			case 2:
+				slimeY = vp.Height - SLIME_HEIGHT;
+				goto case 3
+				;
+			case 3:
+				slimeX = random.Next (vp.Width);
+				break;
+			default:
+				break;
+			}
+
+			var s = new Slime (slimeX, slimeY, SLIME_WIDTH, SLIME_HEIGHT, Graphics, random, name);
 
 			s.texture = slimeTexture;
 
