@@ -13,6 +13,7 @@ using OneWayOut.Components;
 
 namespace OneWayOut
 {
+    // TODO: Rename to ScoreManager.
     class Highscore
     {
         // TODO: Improve this using a different type

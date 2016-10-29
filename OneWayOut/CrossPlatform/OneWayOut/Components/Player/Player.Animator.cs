@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace OneWayOut.Components
 {
     /// <summary>
-    /// This is a maybe-sample class to control the animation of the player
+    /// Control the animation of the player
     /// </summary>
     partial class Player
     {
@@ -79,7 +79,6 @@ namespace OneWayOut.Components
             {
                 spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
-
             else
             {
                 spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White);

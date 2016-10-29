@@ -47,8 +47,6 @@
     <Compile Include="Components\GameObject.cs" />
     <Compile Include="Components\Mob\MobController.cs" />
     <Compile Include="Components\Mob\MobGenerator.Slime.cs" />
-    <Compile Include="Components\Player\PlayerAnimator.cs" />
-    <Compile Include="Components\Player\PlayerController.cs" />
     <Compile Include="Manager\AssetManager.cs" />
     <Compile Include="Manager\GameManager.cs" />
     <Compile Include="Manager\Highscore.cs" />
@@ -73,6 +71,8 @@
     <Compile Include="Components\Arrow\Arrow.Controller.cs" />
     <Compile Include="Components\Arrow\Arrow.Behavior.cs" />
     <Compile Include="Components\Arrow\Arrow.Test.cs" />
+    <Compile Include="Components\Player\Player.Animator.cs" />
+    <Compile Include="Components\Player\Player.Controller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

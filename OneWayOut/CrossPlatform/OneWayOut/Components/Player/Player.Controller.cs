@@ -19,7 +19,7 @@ namespace OneWayOut.Components
     }
 
     /// <summary>
-    /// Player Controller Methods
+    /// In charge of controlling the user
     /// </summary>
     partial class Player : GameObject
     {
