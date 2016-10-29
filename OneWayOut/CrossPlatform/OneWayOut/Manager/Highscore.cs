@@ -92,7 +92,6 @@ namespace OneWayOut
             sb.DrawString(font, entireFile[3], pos3, Color.Red);
 
             sb.DrawString(font, "your score was:\n" + score.ToString(), yourScore, Color.Red);
-
         }
 
         public void DrawScore(SpriteBatch sBatch, Player mc)
@@ -109,7 +108,8 @@ namespace OneWayOut
                 entireFile[3] = entireFile[2];
                 entireFile[2] = entireFile[1];
                 entireFile[1] = score.ToString();
-            } // TODO: This nested if/else could be improved with a loop.
+            } 
+            // TODO: This nested if/else could be improved with a loop.
             else
             {
                 if (score >= int.Parse(entireFile[2]))

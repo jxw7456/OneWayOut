@@ -22,13 +22,13 @@ namespace OneWayOut.Components
         public int Health { get; set; }
 
         //A single sprite's width and height
-        const int PLAYER_TEXTURE_SIZE = 512;
+        public const int PLAYER_TEXTURE_SIZE = 512;
 
-        const int PLAYER_SIZE = 90;
+        public const int PLAYER_SIZE = 90;
 
-        const int PLAYER_TEXTURE_START_R = 1;
+        public const int PLAYER_TEXTURE_START_R = 1;
 
-        const int PLAYER_TEXTURE_START_C = 4;
+        public const int PLAYER_TEXTURE_START_C = 4;
 
         Direction direction;
 
@@ -51,8 +51,7 @@ namespace OneWayOut.Components
         /// <param name="Texture">T.</param>
         /// <param name="r">The red component.</param>
         /// <param name="c">C.</param>
-        public Player(Texture2D t)
-            : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        public Player(Texture2D t) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
             Texture = t;
             Health = 100;
@@ -62,24 +61,7 @@ namespace OneWayOut.Components
             row = PLAYER_TEXTURE_START_R;
             column = PLAYER_TEXTURE_START_C;
             IsActive = true;
-        }
-
-        /// <summary>
-        /// Sets the position to center of screen.
-        /// </summary>
-        /// <param name="graphicDevice">Graphic device.</param>
-        public new void SetPositionCenter(GraphicsDevice graphicDevice)
-        {
-            int screenWidth = graphicDevice.Viewport.Width;
-
-            int screenHeight = graphicDevice.Viewport.Height;
-
-            int screenCenterX = (screenWidth - PLAYER_SIZE) / 2;
-
-            int screenCenterY = (screenHeight - PLAYER_SIZE) / 2;
-
-            SetPosition(screenCenterX, screenCenterY);
-        }
+        }        
 
         //takes a arrow away with each use
         public void UseArrow()
