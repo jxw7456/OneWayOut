@@ -163,7 +163,9 @@ namespace OneWayOut.Scenes
 
                     if (arrow != null && asset.slimes.Count > 0)
                     {
-                        arrow.Move(asset.slimes[arrow.Target]);
+                        var targetSlime = asset.slimes[arrow.Target];
+                        
+                        arrow.Move(targetSlime);
 
                         arrow.Collision(asset.slimes);
                     }
@@ -172,7 +174,7 @@ namespace OneWayOut.Scenes
                     {
                         var slime = asset.slimes[i];
 
-                        if (slime.Name.ToUpper().Equals(input.TypingStack) && player.ArrowCount > 0)
+                        if (slime.CompareName(input.TypingStack) && player.ArrowCount > 0)
                         {
                             player.UseArrow();
 
@@ -182,7 +184,7 @@ namespace OneWayOut.Scenes
 
                             arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
 
-                            arrow.Target = i;
+                            arrow.Target = i;                       
                         }
 
                         slime.Chase(player, gameTime);
@@ -204,7 +206,6 @@ namespace OneWayOut.Scenes
 
                     if (player.Health <= 0)
                     {
-
                         game.state = GameState.GAMEOVER;
                         highscoreText.getScore(player.Score);
                         ResetGame();

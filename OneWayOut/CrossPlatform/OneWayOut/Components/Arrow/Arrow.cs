@@ -13,6 +13,7 @@ namespace OneWayOut.Components
         const double ARROW_TIME = 2.5;
 
         const int WIDTH = 55;
+
         const int HEIGHT = 35;
 
         public int Target;
