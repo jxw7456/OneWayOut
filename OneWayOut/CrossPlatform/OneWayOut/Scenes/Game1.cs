@@ -20,6 +20,8 @@ namespace OneWayOut.Scenes
 
         SpriteBatch spriteBatch;
 
+        // TODO: Refactor player and all texture/rectangle into assetManager
+
         Texture2D spriteSheet;
 
         Player player;
@@ -41,7 +43,8 @@ namespace OneWayOut.Scenes
         BackgroundManager background;
 
         ForegroundTextManager foregroundText;
-
+        // TODO: Refactor, this should follow the rest of the naming
+        // schema already in use.
         Highscore highscoreText;
 
         InputManager input;
@@ -69,6 +72,8 @@ namespace OneWayOut.Scenes
 
             game = new GameManager();
 
+            input = new InputManager();
+
             base.Initialize();
         }
 
@@ -81,6 +86,8 @@ namespace OneWayOut.Scenes
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // TODO: Refactor this into either assetManager or 
+            // some manager specialized for sprite
             signPicture = Content.Load<Texture2D>(@"textures/signlanguage");
 
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
@@ -97,10 +104,9 @@ namespace OneWayOut.Scenes
 
             highscoreText = new Highscore(Content);
 
-            input = new InputManager();
-
             player = new Player(spriteSheet);
 
+            // Refactor this so it is called by a manager
             player.SetPositionCenter(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -219,9 +225,9 @@ namespace OneWayOut.Scenes
                 case GameState.OPTIONS:
 
                     bgm.PlayOptions();
-                    //TODO
                     //Code for changing volume and putting it in the options screen
                     // Process firstProc = new Process();
+                    //XXX: No need to check if a boolean is true or false
                     if (checkIt == false)
                     {
                         checkIt = true;
@@ -342,6 +348,10 @@ namespace OneWayOut.Scenes
 
                     foregroundText.DrawGameover(spriteBatch);
 
+                    // TODO: Refactor, this logic should happen in the Update if it ever needed to.
+                    // Also there is a way to do this without having a check.
+                    // Give it some thought and if stuck feel free to ask lab
+
                     highscoreText.readScore();
 
                     if (scoreChecked == false)
@@ -358,6 +368,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawDungeon(spriteBatch);
 
+                    // TODO: Refactor, this can be done better by caching the  rectangle
                     spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
 
                     spriteBatch.Draw(health, healthSize, Color.White);
@@ -383,6 +394,7 @@ namespace OneWayOut.Scenes
         }
 
         //Resets the game if player dies or quits
+        // TODO: Refactor and move this into a manager
         public void ResetGame()
         {
             player.Health = 100;
