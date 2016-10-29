@@ -44,7 +44,7 @@ namespace OneWayOut.Manager
         /// </summary>
         public GameManager()
         {
-            level = 3;
+            level = 0;
             state = GameState.START;
         }
 

@@ -161,7 +161,9 @@ namespace OneWayOut.Scenes
 
                     game.ScreenWrap(GraphicsDevice, player);
 
-                    if (arrow != null && asset.slimes.Count > 0)
+                    if (arrow != null &&
+                        arrow.Target < asset.slimes.Count &&
+                        asset.slimes.Count > 0)
                     {
                         var targetSlime = asset.slimes[arrow.Target];
                         

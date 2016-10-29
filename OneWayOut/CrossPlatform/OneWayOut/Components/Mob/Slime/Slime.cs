@@ -78,7 +78,7 @@ namespace OneWayOut.Components
 
             Health = 100;
 
-            if (r.NextDouble() > 0.01)
+            if (r.NextDouble() > 0.18)
             {
                 color = ColorGenerator.RandomColor(r);
             }
