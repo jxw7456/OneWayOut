@@ -14,20 +14,20 @@ using OneWayOut.Components;
 
 namespace OneWayOut.Manager
 {
-	/// <summary>
-	/// Game state enums.
-	/// Assigned each state a keyboard enum
-	/// </summary>
-	[Flags]
-	enum GameState
-	{
-		START = Keys.F1,
-		HELP = Keys.F2,
-		GAME = Keys.F3,
-		OPTIONS = Keys.F4,
-		GAMEOVER = Keys.F5,
-		PAUSE = Keys.F6
-	}
+    /// <summary>
+    /// Game state enums.
+    /// Assigned each state a keyboard enum
+    /// </summary>
+    [Flags]
+    enum GameState
+    {
+        START = Keys.F1,
+        HELP = Keys.F2,
+        GAME = Keys.F3,
+        OPTIONS = Keys.F4,
+        GAMEOVER = Keys.F5,
+        PAUSE = Keys.F6
+    }
 
     /// <summary>
     /// Game manager.
@@ -48,34 +48,38 @@ namespace OneWayOut.Manager
             state = GameState.START;
         }
 
-		/// <summary>
-		/// Warp an object so it stays inside the scene
-		/// </summary>
-		/// <param name="graphicDevice">The scene to limit the object</param>
-		/// <param name="theObject">The object to wrap inside the scene</param>
-		public void ScreenWrap (GraphicsDevice graphicDevice, GameObject theObject)
-		{
-			int screenWidth = graphicDevice.Viewport.Width;
+        /// <summary>
+        /// Warp an object so it stays inside the scene
+        /// </summary>
+        /// <param name="graphicDevice">The scene to limit the object</param>
+        /// <param name="theObject">The object to wrap inside the scene</param>
+        public void ScreenWrap(GraphicsDevice graphicDevice, GameObject theObject)
+        {
+            int screenWidth = graphicDevice.Viewport.Width;
 
-			int screenHeight = graphicDevice.Viewport.Height;
+            int screenHeight = graphicDevice.Viewport.Height;
 
-			Rectangle objPos = theObject.position;
+            Rectangle objPos = theObject.Position;
 
-			if (objPos.Center.X > screenWidth) {
-				theObject.SetPosition (-objPos.Width / 2, objPos.Y);
-			}
+            if (objPos.Center.X > screenWidth)
+            {
+                theObject.SetPosition(-objPos.Width / 2, objPos.Y);
+            }
 
-			if (objPos.Center.X < 0) {
-				theObject.SetPosition (screenWidth - objPos.Width / 2, objPos.Y);
-			}
+            if (objPos.Center.X < 0)
+            {
+                theObject.SetPosition(screenWidth - objPos.Width / 2, objPos.Y);
+            }
 
-			if (objPos.Center.Y > screenHeight) {
-				theObject.SetPosition (objPos.X, -objPos.Height / 2);
-			}
+            if (objPos.Center.Y > screenHeight)
+            {
+                theObject.SetPosition(objPos.X, -objPos.Height / 2);
+            }
 
-			if (objPos.Center.Y < 0) {
-				theObject.SetPosition (objPos.X, screenHeight - objPos.Height / 2);
-			}
-		}
-	}
+            if (objPos.Center.Y < 0)
+            {
+                theObject.SetPosition(objPos.X, screenHeight - objPos.Height / 2);
+            }
+        }
+    }
 }

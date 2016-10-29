@@ -26,7 +26,7 @@ namespace OneWayOut.Components
         /// <param name="elapsed">Elapsed.</param>
         public void WalkLeft(TimeSpan elapsed)
         {
-            position.X -= Helper.MovingInterval(elapsed, speed);
+            Position.X -= Helper.MovingInterval(elapsed, Speed);
             direction = SlimeDirection.LEFT;
             state = SlimeState.WALK;
         }
@@ -37,7 +37,7 @@ namespace OneWayOut.Components
         /// <param name="elapsed">Elapsed.</param>
         public void WalkRight(TimeSpan elapsed)
         {
-            position.X += Helper.MovingInterval(elapsed, speed);
+            Position.X += Helper.MovingInterval(elapsed, Speed);
             direction = SlimeDirection.RIGHT;
             state = SlimeState.WALK;
         }
@@ -48,7 +48,7 @@ namespace OneWayOut.Components
         /// <param name="elapsed">Elapsed.</param>
         public void WalkUp(TimeSpan elapsed)
         {
-            position.Y -= Helper.MovingInterval(elapsed, speed);
+            Position.Y -= Helper.MovingInterval(elapsed, Speed);
             // Add the UP direction on top of direction 
             // so the slime can be either right/up or left/up
             direction |= SlimeDirection.UP;
@@ -61,7 +61,7 @@ namespace OneWayOut.Components
         /// <param name="elapsed">Elapsed.</param>
         public void WalkDown(TimeSpan elapsed)
         {
-            position.Y += Helper.MovingInterval(elapsed, speed);
+            Position.Y += Helper.MovingInterval(elapsed, Speed);
             // Add the DOWN direction on top of direction
             // so the slime can be either right/down or left/down
             direction |= SlimeDirection.DOWN;

@@ -84,16 +84,7 @@ namespace OneWayOut.Manager
             {
                 if (IsKeyAChar(key) && SingleKeyPress(key))
                 {
-                    if (kbState.IsKeyDown(Keys.LeftShift))
-                    {
-                        TypingStack += key.ToString().ToLower();
-                    }
-                    else
-                    {
-                        TypingStack += key;
-                    }
-
-
+                    TypingStack += key;
                 }
 
                 if (TypingStack.Length > 0 && key == Keys.Back && SingleKeyPress(key))

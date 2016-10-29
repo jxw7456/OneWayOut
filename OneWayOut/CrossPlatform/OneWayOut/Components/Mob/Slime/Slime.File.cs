@@ -21,7 +21,6 @@ namespace OneWayOut.Components
             {
                 using (var binaryReader = new BinaryReader(File.OpenRead(fileName)))
                 {
-
                     var v = binaryReader.ReadByte();
 
                     var w = binaryReader.ReadInt32();
@@ -42,7 +41,9 @@ namespace OneWayOut.Components
                         {
                             row[j] = binaryReader.ReadByte();
                         }
+
                     }
+
                     return shape;
                 }
             }

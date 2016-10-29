@@ -59,7 +59,7 @@ namespace OneWayOut.Manager
 
 		public void DrawGame (SpriteBatch spriteBatch, Player archer)
 		{
-			spriteBatch.DrawString (biggerFont, "Arrows: " + archer.arrowSupply, new Vector2 (0, 50), Color.White);
+			spriteBatch.DrawString (biggerFont, "Arrows: " + archer.ArrowCount, new Vector2 (0, 50), Color.White);
             spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(480, 440), Color.Red);
         }
 

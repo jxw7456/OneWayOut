@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using OneWayOut;
 using Microsoft.Xna.Framework.Content;
 using OneWayOut.Components;
+
 namespace OneWayOut
 {
     class Highscore
@@ -66,6 +67,7 @@ namespace OneWayOut
         {
             score = giveMe;
         }
+
         public void DrawScore(SpriteBatch sb)
         {
 
@@ -77,13 +79,13 @@ namespace OneWayOut
 
             sb.DrawString(font, entireFile[3], pos3, Color.Red);
 
-            sb.DrawString(font, "your score was:\n"+ score.ToString(), yourScore, Color.Red);
+            sb.DrawString(font, "your score was:\n" + score.ToString(), yourScore, Color.Red);
 
         }
 
-        public void DrawScore(SpriteBatch sBatch,Player mc)
+        public void DrawScore(SpriteBatch sBatch, Player mc)
         {
-            sBatch.DrawString(font, mc.score.ToString(), gameScore, Color.White);
+            sBatch.DrawString(font, mc.Score.ToString(), gameScore, Color.White);
         }
 
         public void CheckScore()
@@ -94,7 +96,6 @@ namespace OneWayOut
                 entireFile[2] = entireFile[1];
                 entireFile[1] = score.ToString();
             }
-
             else
             {
                 if (score >= int.Parse(entireFile[2]))
@@ -102,14 +103,12 @@ namespace OneWayOut
                     entireFile[3] = entireFile[2];
                     entireFile[2] = score.ToString();
                 }
-
                 else
                 {
                     if (score >= int.Parse(entireFile[3]))
                     {
                         entireFile[3] = score.ToString();
                     }
-
                     else
                     {
 

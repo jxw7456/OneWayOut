@@ -50,8 +50,6 @@ namespace OneWayOut.Scenes
 
         bool checkIt = false;
 
-        Point end;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -70,8 +68,6 @@ namespace OneWayOut.Scenes
             // TODO: Add your initialization logic here
 
             game = new GameManager();
-
-            end = new Point(0, 0);
 
             base.Initialize();
         }
@@ -155,64 +151,65 @@ namespace OneWayOut.Scenes
 
                     checkIt = false;
 
-                    highscoreText.getScore(player.score);
+                    highscoreText.getScore(player.Score);
 
                     player.Move();
 
                     player.Update(gameTime);
 
-                    healthSize = new Rectangle(5, 5, player.health, 30);
+                    healthSize = new Rectangle(5, 5, player.Health, 30);
 
                     game.ScreenWrap(GraphicsDevice, player);
 
-
                     if (arrow != null && asset.slimes.Count > 0)
                     {
-                        arrow.Move(asset.slimes[0]);
+                        arrow.Move(asset.slimes[arrow.Target]);
+
                         arrow.Collision(asset.slimes);
                     }
-
-
+                        
                     for (int i = 0; i < asset.slimes.Count; i++)
                     {
                         var slime = asset.slimes[i];
+
+                        if (slime.Name.ToUpper().Equals(input.TypingStack) && player.ArrowCount > 0)
+                        {
+                            player.UseArrow();
+
+                            int arrowX = player.Position.X;
+
+                            int arrowY = player.Position.Y + 40;
+
+                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
+
+                            arrow.Target = i;
+                        }
+
                         slime.Chase(player, gameTime);
+
                         game.ScreenWrap(GraphicsDevice, slime);
-                        slime.SlimeAttack(player);
+
+                        slime.Attack(player);
 
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
                             player.GainArrow();
 
-                            player.score += 50;
-
-                            slime.IsActive = false;
+                            player.Score += 50;
 
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
 
-                    //Arrows: can be ONLY when facing left or right
-                    if (player.arrowSupply > 0)
-                    {
-                        if (input.PushShoot())
-                        {
-                            int arrowX = player.position.X;
-                            int arrowY = player.position.Y + 40;
-                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
-                            player.timer = 0;
-                            player.UseArrow();
-                        }
-                    }
-
-                    if (player.health <= 0)
+                    if (player.Health <= 0)
                     {
 
                         game.state = GameState.GAMEOVER;
-                        highscoreText.getScore(player.score);
+                        highscoreText.getScore(player.Score);
                         ResetGame();
                     }
+
                     break;
 
             //OPTIONS case: will display the sound options, etc.
@@ -385,9 +382,9 @@ namespace OneWayOut.Scenes
         //Resets the game if player dies or quits
         public void ResetGame()
         {
-            player.health = 100;
-            player.score = 0;
-            player.arrowSupply = 50;
+            player.Health = 100;
+            player.Score = 0;
+            player.ArrowCount = 50;
             player.SetPositionCenter(GraphicsDevice);
             //add new slime for the player            
         }

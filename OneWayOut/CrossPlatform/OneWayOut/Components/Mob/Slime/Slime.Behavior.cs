@@ -10,6 +10,28 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Slime
     {
+        /// <summary>
+        /// Compares the name to a random string.
+        /// </summary>
+        /// <returns><c>true</c>, if name match, <c>false</c> otherwise.</returns>
+        /// <param name="str">A string.</param>
+        public bool CompareName(string str)
+        {
+            return upperCaseName.Equals(str);
+        }
+
+        /// <summary>
+        /// Attack a User
+        /// </summary>
+        /// <param name="player">Player.</param>
+        public void Attack(Player player)
+        {
+            if (Position.Intersects(player.Position))
+            {
+                // Use property and kill the slime (ONE HIT from arrow KILLS)
+                player.Health -= Damage;
+            }
+        }
 
         /// <summary>
         /// Chase the specified obj using gameTime to calculate speed.
@@ -32,22 +54,22 @@ namespace OneWayOut.Components
 
             state = SlimeState.IDLE;
 
-            if (position.X > obj.position.X)
+            if (Position.X > obj.Position.X)
             {
                 WalkLeft(elapsed);
             }
 
-            if (position.X < obj.position.X)
+            if (Position.X < obj.Position.X)
             {
                 WalkRight(elapsed);
             }
 
-            if (position.Y > obj.position.Y)
+            if (Position.Y > obj.Position.Y)
             {
                 WalkUp(elapsed);
             }
 
-            if (position.Y < obj.position.Y)
+            if (Position.Y < obj.Position.Y)
             {
                 WalkDown(elapsed);
             }
@@ -64,19 +86,19 @@ namespace OneWayOut.Components
 
             state = SlimeState.IDLE;
 
-            if (position.X > obj.position.X)
+            if (Position.X > obj.Position.X)
             {
                 WalkLeft(elapsed);
             }
-            else if (position.X < obj.position.X)
+            else if (Position.X < obj.Position.X)
             {
                 WalkRight(elapsed);
             }
-            else if (position.Y > obj.position.Y)
+            else if (Position.Y > obj.Position.Y)
             {
                 WalkUp(elapsed);
             }
-            else if (position.Y < obj.position.Y)
+            else if (Position.Y < obj.Position.Y)
             {
                 WalkDown(elapsed);
             }
@@ -105,25 +127,25 @@ namespace OneWayOut.Components
                 switch (i)
                 {
                     case 0:
-                        if (position.X > obj.position.X)
+                        if (Position.X > obj.Position.X)
                         {
                             WalkLeft(elapsed);
                         }
                         break;
                     case 1:
-                        if (position.X < obj.position.X)
+                        if (Position.X < obj.Position.X)
                         {
                             WalkRight(elapsed);
                         }
                         break;
                     case 2:
-                        if (position.Y > obj.position.Y)
+                        if (Position.Y > obj.Position.Y)
                         {
                             WalkUp(elapsed);
                         }
                         break;
                     case 3:
-                        if (position.Y < obj.position.Y)
+                        if (Position.Y < obj.Position.Y)
                         {
                             WalkDown(elapsed);
                         }

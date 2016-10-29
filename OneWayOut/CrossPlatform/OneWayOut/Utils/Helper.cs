@@ -32,7 +32,7 @@ namespace OneWayOut.Utils
 				(float)Math.Atan2 (edge.Y, edge.X);
 
 
-			spriteBatch.Draw (texture,
+			spriteBatch.Draw (Texture,
 				new Rectangle (// rectangle defines shape of line and position of start of line
 					(int)start.X,
 					(int)start.Y,

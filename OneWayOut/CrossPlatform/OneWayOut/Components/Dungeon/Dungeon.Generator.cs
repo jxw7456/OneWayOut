@@ -48,7 +48,7 @@ namespace OneWayOut.Components.Dungeon
 				for (int j = 0; j < DUNGEON_SIZE; j++) {
 					// TODO: Create a Tile Object more specific to randomize itself.
 					var tile = new GameObject (TILE_SIZE * i, TILE_SIZE * j, TILE_SIZE, TILE_SIZE);
-					tile.texture = tileTexture;
+					tile.Texture = tileTexture;
 					tiles.Add (tile);
 				}
 			}

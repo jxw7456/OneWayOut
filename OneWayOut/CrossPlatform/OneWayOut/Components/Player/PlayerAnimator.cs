@@ -77,12 +77,12 @@ namespace OneWayOut.Components
 
             if (direction == Direction.LEFT)
             {
-                spriteBatch.Draw(texture, position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
 
             else
             {
-                spriteBatch.Draw(texture, position, sourceRectangle, Color.White);
+                spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White);
             }
         }
     }

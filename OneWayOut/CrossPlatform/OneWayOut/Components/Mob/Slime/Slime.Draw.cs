@@ -29,22 +29,20 @@ namespace OneWayOut.Components
             Vector2 pos
         )
         {
-            //int screenWidth = graphicDevice.Viewport.Width;
-
-            //int screenHeight = graphicDevice.Viewport.Height;
-
             var point = new Rectangle(
                             (int)pos.X,
                             (int)pos.Y,
                             PIXEL_SIZE,
                             PIXEL_SIZE);
 
-
-            // sb.Draw (texture, point, null, Color.White);
-            // 8sb.Draw (texture, point, null, ColorGenerator.RandomColor (random));
-
-            //Rectangle slimeBounds = new Rectangle((int)pos.X, (int)pos.Y, PIXEL_SIZE, PIXEL_SIZE);
-            sb.Draw(texture, point, null, color);
+            if (!color.Equals(Color.Black))
+            {
+                sb.Draw(Texture, point, null, color);
+            }
+            else
+            {
+                sb.Draw(Texture, point, null, ColorGenerator.RandomColor(random));
+            }
         }
 
         /// <summary>
@@ -69,20 +67,20 @@ namespace OneWayOut.Components
                         continue;
                     }
 
-                    int x = position.X + j * PIXEL_SIZE;
+                    int x = Position.X + j * PIXEL_SIZE;
 
-                    int y = position.Y + i * PIXEL_SIZE;
+                    int y = Position.Y + i * PIXEL_SIZE;
 
                     // Rotate across the X axis if look left
                     if ((direction & SlimeDirection.LEFT) != 0)
                     {
-                        x = position.X + (row.Length - j) * PIXEL_SIZE;
+                        x = Position.X + (row.Length - j) * PIXEL_SIZE;
                     }
 
                     // Rotate across the Y axis if look down
                     if ((direction & SlimeDirection.DOWN) != 0)
                     {
-                        y = position.Y + (shape.Length - i) * PIXEL_SIZE;
+                        y = Position.Y + (shape.Length - i) * PIXEL_SIZE;
                     }
 
                     var pos = new Vector2(x, y);
@@ -150,9 +148,9 @@ namespace OneWayOut.Components
         {
             // Get the position, top-left of the sprite, topped with the font line spacing.
             // y run from top to bottom thus the '-' sign
-            var pos = new Vector2((float)position.Left, (float)(position.Top - sf.LineSpacing));
+            var pos = new Vector2((float)Position.Left, (float)(Position.Top - sf.LineSpacing));
 
-            sb.DrawString(sf, name, pos, Color.White);
+            sb.DrawString(sf, Name, pos, Color.White);
         }
     }
 }

@@ -40,8 +40,6 @@
   <ItemGroup>
     <Compile Include="Components\Arrow\Arrow.cs" />
     <Compile Include="Utils\ColorGenerator.cs" />
-    <Compile Include="Components\Arrow\ArrowController.cs" />
-    <Compile Include="Components\Arrow\ArrowTest.cs" />
     <Compile Include="Components\Drop\Drop.cs" />
     <Compile Include="Components\Drop\DropTest.cs" />
     <Compile Include="Components\Dungeon\Dungeon.Controller.cs" />
@@ -72,6 +70,9 @@
     <Compile Include="Components\Mob\Slime\Slime.Behavior.cs" />
     <Compile Include="Manager\BackgroundMusicManager.cs" />
     <Compile Include="Components\Mob\Slime\Slime.File.cs" />
+    <Compile Include="Components\Arrow\Arrow.Controller.cs" />
+    <Compile Include="Components\Arrow\Arrow.Behavior.cs" />
+    <Compile Include="Components\Arrow\Arrow.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
