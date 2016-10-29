@@ -8,14 +8,10 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Manager
 {
-    enum OWOKey
-    {
-        A = Keys.A
-    }
 
     class InputManager
     {
-        const double TIMER = 10.0;
+        const double TIMER = 1008.0;
 
         double timer;
 
@@ -28,7 +24,6 @@ namespace OneWayOut.Manager
             TypingStack = "";
 
             timer = TIMER;
-
         }
 
         public bool PushShoot()
@@ -70,12 +65,53 @@ namespace OneWayOut.Manager
                 Go through all the Keys
                 If Keys is a character
                 Then record it.
-                If keys is Captchas or Shift, prepare some stuffs
+                If keys is Captchas or Shift, prepare it 
+                to capture uppercase letter
              */
-           
 
+            if (TypingStack.Length > 0)
+            {
+                timer -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+
+            if (timer < 0)
+            {
+                TypingStack = "";
+                timer = TIMER;
+            }
+
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            {
+                if (IsKeyAChar(key) && SingleKeyPress(key))
+                {
+                    if (kbState.IsKeyDown(Keys.LeftShift))
+                    {
+                        TypingStack += key.ToString().ToLower();
+                    }
+                    else
+                    {
+                        TypingStack += key;
+                    }
+
+
+                }
+
+                if (TypingStack.Length > 0 && key == Keys.Back && SingleKeyPress(key))
+                {
+                    TypingStack = TypingStack.Remove(TypingStack.Length - 1);  
+                }
+            }
         }
 
+        /// <summary>
+        /// Determines if a key is a character.
+        /// </summary>
+        /// <returns><c>true</c> if is key is char; otherwise, <c>false</c>.</returns>
+        /// <param name="key">Key.</param>
+        public static bool IsKeyAChar(Keys key)
+        {
+            return key >= Keys.A && key <= Keys.Z;
+        }
 
         /// <summary>
         /// Store the keyboard state and cache its previous state
