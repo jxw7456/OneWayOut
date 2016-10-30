@@ -11,7 +11,7 @@ namespace OneWayOut.Manager
 
     class InputManager
     {
-        const double TIMER = 1800.0;
+        const double TIMER = 2008.0;
 
         double timer;
 
