@@ -44,7 +44,7 @@ namespace OneWayOut.Components
         internal float timer;
 
         int millisecondsPerFrame = 100;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Components.Player.Player"/> class.
         /// </summary>

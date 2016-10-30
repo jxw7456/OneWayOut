@@ -216,7 +216,7 @@ namespace OneWayOut.Scenes
                         if (slime.Health <= 0)
                         {
                             player.GainArrow();
-                            item = new Drop(healthPack, arrowDrop, slime.Position.X,slime.Position.Y, 50, 50);
+                            item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
 
@@ -225,40 +225,39 @@ namespace OneWayOut.Scenes
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
-                    if(dropIt==true)
+
+                    if (dropIt && player.Position.Intersects(item.Position))
                     {
-                        if (player.Position.Intersects(item.Position))
+                        if (item.random >= 5)
                         {
-                            if (item.random >= 5)
+                            player.GainArrow();
+                            item = null;
+                            dropIt = false;
+                        }
+                        else if (item.random < 5)
+                        {
+                            if (player.Health == 100)
                             {
-                                player.GainArrow();
                                 item = null;
                                 dropIt = false;
                             }
-                            else if (item.random < 5)
+                            else if (player.Health >= 90)
                             {
-                                if(player.Health==100)
-                                {
-                                    item = null;
-                                    dropIt = false;
-                                }
-                                else if(player.Health >= 90)
-                                {
-                                    item = null;
-                                    dropIt = false;
-                                    player.Health = 100;
-                                }
-                                else
-                                {
-                                    item = null;
-                                    dropIt = false;
-                                    player.Health += 10;
-                                }
+                                item = null;
+                                dropIt = false;
+                                player.Health = 100;
                             }
-                        }   
-
+                            else
+                            {
+                                item = null;
+                                dropIt = false;
+                                player.Health += 10;
+                            }
+                        }
                     }
-                   
+
+
+
                     if (player.Health <= 0)
                     {
                         game.state = GameState.GAMEOVER;
@@ -349,10 +348,10 @@ namespace OneWayOut.Scenes
 
                     spriteBatch.Draw(health, healthSize, Color.White);
 
-                    if(dropIt == true)
+                    if (dropIt == true)
                     {
-                       item.DrawDrop(spriteBatch);
-                      
+                        item.DrawDrop(spriteBatch);
+
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
