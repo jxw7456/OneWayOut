@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
 using OneWayOut.Components;
-
+using OneWayOut.Components.Drop;
 using OneWayOut.Manager;
 using System.Collections.Generic;
 using System;
@@ -42,6 +42,12 @@ namespace OneWayOut.Scenes
 
         BackgroundManager background;
 
+        Texture2D healthPack;
+
+        Texture2D arrowDrop;
+
+        Drop item;
+
         ForegroundTextManager foregroundText;
         // TODO: Refactor, this should follow the rest of the naming
         // schema already in use.
@@ -52,6 +58,8 @@ namespace OneWayOut.Scenes
         bool scoreChecked;
 
         bool checkIt = false;
+
+        bool dropIt = false;
 
         public Game1()
         {
@@ -93,6 +101,10 @@ namespace OneWayOut.Scenes
             spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
 
             health = Content.Load<Texture2D>(@"textures/health");
+
+            healthPack = Content.Load<Texture2D>(@"textures/healthpack");
+
+            arrowDrop = Content.Load<Texture2D>(@"textures/arrow");
 
             asset = new AssetManager(Content, GraphicsDevice);
 
@@ -204,13 +216,49 @@ namespace OneWayOut.Scenes
                         if (slime.Health <= 0)
                         {
                             player.GainArrow();
+                            item = new Drop(healthPack, arrowDrop, slime.Position.X,slime.Position.Y, 50, 50);
+                            item.PickDrop();
+                            dropIt = true;
 
                             player.Score += 50;
 
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
+                    if(dropIt==true)
+                    {
+                        if (player.Position.Intersects(item.Position))
+                        {
+                            if (item.random >= 5)
+                            {
+                                player.GainArrow();
+                                item = null;
+                                dropIt = false;
+                            }
+                            else if (item.random < 5)
+                            {
+                                if(player.Health==100)
+                                {
+                                    item = null;
+                                    dropIt = false;
+                                }
+                                else if(player.Health >= 90)
+                                {
+                                    item = null;
+                                    dropIt = false;
+                                    player.Health = 100;
+                                }
+                                else
+                                {
+                                    item = null;
+                                    dropIt = false;
+                                    player.Health += 10;
+                                }
+                            }
+                        }   
 
+                    }
+                   
                     if (player.Health <= 0)
                     {
                         game.state = GameState.GAMEOVER;
@@ -300,6 +348,12 @@ namespace OneWayOut.Scenes
                     spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
 
                     spriteBatch.Draw(health, healthSize, Color.White);
+
+                    if(dropIt == true)
+                    {
+                       item.DrawDrop(spriteBatch);
+                      
+                    }
 
                     highscoreText.DrawScore(spriteBatch, player);
 
