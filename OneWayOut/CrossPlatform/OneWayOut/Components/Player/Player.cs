@@ -22,14 +22,14 @@ namespace OneWayOut.Components
         public int Health { get; set; }
 
         //A single sprite's width and height
-        public const int PLAYER_TEXTURE_SIZE = 512;
+        const int PLAYER_TEXTURE_SIZE = 512;
 
-        public const int PLAYER_SIZE = 90;
+        const int PLAYER_SIZE = 90;
 
-        public const int PLAYER_TEXTURE_START_R = 1;
+        const int PLAYER_TEXTURE_START_R = 1;
 
-        public const int PLAYER_TEXTURE_START_C = 4;
-
+        const int PLAYER_TEXTURE_START_C = 4;
+        
         Direction direction;
 
         int currentFrame;
@@ -54,12 +54,19 @@ namespace OneWayOut.Components
         public Player(Texture2D t) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
             Texture = t;
+
             Health = 100;
+
             ArrowCount = 10;   //amount of arrows play has to start with
+
             timer = 0;
+
             blink = 0;
+
             row = PLAYER_TEXTURE_START_R;
+
             column = PLAYER_TEXTURE_START_C;
+
             IsActive = true;
         }        
 

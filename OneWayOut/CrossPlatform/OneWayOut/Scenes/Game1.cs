@@ -116,9 +116,9 @@ namespace OneWayOut.Scenes
 
             highscoreText = new Highscore(Content);
 
-            player = new Player(spriteSheet);
+            player = asset.player;
 
-            game.SetPositionCenter(GraphicsDevice, player);
+            player.SetPositionCenter(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -257,13 +257,15 @@ namespace OneWayOut.Scenes
                         }
                     }
 
-
+                    if (asset.slimes.Count == 0)
+                    {
+                        NextLevel();
+                    }
 
                     if (player.Health <= 0)
                     {
                         game.state = GameState.GAMEOVER;
                         highscoreText.getScore(player.Score);
-                        game.ResetGame(GraphicsDevice, player);
                     }
 
                     break;
@@ -300,6 +302,11 @@ namespace OneWayOut.Scenes
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
+
+                    if (input.SingleKeyPress((Keys)GameState.GAME))
+                    {
+                        Reset();
+                    }
 
                     break;
 
@@ -438,6 +445,25 @@ namespace OneWayOut.Scenes
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        void Reset()
+        {
+            game.Reset();
+
+            asset.ResetGame(GraphicsDevice);
+
+            game.state = GameState.GAME;
+        }
+
+        void NextLevel()
+        {
+            game.NextLevel();
+
+            asset.SpawnSlimes(GraphicsDevice, 10);
+
+            player.SetPositionCenter(GraphicsDevice);
+            
         }
     }
 }

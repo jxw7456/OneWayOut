@@ -29,17 +29,25 @@ namespace OneWayOut.Manager
 
         const int SLIME_HEIGHT = 45;
 
+        const string PLAYER_TEXTURE = @"textures/ArcherSpritesheet";
+
+        const string ARROW_TEXTURE = @"textures/arrow";
+
         Random random;
 
         public Texture2D arrowTexture;
 
         Texture2D slimeTexture;
 
+        Texture2D playerTexture;
+
         MarkovNameGenerator nameGen;
 
         public List<Slime> slimes;
 
         public Dungeon dungeon;
+
+        public Player player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
@@ -57,16 +65,37 @@ namespace OneWayOut.Manager
 
             nameGen = new MarkovNameGenerator();
 
-            arrowTexture = Content.Load<Texture2D>(@"textures/arrow");
+            arrowTexture = Content.Load<Texture2D>(ARROW_TEXTURE);
+
+            playerTexture = Content.Load<Texture2D>(PLAYER_TEXTURE);
 
             InitSlime(Graphics);
 
             slimes = new List<Slime>();
-             
+
+            ResetGame(Graphics);
+        }
+
+        public void SpawnSlimes(GraphicsDevice Graphics, int count)
+        {
             for (int i = 0; i < SLIME_COUNT; i++)
             {
                 AddNewSlime(Graphics);
             }
+        }
+
+        //Resets the game if player dies or quits
+        public void ResetGame(GraphicsDevice Graphics)
+        {
+            slimes.Clear();
+
+            player = new Player(playerTexture);
+
+            player.SetPositionCenter(Graphics);
+
+            SpawnSlimes(Graphics, SLIME_COUNT);
+
+            //add new slime for the player            
         }
 
         /// <summary>
@@ -123,7 +152,7 @@ namespace OneWayOut.Manager
 
             string name = nameGen.RandomBottomCase(nameGen.NextName, GameManager.level);
 
-            int i = random.Next(4); 
+            int i = random.Next(4);
 
             int slimeX = 0;
 

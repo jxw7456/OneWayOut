@@ -44,8 +44,18 @@ namespace OneWayOut.Manager
         /// </summary>
         public GameManager()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             level = 0;
             state = GameState.START;
+        }
+
+        public void NextLevel()
+        {
+            level++;
         }
 
         /// <summary>
@@ -82,37 +92,6 @@ namespace OneWayOut.Manager
             }
         }
 
-        /// <summary>
-        /// Sets the position to center of screen.
-        /// </summary>
-        /// <param name="graphicsDevice">Graphic device.</param>
-        public void SetPositionCenter(GraphicsDevice graphicsDevice, Player player)
-        {
-            int screenWidth = graphicsDevice.Viewport.Width;
-
-            int screenHeight = graphicsDevice.Viewport.Height;
-
-            int screenCenterX = (screenWidth - Player.PLAYER_SIZE) / 2;
-
-            int screenCenterY = (screenHeight - Player.PLAYER_SIZE) / 2;
-
-            player.SetPosition(screenCenterX, screenCenterY);            
-        }
-
-        //Resets the game if player dies or quits
-        public void ResetGame(GraphicsDevice graphicsDevice, Player player)
-        {
-            player.Health = 100;
-            player.Score = 0;
-            player.ArrowCount = 10;
-            SetPositionCenter(graphicsDevice, player);
-            //add new slime for the player            
-        }
-
-        //Draws new slime after clearing out all slime
-        public void NextWave()
-        {
-            //do what is done in the above method
-        }
+        
     }
 }

@@ -51,5 +51,24 @@ namespace OneWayOut.Components
                 Position.X += 3;
             }
         }
+
+
+        /// <summary>
+        /// Sets the position to center of screen.
+        /// </summary>
+        /// <param name="graphicsDevice">Graphic device.</param>
+        public new void SetPositionCenter(GraphicsDevice graphicsDevice)
+        {
+            int screenWidth = graphicsDevice.Viewport.Width;
+
+            int screenHeight = graphicsDevice.Viewport.Height;
+
+            int screenCenterX = (screenWidth - PLAYER_SIZE) / 2;
+
+            int screenCenterY = (screenHeight - PLAYER_SIZE) / 2;
+
+            SetPosition(screenCenterX, screenCenterY);
+        }
+
     }
 }
