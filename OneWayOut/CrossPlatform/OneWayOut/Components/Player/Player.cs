@@ -75,7 +75,7 @@ namespace OneWayOut.Components
         //gains arrow for each slime death
         public void GainArrow()
         {
-            ArrowCount += 2;
+            ArrowCount += 1;
         }
     }
 }

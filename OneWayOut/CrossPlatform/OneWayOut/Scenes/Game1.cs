@@ -195,8 +195,6 @@ namespace OneWayOut.Scenes
 
                         if (slime.CompareName(input.TypingStack) && player.ArrowCount > 0)
                         {
-                            player.UseArrow();
-
                             int arrowX = player.Position.X;
 
                             int arrowY = player.Position.Y + 40;
@@ -204,6 +202,10 @@ namespace OneWayOut.Scenes
                             arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
 
                             arrow.Target = i;
+
+                            input.TypingStack = "";
+
+                            player.UseArrow();
                         }
 
                         slime.Chase(player, gameTime);
@@ -215,8 +217,7 @@ namespace OneWayOut.Scenes
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
-                            player.GainArrow();
-                            item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
+                            item = new Drop(healthPack, arrowDrop, slime.Position.X,slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
 
@@ -286,7 +287,6 @@ namespace OneWayOut.Scenes
                             firstProc.Start();
 
                             firstProc.WaitForExit();
-
                         }
                         catch (Exception ex)
                         {
