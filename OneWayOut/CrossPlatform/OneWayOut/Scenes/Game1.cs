@@ -278,7 +278,7 @@ namespace OneWayOut.Scenes
                         try
                         {
                             Process firstProc = new Process();
-                            firstProc.StartInfo.FileName = "one way outexternal tool.exe";
+                            firstProc.StartInfo.FileName = "..\\..\\..\\..\\..\\one way outexternal tool.exe";
                             firstProc.EnableRaisingEvents = true;
 
                             firstProc.Start();
