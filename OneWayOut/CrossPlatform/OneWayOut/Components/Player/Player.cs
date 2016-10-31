@@ -65,6 +65,8 @@ namespace OneWayOut.Components
 
             ArrowCount = 10;   //amount of arrows play has to start with
 
+            Score = 0;
+
             timer = 0;
 
             blink = 0;

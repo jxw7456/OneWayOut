@@ -90,8 +90,6 @@ namespace OneWayOut.Manager
             {
                 theObject.SetPosition(objPos.X, screenHeight - objPos.Height / 2);
             }
-        }
-
-        
+        }        
     }
 }
