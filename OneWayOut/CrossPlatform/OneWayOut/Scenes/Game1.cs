@@ -147,12 +147,14 @@ namespace OneWayOut.Scenes
             {
             //START case: sets up the screen to switch between the GAME, HELP, OPTIONS screens
                 case GameState.START:
+                    checkIt = false;
                     bgm.PlayMenu();
 
                     break;
 
             //HELP case: gives background of the game as well as instructions to play the game
                 case GameState.HELP:
+                    checkIt = false;
                     bgm.PlayHelp();
 
                     break;
@@ -280,7 +282,7 @@ namespace OneWayOut.Scenes
                             Process firstProc = new Process();
                             firstProc.StartInfo.FileName = "..\\..\\..\\..\\..\\one way outexternal tool.exe";
                             firstProc.EnableRaisingEvents = true;
-
+                            
                             firstProc.Start();
 
                             firstProc.WaitForExit();
@@ -295,7 +297,7 @@ namespace OneWayOut.Scenes
 
             //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
-
+                    checkIt = false;
                     bgm.PlayGameOver();
 
                     if (input.SingleKeyPress((Keys)GameState.GAME))
@@ -307,7 +309,7 @@ namespace OneWayOut.Scenes
 
             //PAUSE case: stops all movement and music in-game
                 case GameState.PAUSE:
-
+                    checkIt = false;
                     bgm.Pause();
 
                     break;
