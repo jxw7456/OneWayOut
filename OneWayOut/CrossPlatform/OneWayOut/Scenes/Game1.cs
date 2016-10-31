@@ -269,9 +269,9 @@ namespace OneWayOut.Scenes
                 case GameState.OPTIONS:
 
                     bgm.PlayOptions();
-                    //Code for changing volume and putting it in the options screen
-                    //Process firstProc = new Process();
+                    //Code for changing volume and putting it in the options screen                  
                     //No need to check if a boolean is true or false
+                    //yes there is. The exe will continuesly pop up and you cant exit it.
                     if (checkIt == false)
                     {
                         checkIt = true;
