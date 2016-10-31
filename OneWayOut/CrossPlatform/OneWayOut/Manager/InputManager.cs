@@ -43,14 +43,16 @@ namespace OneWayOut.Manager
             {
                 if (SingleKeyPress((Keys)state))
                 {
+                    if (state == GameState.GAME)
+                    {
+                        bgm.Resume();
+
+                    }
+
                     Console.WriteLine(state);
 
                     game.state = state;
 
-                    if (state == GameState.GAME)
-                    {
-                        bgm.Resume();
-                    }
                 }
             }
         }

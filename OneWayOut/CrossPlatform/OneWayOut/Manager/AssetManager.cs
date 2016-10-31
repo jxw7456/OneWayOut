@@ -73,6 +73,8 @@ namespace OneWayOut.Manager
 
             slimes = new List<Slime>();
 
+            player = new Player(playerTexture);
+
             ResetGame(Graphics);
         }
 
@@ -89,12 +91,11 @@ namespace OneWayOut.Manager
         {
             slimes.Clear();
 
-            player = new Player(playerTexture);
+            player.Reset();
 
             player.SetPositionCenter(Graphics);
 
             SpawnSlimes(Graphics, SLIME_COUNT);
-
             //add new slime for the player            
         }
 

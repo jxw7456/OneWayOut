@@ -80,6 +80,10 @@ namespace OneWayOut
 
         public void DrawScore(SpriteBatch sb)
         {
+            if (entireFile.Count < 1)
+            {
+                return;
+            }
             // TODO: This could be improved such that all score are draw
             // without doing manually each line.
             // Also it should be left for ForegroundTextManager to handle
@@ -101,6 +105,10 @@ namespace OneWayOut
 
         public void CheckScore()
         {
+            if (entireFile.Count < 1)
+            {
+                return;
+            }
             // TODO: This could be improved by int comparission
             // string parsing at the end could be error prone.
             if (score >= int.Parse(entireFile[1]))
