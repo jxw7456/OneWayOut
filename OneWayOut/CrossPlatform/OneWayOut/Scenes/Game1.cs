@@ -449,7 +449,6 @@ namespace OneWayOut.Scenes
             asset.ResetGame(GraphicsDevice);
            
             game.Reset();
-
         }
 
         void NextLevel()
@@ -458,8 +457,7 @@ namespace OneWayOut.Scenes
 
             asset.SpawnSlimes(GraphicsDevice, 10);
 
-            player.SetPositionCenter(GraphicsDevice);
-            
+            player.SetPositionCenter(GraphicsDevice);            
         }
     }
 }

@@ -95,8 +95,7 @@ namespace OneWayOut.Manager
 
             player.SetPositionCenter(Graphics);
 
-            SpawnSlimes(Graphics, SLIME_COUNT);
-            //add new slime for the player            
+            SpawnSlimes(Graphics, SLIME_COUNT);         
         }
 
         /// <summary>
