@@ -28,8 +28,6 @@ namespace OneWayOut.Scenes
 
         Texture2D health;
 
-        Texture2D signPicture;
-
         Arrow arrow;
 
         AssetManager asset;
@@ -63,6 +61,10 @@ namespace OneWayOut.Scenes
         {
             graphics = new GraphicsDeviceManager(this);
 
+            graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
         }
 
@@ -94,8 +96,6 @@ namespace OneWayOut.Scenes
 
             // TODO: Refactor this into either assetManager or 
             // some manager specialized for sprite
-            signPicture = Content.Load<Texture2D>(@"textures/signlanguage");
-
             health = Content.Load<Texture2D>(@"textures/health");
 
             healthPack = Content.Load<Texture2D>(@"textures/healthpack");
@@ -268,9 +268,9 @@ namespace OneWayOut.Scenes
                     break;
 
             //OPTIONS case: will display the sound options, etc.
-                case GameState.OPTIONS:
+                case GameState.STORY:
 
-                    bgm.PlayOptions();
+                    bgm.PlayStory();
                     //Code for changing volume and putting it in the options screen                  
                     //No need to check if a boolean is true or false
                     //yes there is. The exe will continuesly pop up and you cant exit it.
@@ -279,6 +279,7 @@ namespace OneWayOut.Scenes
                         checkIt = true;
                         try
                         {
+                            /*
                             Process firstProc = new Process();
                             firstProc.StartInfo.FileName = "..\\..\\..\\..\\..\\one way outexternal tool.exe";
                             firstProc.EnableRaisingEvents = true;
@@ -286,6 +287,7 @@ namespace OneWayOut.Scenes
                             firstProc.Start();
 
                             firstProc.WaitForExit();
+                            */
                         }
                         catch (Exception ex)
                         {
@@ -300,7 +302,7 @@ namespace OneWayOut.Scenes
                     checkIt = false;
                     bgm.PlayGameOver();
 
-                    if (input.SingleKeyPress((Keys)GameState.GAME))
+                    if (input.SingleKeyPress((Keys)GameState.GAME) || input.SingleKeyPress((Keys)GameState.START))
                     {
                         Reset();
                     }
@@ -380,18 +382,16 @@ namespace OneWayOut.Scenes
 
                     background.DrawHelp(spriteBatch, GraphicsDevice);
 
-                    spriteBatch.Draw(signPicture, new Rectangle(300, 290, 200, 180), Color.White);
-
                     foregroundText.DrawHelp(spriteBatch);
 
                     break;
 
             //Draw Options
-                case GameState.OPTIONS:
+                case GameState.STORY:
 
-                    background.DrawOption(spriteBatch, GraphicsDevice);
+                    background.DrawStory(spriteBatch, GraphicsDevice);
 
-                    foregroundText.DrawOption(spriteBatch);
+                    foregroundText.DrawStory(spriteBatch);
 
                     break;
 

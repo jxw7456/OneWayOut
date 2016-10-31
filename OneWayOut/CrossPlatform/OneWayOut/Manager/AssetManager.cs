@@ -21,6 +21,8 @@ namespace OneWayOut.Manager
     /// </summary>
     class AssetManager
     {
+        const float E_NATURAL = 2.71828f;
+
         const int RANDOM_SEED = 999;
 
         const int SLIME_WIDTH = 70;
@@ -33,6 +35,8 @@ namespace OneWayOut.Manager
 
         const string ARROW_TEXTURE = @"textures/arrow";
 
+        int slimeCount;
+
         Random random;
 
         public Texture2D arrowTexture;
@@ -42,7 +46,7 @@ namespace OneWayOut.Manager
         Texture2D playerTexture;
 
         MarkovNameGenerator nameGen;
-
+        
         public List<Slime> slimes;
 
         public Dungeon dungeon;
@@ -75,12 +79,14 @@ namespace OneWayOut.Manager
 
             player = new Player(playerTexture);
 
+            slimeCount = SLIME_COUNT;
+
             ResetGame(Graphics);
         }
 
         public void SpawnSlimes(GraphicsDevice Graphics, int count)
         {
-            for (int i = 0; i < SLIME_COUNT; i++)
+            for (int i = 0; i < count; i++)
             {
                 AddNewSlime(Graphics);
             }
@@ -95,7 +101,9 @@ namespace OneWayOut.Manager
 
             player.SetPositionCenter(Graphics);
 
-            SpawnSlimes(Graphics, SLIME_COUNT);         
+            slimeCount = slimeCount + (int)(GameManager.level * E_NATURAL * slimeCount);
+
+            SpawnSlimes(Graphics, slimeCount);         
         }
 
         /// <summary>

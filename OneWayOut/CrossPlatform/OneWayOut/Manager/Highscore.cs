@@ -25,19 +25,19 @@ namespace OneWayOut
 
         // TODO: This should be done in the constructor.
         //wont make a diffirence if i did it that way
-        Vector2 pos = new Vector2(600, 180);
-        Vector2 pos1 = new Vector2(600, 210);
-        Vector2 pos2 = new Vector2(600, 240);
-        Vector2 pos3 = new Vector2(600, 270);
-        Vector2 gameScore = new Vector2(240, 0);
-        Vector2 yourScore = new Vector2(50, 180);
+        Vector2 pos = new Vector2(1550, 160);
+        Vector2 pos1 = new Vector2(1590, 230);
+        Vector2 pos2 = new Vector2(1590, 300);
+        Vector2 pos3 = new Vector2(1590, 370);
+        Vector2 gameScore = new Vector2(1590, 0);
+        Vector2 yourScore = new Vector2(50, 160);
 
         // TODO: Refactor this into a local variable. done
         string line;
 
         public Highscore(ContentManager Content)
         {
-            font = Content.Load<SpriteFont>(@"fonts/bold");
+            font = Content.Load<SpriteFont>(@"fonts/biggerFont");
         }
 
         public void readScore()
@@ -108,7 +108,7 @@ namespace OneWayOut
 
         public void DrawScore(SpriteBatch sBatch, Player mc)
         {
-            sBatch.DrawString(font, mc.Score.ToString(), gameScore, Color.White);
+            sBatch.DrawString(font, "Score: " + mc.Score.ToString(), gameScore, Color.White);
         }
 
         public void CheckScore()
