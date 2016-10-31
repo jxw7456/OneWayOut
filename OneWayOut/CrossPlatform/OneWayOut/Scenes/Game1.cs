@@ -107,7 +107,7 @@ namespace OneWayOut.Scenes
 
             player = new Player(spriteSheet);
 
- 
+
 
             player.SetPositionCenter(GraphicsDevice);
 
@@ -174,7 +174,7 @@ namespace OneWayOut.Scenes
 
                     checkIt = false;
 
-				highscoreText.getScore (player.score);
+                    highscoreText.getScore(player.score);
 
                     player.Move();
 
@@ -221,13 +221,13 @@ namespace OneWayOut.Scenes
                             int arrowY = player.position.Y + 40;
                             arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
                             player.timer = 0;
-                            player.UseArrow();                            
+                            player.UseArrow();
                         }
                     }
 
                     if (player.health <= 0)
                     {
-                        
+
                         game.state = GameState.GAMEOVER;
                         highscoreText.getScore(player.score);
                         ResetGame();
@@ -239,38 +239,34 @@ namespace OneWayOut.Scenes
 
                     bgm.PlayOptions();
 
-					//TODO
-					//Code for changing volume and putting it in the options screen
-                       // Process firstProc = new Process();
-                        if(checkIt == false)
+                    //TODO
+                    //Code for changing volume and putting it in the options screen
+                    // Process firstProc = new Process();
+                    if (checkIt == false)
                     {
                         checkIt = true;
                         try
                         {
-                        Process firstProc = new Process();
-                        firstProc.StartInfo.FileName = "one way outexternal tool.exe";
-                        firstProc.EnableRaisingEvents = true;
+                            Process firstProc = new Process();
+                            firstProc.StartInfo.FileName = "one way outexternal tool.exe";
+                            firstProc.EnableRaisingEvents = true;
 
-                        firstProc.Start();
+                            firstProc.Start();
 
-                        firstProc.WaitForExit();
+                            firstProc.WaitForExit();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
 
                         }
-                        
-
                     }
-                        
-                        
-				break;
+                    break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
 
                     bgm.PlayGameOver();
-                    
+
 
                     break;
 
@@ -410,12 +406,6 @@ namespace OneWayOut.Scenes
             player.arrowSupply = 50;
             player.SetPositionCenter(GraphicsDevice);
             //add new slime for the player            
-        }
-
-        //Draws new slime after clearing out all slime
-        public void NextWave()
-        {
-            //do what is done in the above method
         }
     }
 }
