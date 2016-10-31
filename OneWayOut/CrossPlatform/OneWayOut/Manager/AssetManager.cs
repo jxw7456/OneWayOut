@@ -29,19 +29,25 @@ namespace OneWayOut.Manager
 
         const int SLIME_HEIGHT = 45;
 
+        const string PLAYER_TEXTURE = @"textures/ArcherSpritesheet";
+
+        const string ARROW_TEXTURE = @"textures/arrow";
+
         Random random;
 
         public Texture2D arrowTexture;
 
-        Texture2D collision;
-
         Texture2D slimeTexture;
+
+        Texture2D playerTexture;
 
         MarkovNameGenerator nameGen;
 
         public List<Slime> slimes;
 
         public Dungeon dungeon;
+
+        public Player player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
@@ -59,16 +65,37 @@ namespace OneWayOut.Manager
 
             nameGen = new MarkovNameGenerator();
 
-            arrowTexture = Content.Load<Texture2D>(@"textures/arrow");
+            arrowTexture = Content.Load<Texture2D>(ARROW_TEXTURE);
+
+            playerTexture = Content.Load<Texture2D>(PLAYER_TEXTURE);
 
             InitSlime(Graphics);
 
             slimes = new List<Slime>();
 
+            player = new Player(playerTexture);
+
+            ResetGame(Graphics);
+        }
+
+        public void SpawnSlimes(GraphicsDevice Graphics, int count)
+        {
             for (int i = 0; i < SLIME_COUNT; i++)
             {
                 AddNewSlime(Graphics);
             }
+        }
+
+        //Resets the game if player dies or quits
+        public void ResetGame(GraphicsDevice Graphics)
+        {
+            slimes.Clear();
+
+            player.Reset();
+
+            player.SetPositionCenter(Graphics);
+
+            SpawnSlimes(Graphics, SLIME_COUNT);         
         }
 
         /// <summary>
@@ -141,8 +168,7 @@ namespace OneWayOut.Manager
                     break;
                 case 2:
                     slimeY = vp.Height - SLIME_HEIGHT;
-                    goto case 3
-                    ;
+                    goto case 3;
                 case 3:
                     slimeX = random.Next(vp.Width);
                     break;
@@ -152,7 +178,7 @@ namespace OneWayOut.Manager
 
             var s = new Slime(slimeX, slimeY, SLIME_WIDTH, SLIME_HEIGHT, Graphics, random, name);
 
-            s.texture = slimeTexture;
+            s.Texture = slimeTexture;
 
             return s;
         }

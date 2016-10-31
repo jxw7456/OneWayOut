@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
+
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 using OneWayOut.Components;
-using Microsoft.Xna.Framework;
 using OneWayOut.Utils;
-using System.Threading;
-using OneWayOut.Manager;
 
 namespace OneWayOut.Components
 {
@@ -15,6 +14,14 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Slime : GameObject
     {
+        public string Name { get; set; }
+
+        public int Speed { get; set; }
+
+        public int Damage { get; set; }
+
+        public int Health { get; set; }
+
         const int PIXEL_SIZE = 9;
 
         const int MAX_MOVE_SPEED = 500;
@@ -29,26 +36,14 @@ namespace OneWayOut.Components
 
         Random random;
 
-        public string name;
-
-        public int speed;
-
-        private int damage;
-
-        public int Damage
-        {
-            get { return damage; }
-            set { damage = value; }
-        }
-
-        private int health;
-
         Color color;
 
         //Time elapsed since the last check
-        public float elapsedTime = 0;
+        float elapsedTime = 0;
 
-        public float slimeDelay;
+        float slimeDelay;
+
+        string upperCaseName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
@@ -64,52 +59,39 @@ namespace OneWayOut.Components
         public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
             : base(x, y, width, height)
         {
+            random = r;
+
             state = SlimeState.IDLE;
 
             direction = SlimeDirection.RIGHT;
 
-            random = r;
-
-            speed = random.Next(MIN_MOVE_SPEED, MAX_MOVE_SPEED);
-
-            name = n;
-
-            damage = Damage;
-
-            health = 100;
-
-            //name += speed;
-
             slimeDelay = (float)random.NextDouble() / 2;
 
-            color = ColorGenerator.RandomColor(r);
+            upperCaseName = n.ToUpper();
+
+            Speed = random.Next(MIN_MOVE_SPEED, MAX_MOVE_SPEED);
+
+            Name = n;
+
+            //Name += Speed;
+            Damage = 1;
+
+            Health = 100;
+
+            if (r.NextDouble() > 0.18)
+            {
+                color = ColorGenerator.RandomColor(r);
+            }
+            else
+            {
+                color = Color.Black;
+            }
 
             var iShape = ReadBitMap(IDLE_SHAPE);
 
             if (iShape != null)
             {
                 body = iShape;
-            }
-        }
-
-        public int Health
-        {
-            get { return health; }
-            set { health = value; }
-        }
-
-        public void SlimeAttack(Player player)
-        {
-            Damage = 1;
-
-            if (this.position.Intersects(player.position))
-            {
-                // Use property and kill the slime (ONE HIT from arrow KILLS)
-                player.health -= Damage;
-                if (player.health == 0)
-                {
-                    player.IsActive = false;
-                }
             }
         }
     }

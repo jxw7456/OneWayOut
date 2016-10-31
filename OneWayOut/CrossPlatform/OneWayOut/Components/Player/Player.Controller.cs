@@ -19,7 +19,7 @@ namespace OneWayOut.Components
     }
 
     /// <summary>
-    /// Player Controller Methods
+    /// In charge of controlling the user
     /// </summary>
     partial class Player : GameObject
     {
@@ -33,23 +33,42 @@ namespace OneWayOut.Components
             if (kbState.IsKeyDown(Keys.Up))
             {
                 direction = Direction.UP;
-                position.Y -= 3;
+                Position.Y -= 3;
             }
             if (kbState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.DOWN;
-                position.Y += 3;
+                Position.Y += 3;
             }
             if (kbState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.LEFT;
-                position.X -= 3;
+                Position.X -= 3;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.RIGHT;
-                position.X += 3;
+                Position.X += 3;
             }
         }
+
+
+        /// <summary>
+        /// Sets the position to center of screen.
+        /// </summary>
+        /// <param name="graphicsDevice">Graphic device.</param>
+        public new void SetPositionCenter(GraphicsDevice graphicsDevice)
+        {
+            int screenWidth = graphicsDevice.Viewport.Width;
+
+            int screenHeight = graphicsDevice.Viewport.Height;
+
+            int screenCenterX = (screenWidth - PLAYER_SIZE) / 2;
+
+            int screenCenterY = (screenHeight - PLAYER_SIZE) / 2;
+
+            SetPosition(screenCenterX, screenCenterY);
+        }
+
     }
 }

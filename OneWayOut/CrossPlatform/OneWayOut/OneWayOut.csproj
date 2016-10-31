@@ -11,24 +11,25 @@
     <AssemblyName>OneWayOut</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <StartupObject>OneWayOut.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\$(MonoGamePlatform)\x86\Debug\</OutputPath>
+    <OutputPath>bin\DesktopGL\x86\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Externalconsole>true</Externalconsole>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\$(MonoGamePlatform)\x86\Release\</OutputPath>
+    <OutputPath>bin\DesktopGL\x86\Debug</OutputPath>
     <DefineConstants>TRACE;LINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,8 +40,6 @@
   <ItemGroup>
     <Compile Include="Components\Arrow\Arrow.cs" />
     <Compile Include="Utils\ColorGenerator.cs" />
-    <Compile Include="Components\Arrow\ArrowController.cs" />
-    <Compile Include="Components\Arrow\ArrowTest.cs" />
     <Compile Include="Components\Drop\Drop.cs" />
     <Compile Include="Components\Drop\DropTest.cs" />
     <Compile Include="Components\Dungeon\Dungeon.Controller.cs" />
@@ -48,8 +47,6 @@
     <Compile Include="Components\GameObject.cs" />
     <Compile Include="Components\Mob\MobController.cs" />
     <Compile Include="Components\Mob\MobGenerator.Slime.cs" />
-    <Compile Include="Components\Player\PlayerAnimator.cs" />
-    <Compile Include="Components\Player\PlayerController.cs" />
     <Compile Include="Manager\AssetManager.cs" />
     <Compile Include="Manager\GameManager.cs" />
     <Compile Include="Manager\Highscore.cs" />
@@ -71,6 +68,11 @@
     <Compile Include="Components\Mob\Slime\Slime.Behavior.cs" />
     <Compile Include="Manager\BackgroundMusicManager.cs" />
     <Compile Include="Components\Mob\Slime\Slime.File.cs" />
+    <Compile Include="Components\Arrow\Arrow.Controller.cs" />
+    <Compile Include="Components\Arrow\Arrow.Behavior.cs" />
+    <Compile Include="Components\Arrow\Arrow.Test.cs" />
+    <Compile Include="Components\Player\Player.Animator.cs" />
+    <Compile Include="Components\Player\Player.Controller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -119,4 +121,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
