@@ -21,7 +21,7 @@ namespace Components
 				var row = shape [i];
 
 				for (int j = 0; j < row.Length; ++j) {
-					row [j] = (byte)(int)tiles [i * height + j].type;
+					row [j] = (byte)(int)tiles [i * height + (row.Length - j - 1)].type;
 				}
 			}
 

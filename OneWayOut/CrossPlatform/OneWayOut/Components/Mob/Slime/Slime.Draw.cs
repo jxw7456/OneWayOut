@@ -26,7 +26,8 @@ namespace OneWayOut.Components
         /// <param name="pos">Position of point</param>
         public void DrawPoint(
             SpriteBatch sb,
-            Vector2 pos
+            Vector2 pos,
+            Color c
         )
         {
             var point = new Rectangle(
@@ -35,9 +36,9 @@ namespace OneWayOut.Components
                             PIXEL_SIZE,
                             PIXEL_SIZE);
 
-            if (!color.Equals(Color.Black))
+            if (!c.Equals(Color.TransparentBlack))
             {
-                sb.Draw(Texture, point, null, color);
+                sb.Draw(Texture, point, null, c);
             }
             else
             {
@@ -93,12 +94,16 @@ namespace OneWayOut.Components
                             // Simulate a blinking effect...
                             if (random.NextDouble() > 0.81)
                             {
-                                DrawPoint(sb, pos);
+                                DrawPoint(sb, pos, Color.Black);
                             }
+                            break;
+                        case SlimeTextureMap.COLORFUL:
+                            DrawPoint(sb, pos, Color.TransparentBlack);
+
                             break;
                         case SlimeTextureMap.BODY:
                         default:
-                            DrawPoint(sb, pos);
+                            DrawPoint(sb, pos, color);
                             break;
                     }
                 }

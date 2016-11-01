@@ -21,7 +21,7 @@ namespace Components
 				name, 
 				namePos,
 				Color.White
-			);	
+			);
 		}
 
 		/// <summary>

@@ -84,7 +84,7 @@ namespace OneWayOut.Components
             }
             else
             {
-                color = Color.Black;
+                color = Color.TransparentBlack;
             }
         }
     }
