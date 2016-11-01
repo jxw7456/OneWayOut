@@ -13,6 +13,11 @@ namespace MobMaker
 			
 		}
 
+		public static void Read (string fileName)
+		{
+			
+		}
+
 		public static void Write (string fileName, byte[][] shape)
 		{
 			using (var binaryWriter = new BinaryWriter (File.OpenWrite (fileName))) {

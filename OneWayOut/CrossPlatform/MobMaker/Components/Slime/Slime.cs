@@ -38,14 +38,7 @@ namespace Components.Slime
 
 		string name;
 
-		int speed;
-
 		Color color;
-
-		//Time elapsed since the last check
-		float elapsedTime = 0;
-
-		float slimeDelay;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Components.Slime.Slime"/> class.
@@ -67,14 +60,10 @@ namespace Components.Slime
 
 			random = r;
 
-			speed = random.Next (MIN_MOVE_SPEED, MAX_MOVE_SPEED);
-
 			name = n;
 
 			//name += speed;
 
-			slimeDelay = (float)random.NextDouble () / 2;
-			
 			color = Color.White;
 		}
 	}

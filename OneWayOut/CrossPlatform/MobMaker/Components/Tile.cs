@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Components
 {
@@ -7,7 +8,8 @@ namespace Components
 	{
 		NULL,
 		BODY,
-		EYE
+		EYE,
+		COLORFUL
 	}
 
 	public class Tile:GameObject
@@ -18,6 +20,11 @@ namespace Components
 		public Tile (Rectangle rec) : base (rec)
 		{
 			type = TileTextureMap.BODY;
+		}
+
+		public void Draw (SpriteBatch spriteBatch, Color color)
+		{
+			spriteBatch.Draw (Texture, Position, color);
 		}
 	}
 }

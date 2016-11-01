@@ -28,7 +28,7 @@ namespace OneWayOut.Components
 
         const int MIN_MOVE_SPEED = 200;
 
-        const string IDLE_SHAPE = "mob.owo";
+        const string EXTENSION = ".owo";
 
         SlimeState state;
 
@@ -85,13 +85,6 @@ namespace OneWayOut.Components
             else
             {
                 color = Color.Black;
-            }
-
-            var iShape = ReadBitMap(IDLE_SHAPE);
-
-            if (iShape != null)
-            {
-                body = iShape;
             }
         }
     }

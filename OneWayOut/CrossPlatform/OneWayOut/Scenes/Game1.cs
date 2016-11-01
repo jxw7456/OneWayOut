@@ -28,6 +28,8 @@ namespace OneWayOut.Scenes
 
         Texture2D health;
 
+        Rectangle healthContainer;
+
         Texture2D signPicture;
 
         Arrow arrow;
@@ -116,6 +118,8 @@ namespace OneWayOut.Scenes
 
             player.SetPositionCenter(GraphicsDevice);
 
+            healthContainer = new Rectangle(4, 5, 102, 31);
+
             healthSize = new Rectangle(5, 5, player.Health, 30);
             // TODO: use this.Content to load your game content here
         }
@@ -198,7 +202,7 @@ namespace OneWayOut.Scenes
 
                             arrow.Target = i;
 
-                            input.TypingStack = "";
+                            input.ClearStack();
 
                             player.UseArrow();
                         }
@@ -348,7 +352,7 @@ namespace OneWayOut.Scenes
 
                     scoreChecked = false;
 
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
+                    spriteBatch.Draw(health, healthContainer, Color.Black);
 
                     spriteBatch.Draw(health, healthSize, Color.White);
 

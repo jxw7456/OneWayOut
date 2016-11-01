@@ -21,6 +21,12 @@ namespace OneWayOut.Components
 
         public int Health { get; set; }
 
+        public Arrow ArrowReleased
+        {
+            get;
+            set;
+        }
+
         //A single sprite's width and height
         const int PLAYER_TEXTURE_SIZE = 512;
 
@@ -31,6 +37,8 @@ namespace OneWayOut.Components
         const int PLAYER_TEXTURE_START_C = 4;
         
         Direction direction;
+
+        Arrow arrow;
 
         int currentFrame;
 

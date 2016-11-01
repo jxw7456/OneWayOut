@@ -13,7 +13,8 @@ namespace Components.Slime
 		{
 			NULL,
 			BODY,
-			EYE
+			EYE,
+			COLORFUL
 		}
 
 		internal byte[][] movingU = new byte[][] {

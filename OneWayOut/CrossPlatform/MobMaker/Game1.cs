@@ -21,21 +21,29 @@ namespace MobMaker
 
 		CanvasManager canvas;
 
-		MouseState oldState;
+		MouseState mouseState;
+		MouseState oldMouseState;
+
+		KeyboardState kbState;
+		KeyboardState oldKbState;
 
 		SpriteFont spriteFont;
 
 		SaveButton saveBtn;
 
-		const string OUTPUT_FILE = "mob.owo";
-
 		string debugMsg = "";
+
+		const int INITIAL_SCREENSIZE = 300;
+
+		const int SCALE_AMOUNT = 70;
 
 		public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
-			graphics.PreferredBackBufferWidth = 450;
-			graphics.PreferredBackBufferHeight = 450;
+
+			graphics.PreferredBackBufferWidth = INITIAL_SCREENSIZE * 2;
+
+			graphics.PreferredBackBufferHeight = INITIAL_SCREENSIZE * 2;
 
 			Content.RootDirectory = "Content";
 		}
@@ -90,16 +98,18 @@ namespace MobMaker
             
 			// TODO: Add your update logic here
             
-			MouseState mouseState = Mouse.GetState ();
+			mouseState = Mouse.GetState ();
 
-			if (mouseState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released) {
+			kbState = Keyboard.GetState ();
+
+			if (mouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released) {
 				// do something here
 				int x = mouseState.X;
 
 				int y = mouseState.Y;
 
 				if (saveBtn.Clicked (mouseState.Position)) {
-					canvas.Save (OUTPUT_FILE);
+					canvas.Save ();
 					debugMsg = "SAVED!";
 				} else {
 					debugMsg = "";
@@ -107,7 +117,32 @@ namespace MobMaker
 				}
 			}
 
-			oldState = mouseState; // this reassigns the old state so that it is ready for next time
+			if (SingleKeyPress (Keys.Up)) {
+				graphics.PreferredBackBufferHeight -= SCALE_AMOUNT;
+				graphics.ApplyChanges ();
+				canvas.Scale (-1, 0, GraphicsDevice);
+			}
+			
+			if (SingleKeyPress (Keys.Right)) {
+				graphics.PreferredBackBufferWidth += SCALE_AMOUNT;
+				graphics.ApplyChanges ();
+				canvas.Scale (0, 1, GraphicsDevice);
+			}
+
+			if (SingleKeyPress (Keys.Left)) {
+				graphics.PreferredBackBufferWidth -= SCALE_AMOUNT;
+				graphics.ApplyChanges ();
+				canvas.Scale (0, -1, GraphicsDevice);
+			}
+
+			if (SingleKeyPress (Keys.Down)) {
+				graphics.PreferredBackBufferHeight += SCALE_AMOUNT;
+				graphics.ApplyChanges ();				
+				canvas.Scale (1, 0, GraphicsDevice);
+			}
+
+			oldMouseState = mouseState; // this reassigns the old state so that it is ready for next time
+			oldKbState = kbState;
 
 			base.Update (gameTime);
 		}
@@ -124,7 +159,7 @@ namespace MobMaker
             
 			spriteBatch.Begin ();
 
-			canvas.Draw (spriteBatch);
+			canvas.Draw (spriteBatch, spriteFont);
 
 			saveBtn.Draw (spriteBatch, spriteFont);
 
@@ -138,6 +173,11 @@ namespace MobMaker
 			spriteBatch.End ();
 
 			base.Draw (gameTime);
+		}
+
+		public bool SingleKeyPress (Keys key)
+		{
+			return kbState.IsKeyDown (key) && oldKbState.IsKeyUp (key);
 		}
 	}
 }

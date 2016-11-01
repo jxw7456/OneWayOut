@@ -15,9 +15,9 @@ namespace Components
 	/// </summary>
 	public class GameObject
 	{
-		public Texture2D texture;
+		public Texture2D Texture;
 
-		public Rectangle position;
+		public Rectangle Position;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OneWayOut.Components.GameObject"/> class.
@@ -25,7 +25,7 @@ namespace Components
 		/// <param name="pos">Position.</param>
 		public GameObject (Rectangle pos)
 		{
-			position = pos;
+			Position = pos;
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Components
 		/// <param name="height">Height.</param>
 		public GameObject (int x, int y, int width, int height)
 		{
-			position = new Rectangle (x, y, width, height);
+			Position = new Rectangle (x, y, width, height);
 		}
 
 		/// <summary>
@@ -47,8 +47,8 @@ namespace Components
 		/// <param name="y">The y coordinate.</param>
 		public void SetPosition (int x, int y)
 		{
-			position.X = x;
-			position.Y = y;
+			Position.X = x;
+			Position.Y = y;
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Components
 
 			int screenHeight = graphicDevice.Viewport.Height;
 
-			SetPosition ((screenWidth - texture.Width) / 2, (screenHeight - texture.Height) / 2);
+			SetPosition ((screenWidth - Texture.Width) / 2, (screenHeight - Texture.Height) / 2);
 		}
 
 		/// <summary>
@@ -70,7 +70,7 @@ namespace Components
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public void Draw (SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw (texture, position, Color.White);
+			spriteBatch.Draw (Texture, Position, Color.White);
 		}
 
 	}

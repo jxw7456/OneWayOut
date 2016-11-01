@@ -112,27 +112,31 @@ namespace OneWayOut.Components
         /// <param name="sb">Sb.</param>
         public new void Draw(SpriteBatch sb)
         {
+            // TODO: Refactor the string shape into something more relevant. 
+            // The current implementation might be very shit
+            // In the future...
 
             byte[][] shape;
             // Switch the shape based on the slime state
             switch (state)
             {
                 case SlimeState.BLOPPED:
-                    shape = blop;
+                    shape = Shapes["BLOP"];
                     break;
                 case SlimeState.WALK:
 
-                    shape = movingR;
+                    shape = Shapes["RIGHT"];
 
                     if ((direction & SlimeDirection.UP) != 0 || (direction & SlimeDirection.DOWN) != 0)
                     {
-                        shape = movingU;
+                        shape = Shapes["UP"];
                     }
 
                     break;
                 case SlimeState.IDLE:
                 default:
-                    shape = body;
+                    
+                    shape = Shapes["IDLE"];
                     break;
             }
 

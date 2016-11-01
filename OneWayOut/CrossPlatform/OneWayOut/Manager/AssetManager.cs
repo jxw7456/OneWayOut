@@ -57,6 +57,8 @@ namespace OneWayOut.Manager
         /// <param name="Graphics">Graphics.</param>
         public AssetManager(ContentManager Content, GraphicsDevice Graphics)
         {
+            Slime.SetupShapes();
+            
             random = new Random();
 
             dungeon = new Dungeon(Content);
@@ -90,7 +92,7 @@ namespace OneWayOut.Manager
         public void ResetGame(GraphicsDevice Graphics)
         {
             slimes.Clear();
-
+           
             player.Reset();
 
             player.SetPositionCenter(Graphics);
