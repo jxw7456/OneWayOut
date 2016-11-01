@@ -46,7 +46,11 @@ namespace OneWayOut.Scenes
 
         Texture2D arrowDrop;
 
+        Drop currentItem = null;
+
         Drop item;
+
+        List<Drop> drops = new List<Drop>();
 
         ForegroundTextManager foregroundText;
         // TODO: Refactor, this should follow the rest of the naming
@@ -215,8 +219,8 @@ namespace OneWayOut.Scenes
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
-                            player.GainArrow();
-                            item = new Drop(healthPack, arrowDrop, slime.Position.X,slime.Position.Y, 50, 50);
+                            //player.GainArrow();
+                            drops.Add(item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50));   
                             item.PickDrop();
                             dropIt = true;
 
@@ -227,35 +231,40 @@ namespace OneWayOut.Scenes
                     }
                     if(dropIt==true)
                     {
-                        if (player.Position.Intersects(item.Position))
+                        for(int i=0;i<drops.Count;i++)
                         {
-                            if (item.random >= 5)
+                            currentItem = drops[i];
+                            if (player.Position.Intersects(currentItem.Position))
                             {
-                                player.GainArrow();
-                                item = null;
-                                dropIt = false;
-                            }
-                            else if (item.random < 5)
-                            {
-                                if(player.Health==100)
+                                if (item.random >= 5)
                                 {
-                                    item = null;
+                                    player.GainArrow();
+                                    currentItem = null;
                                     dropIt = false;
                                 }
-                                else if(player.Health >= 90)
+                                else if (item.random < 5)
                                 {
-                                    item = null;
-                                    dropIt = false;
-                                    player.Health = 100;
+                                    if(player.Health==100)
+                                    {
+                                        currentItem = null;
+                                        dropIt = false;
+                                    }
+                                    else if(player.Health >= 90)
+                                    {
+                                        currentItem = null;
+                                        dropIt = false;
+                                        player.Health = 100;
+                                    }
+                                    else
+                                    {
+                                        currentItem = null;
+                                        dropIt = false;
+                                        player.Health += 10;
+                                    }
                                 }
-                                else
-                                {
-                                    item = null;
-                                    dropIt = false;
-                                    player.Health += 10;
-                                }
-                            }
-                        }   
+                            }   
+                        }
+                       
 
                     }
                    
