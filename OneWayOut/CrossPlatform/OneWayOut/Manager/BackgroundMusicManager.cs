@@ -19,7 +19,7 @@ namespace OneWayOut.Manager
 
         const string GAMEOVER_BGM = @"media/gameOver";
 
-        const string OPTION_BGM = @"media/options";
+        const string STORY_BGM = @"media/options";
 
         const string HELP_BGM = @"media/help";
 
@@ -27,7 +27,7 @@ namespace OneWayOut.Manager
 
         const float REGULAR_VOLUME = 0.50f;
 
-        Song currentSong, menuSong, helpSong, gameSong, gameOverSong, optionsSong;
+        Song currentSong, menuSong, helpSong, gameSong, gameOverSong, storySong;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.BgmManager"/> class.
@@ -54,7 +54,7 @@ namespace OneWayOut.Manager
             menuSong = Content.Load<Song>(MENU_BGM);
             gameSong = Content.Load<Song>(GAME_BGM);
             gameOverSong = Content.Load<Song>(GAMEOVER_BGM);
-            optionsSong = Content.Load<Song>(OPTION_BGM);
+            storySong = Content.Load<Song>(STORY_BGM);
             helpSong = Content.Load<Song>(HELP_BGM);
 
             currentSong = menuSong;
@@ -122,9 +122,9 @@ namespace OneWayOut.Manager
         /// <summary>
         /// Play the options song.
         /// </summary>
-        public void PlayOptions()
+        public void PlayStory()
         {
-            SwitchBgm(optionsSong);
+            SwitchBgm(storySong);
         }
 
         /// <summary>

@@ -59,8 +59,7 @@ namespace OneWayOut.Components
         /// <param name="Texture">T.</param>
         /// <param name="r">The red component.</param>
         /// <param name="c">C.</param>
-        public Player(Texture2D t)
-            : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        public Player(Texture2D t): base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
             Texture = t;
 
@@ -72,6 +71,8 @@ namespace OneWayOut.Components
             Health = 100;
 
             ArrowCount = 10;   //amount of arrows play has to start with
+
+            Score = 0;
 
             timer = 0;
 
@@ -96,7 +97,7 @@ namespace OneWayOut.Components
         //gains arrow for each slime death
         public void GainArrow()
         {
-            ArrowCount += 1;
+            ArrowCount += 2;
         }
     }
 }

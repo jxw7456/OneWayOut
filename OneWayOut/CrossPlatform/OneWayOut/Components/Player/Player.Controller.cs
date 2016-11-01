@@ -33,22 +33,22 @@ namespace OneWayOut.Components
             if (kbState.IsKeyDown(Keys.Up))
             {
                 direction = Direction.UP;
-                Position.Y -= 3;
+                Position.Y -= 5;
             }
             if (kbState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.DOWN;
-                Position.Y += 3;
+                Position.Y += 5;
             }
             if (kbState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.LEFT;
-                Position.X -= 3;
+                Position.X -= 5;
             }
             if (kbState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.RIGHT;
-                Position.X += 3;
+                Position.X += 5;
             }
         }
 
