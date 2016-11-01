@@ -22,15 +22,13 @@ namespace OneWayOut.Scenes
 
         // TODO: Refactor player and all texture/rectangle into assetManager
 
-        Texture2D spriteSheet;
-
         Player player;
 
         Rectangle healthSize;
 
         Texture2D health;
 
-        Texture2D signPicture;
+        Rectangle healthContainer;
 
         Arrow arrow;
 
@@ -69,6 +67,10 @@ namespace OneWayOut.Scenes
         {
             graphics = new GraphicsDeviceManager(this);
 
+            graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
         }
 
@@ -100,10 +102,6 @@ namespace OneWayOut.Scenes
 
             // TODO: Refactor this into either assetManager or 
             // some manager specialized for sprite
-            signPicture = Content.Load<Texture2D>(@"textures/signlanguage");
-
-            spriteSheet = Content.Load<Texture2D>(@"textures/ArcherSpritesheet");
-
             health = Content.Load<Texture2D>(@"textures/health");
 
             healthPack = Content.Load<Texture2D>(@"textures/healthpack");
@@ -120,10 +118,13 @@ namespace OneWayOut.Scenes
 
             highscoreText = new Highscore(Content);
 
-            player = new Player(spriteSheet);
+            player = asset.player;
 
-            game.SetPositionCenter(GraphicsDevice, player);
+            player.SetPositionCenter(GraphicsDevice);
 
+            healthContainer = new Rectangle(4, 5, 102, 31);
+
+            healthSize = new Rectangle(5, 5, player.Health, 30);
             // TODO: use this.Content to load your game content here
         }
 
@@ -148,25 +149,25 @@ namespace OneWayOut.Scenes
 
             input.CacheKeyboardState();
 
-            input.SwitchScene(game, bgm);
-
             input.Record(gameTime);
 
             switch (game.state)
             {
-                //START case: sets up the screen to switch between the GAME, HELP, OPTIONS screens
+            //START case: sets up the screen to switch between the GAME, HELP, OPTIONS screens
                 case GameState.START:
+                    checkIt = false;
                     bgm.PlayMenu();
 
                     break;
 
-                //HELP case: gives background of the game as well as instructions to play the game
+            //HELP case: gives background of the game as well as instructions to play the game
                 case GameState.HELP:
+                    checkIt = false;
                     bgm.PlayHelp();
 
                     break;
 
-                //GAME case: where the game is actually played and score is gathered
+            //GAME case: where the game is actually played and score is gathered
                 case GameState.GAME:
                     bgm.PlayGame();
 
@@ -177,8 +178,8 @@ namespace OneWayOut.Scenes
                     player.Move();
 
                     player.Update(gameTime);
-
-                    healthSize = new Rectangle(5, 5, player.Health, 30);
+                   
+                    healthSize.Width = player.Health;
 
                     game.ScreenWrap(GraphicsDevice, player);
 
@@ -199,8 +200,6 @@ namespace OneWayOut.Scenes
 
                         if (slime.CompareName(input.TypingStack) && player.ArrowCount > 0)
                         {
-                            player.UseArrow();
-
                             int arrowX = player.Position.X;
 
                             int arrowY = player.Position.Y + 40;
@@ -208,6 +207,10 @@ namespace OneWayOut.Scenes
                             arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
 
                             arrow.Target = i;
+
+                            input.ClearStack();
+
+                            player.UseArrow();
                         }
 
                         slime.Chase(player, gameTime);
@@ -229,7 +232,8 @@ namespace OneWayOut.Scenes
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
-                    if(dropIt==true)
+
+                    if (dropIt && player.Position.Intersects(item.Position))
                     {
                         for(int i=0;i<drops.Count;i++)
                         {
@@ -267,36 +271,36 @@ namespace OneWayOut.Scenes
                        
 
                     }
-                   
+
                     if (player.Health <= 0)
                     {
                         game.state = GameState.GAMEOVER;
                         highscoreText.getScore(player.Score);
-                        game.ResetGame(GraphicsDevice, player);
                     }
 
                     break;
 
-                //OPTIONS case: will display the sound options, etc.
-                case GameState.OPTIONS:
+            //OPTIONS case: will display the sound options, etc.
+                case GameState.STORY:
 
-                    bgm.PlayOptions();
-                    //Code for changing volume and putting it in the options screen
-                    //Process firstProc = new Process();
+                    bgm.PlayStory();
+                    //Code for changing volume and putting it in the options screen                  
                     //No need to check if a boolean is true or false
+                    //yes there is. The exe will continuesly pop up and you cant exit it.
                     if (checkIt == false)
                     {
                         checkIt = true;
                         try
                         {
+                            /*
                             Process firstProc = new Process();
-                            firstProc.StartInfo.FileName = "one way outexternal tool.exe";
+                            firstProc.StartInfo.FileName = "..\\..\\..\\..\\..\\one way outexternal tool.exe";
                             firstProc.EnableRaisingEvents = true;
-
+                            
                             firstProc.Start();
 
                             firstProc.WaitForExit();
-
+                            */
                         }
                         catch (Exception ex)
                         {
@@ -306,20 +310,27 @@ namespace OneWayOut.Scenes
 
                     break;
 
-                //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
+            //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
-
+                    checkIt = false;
                     bgm.PlayGameOver();
+
+                    if (input.SingleKeyPress((Keys)GameState.GAME) || input.SingleKeyPress((Keys)GameState.START))
+                    {
+                        Reset();
+                    }
 
                     break;
 
-                //PAUSE case: stops all movement and music in-game
+            //PAUSE case: stops all movement and music in-game
                 case GameState.PAUSE:
-
+                    checkIt = false;
                     bgm.Pause();
 
                     break;
             }
+
+            input.SwitchScene(game, bgm);
 
             base.Update(gameTime);
         }
@@ -338,7 +349,7 @@ namespace OneWayOut.Scenes
 
             switch (game.state)
             {
-                //Draw Menu
+            //Draw Menu
                 case GameState.START:
 
                     background.DrawStart(spriteBatch, GraphicsDevice);
@@ -347,21 +358,21 @@ namespace OneWayOut.Scenes
 
                     break;
 
-                //Draw Game
+            //Draw Game
                 case GameState.GAME:
 
                     asset.DrawDungeon(spriteBatch);
 
                     scoreChecked = false;
 
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
+                    spriteBatch.Draw(health, healthContainer, Color.Black);
 
                     spriteBatch.Draw(health, healthSize, Color.White);
 
-                    if(dropIt == true)
+                    if (dropIt == true)
                     {
-                       item.DrawDrop(spriteBatch);
-                      
+                        item.DrawDrop(spriteBatch);
+
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
@@ -379,27 +390,25 @@ namespace OneWayOut.Scenes
 
                     break;
 
-                //Draw Help
+            //Draw Help
                 case GameState.HELP:
 
                     background.DrawHelp(spriteBatch, GraphicsDevice);
-
-                    spriteBatch.Draw(signPicture, new Rectangle(300, 290, 200, 180), Color.White);
 
                     foregroundText.DrawHelp(spriteBatch);
 
                     break;
 
-                //Draw Options
-                case GameState.OPTIONS:
+            //Draw Options
+                case GameState.STORY:
 
-                    background.DrawOption(spriteBatch, GraphicsDevice);
+                    background.DrawStory(spriteBatch, GraphicsDevice);
 
-                    foregroundText.DrawOption(spriteBatch);
+                    foregroundText.DrawStory(spriteBatch);
 
                     break;
 
-                //Draw Game Over
+            //Draw Game Over
                 case GameState.GAMEOVER:
 
                     background.DrawGameover(spriteBatch, GraphicsDevice);
@@ -421,7 +430,7 @@ namespace OneWayOut.Scenes
                     highscoreText.DrawScore(spriteBatch);
                     break;
 
-                //Draw Pause
+            //Draw Pause
                 case GameState.PAUSE:
 
                     asset.DrawDungeon(spriteBatch);
@@ -448,6 +457,22 @@ namespace OneWayOut.Scenes
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        void Reset()
+        {
+            asset.ResetGame(GraphicsDevice);
+           
+            game.Reset();
+        }
+
+        void NextLevel()
+        {
+            game.NextLevel();
+
+            asset.SpawnSlimes(GraphicsDevice, 10);
+
+            player.SetPositionCenter(GraphicsDevice);            
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using OneWayOut.Utils;
 using System.Threading;
 using System.IO;
+using System.Linq;
 
 namespace OneWayOut.Components
 {
@@ -15,7 +16,23 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Slime : GameObject
     {
-        public byte[][] ReadBitMap(string fileName)
+        static public void SetupShapes()
+        {
+            // Abusing some Linq ¯\_(ツ)_/¯
+            foreach (var shapeName in Shapes.Keys.ToList())
+            {
+                string shapeFile = shapeName + EXTENSION;
+                
+                var cShape = ReadBitMap(shapeFile);
+                
+                if (cShape != null)
+                {
+                    Shapes[shapeName] = cShape;
+                }
+            }
+        }
+
+        static public byte[][] ReadBitMap(string fileName)
         {
             try
             {

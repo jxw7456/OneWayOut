@@ -21,6 +21,8 @@ namespace OneWayOut.Manager
     /// </summary>
     class AssetManager
     {
+        const float E_NATURAL = 2.71828f;
+
         const int RANDOM_SEED = 999;
 
         const int SLIME_WIDTH = 70;
@@ -29,17 +31,27 @@ namespace OneWayOut.Manager
 
         const int SLIME_HEIGHT = 45;
 
+        const string PLAYER_TEXTURE = @"textures/ArcherSpritesheet";
+
+        const string ARROW_TEXTURE = @"textures/arrow";
+
+        int slimeCount;
+
         Random random;
 
         public Texture2D arrowTexture;
 
         Texture2D slimeTexture;
 
-        MarkovNameGenerator nameGen;
+        Texture2D playerTexture;
 
+        MarkovNameGenerator nameGen;
+        
         public List<Slime> slimes;
 
         public Dungeon dungeon;
+
+        public Player player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
@@ -49,6 +61,8 @@ namespace OneWayOut.Manager
         /// <param name="Graphics">Graphics.</param>
         public AssetManager(ContentManager Content, GraphicsDevice Graphics)
         {
+            Slime.SetupShapes();
+            
             random = new Random();
 
             dungeon = new Dungeon(Content);
@@ -57,16 +71,41 @@ namespace OneWayOut.Manager
 
             nameGen = new MarkovNameGenerator();
 
-            arrowTexture = Content.Load<Texture2D>(@"textures/arrow");
+            arrowTexture = Content.Load<Texture2D>(ARROW_TEXTURE);
+
+            playerTexture = Content.Load<Texture2D>(PLAYER_TEXTURE);
 
             InitSlime(Graphics);
 
             slimes = new List<Slime>();
-             
-            for (int i = 0; i < SLIME_COUNT; i++)
+
+            player = new Player(playerTexture);
+
+            slimeCount = SLIME_COUNT;
+
+            ResetGame(Graphics);
+        }
+
+        public void SpawnSlimes(GraphicsDevice Graphics, int count)
+        {
+            for (int i = 0; i < count; i++)
             {
                 AddNewSlime(Graphics);
             }
+        }
+
+        //Resets the game if player dies or quits
+        public void ResetGame(GraphicsDevice Graphics)
+        {
+            slimes.Clear();
+           
+            player.Reset();
+
+            player.SetPositionCenter(Graphics);
+
+            slimeCount = slimeCount + (int)(GameManager.level * E_NATURAL * slimeCount);
+
+            SpawnSlimes(Graphics, slimeCount);         
         }
 
         /// <summary>
@@ -123,7 +162,7 @@ namespace OneWayOut.Manager
 
             string name = nameGen.RandomBottomCase(nameGen.NextName, GameManager.level);
 
-            int i = random.Next(4); 
+            int i = random.Next(4);
 
             int slimeX = 0;
 

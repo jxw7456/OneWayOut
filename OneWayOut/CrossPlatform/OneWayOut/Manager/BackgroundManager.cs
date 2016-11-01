@@ -15,7 +15,7 @@ namespace OneWayOut.Manager
 
 		const string HELP_BG = @"textures/dungeonHelp";
 
-		const string OPTION_BG = @"textures/dungeonOptions";
+		const string STORY_BG = @"textures/dungeonOptions";
 
 		const string GAMEOVER_BG = @"textures/deadArcher";
 
@@ -30,7 +30,7 @@ namespace OneWayOut.Manager
 		{
 			startBg = Content.Load<Texture2D> (START_BG);
 
-			optionBg = Content.Load<Texture2D> (OPTION_BG);
+			optionBg = Content.Load<Texture2D> (STORY_BG);
 
 			helpBg = Content.Load<Texture2D> (HELP_BG);
 
@@ -62,7 +62,7 @@ namespace OneWayOut.Manager
 		/// </summary>
 		/// <param name="sb">SpriteBatch</param>
 		/// <param name="graphics">Graphics.</param>
-		public void DrawOption (SpriteBatch sb, GraphicsDevice graphics)
+		public void DrawStory (SpriteBatch sb, GraphicsDevice graphics)
 		{
 			DrawBackGround (sb, graphics, optionBg);
 		}

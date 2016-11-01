@@ -11,19 +11,19 @@ namespace OneWayOut.Manager
 
     class InputManager
     {
-        const double TIMER = 1008.0;
+        const double TIMER = 2008.0;
 
         double timer;
 
-        public string TypingStack { get; set; }
+        string typingStack;
+
+        public string TypingStack { get { return typingStack; } }
 
         KeyboardState kbState, previousKbState;
 
         public InputManager()
         {
-            TypingStack = "";
-
-            timer = TIMER;
+            ClearStack();
         }
 
         public bool PushShoot()
@@ -43,16 +43,24 @@ namespace OneWayOut.Manager
             {
                 if (SingleKeyPress((Keys)state))
                 {
+                    if (state == GameState.GAME)
+                    {
+                        bgm.Resume();
+
+                    }
+
                     Console.WriteLine(state);
 
                     game.state = state;
 
-                    if (state == GameState.GAME)
-                    {
-                        bgm.Resume();
-                    }
                 }
             }
+        }
+
+        public void ClearStack()
+        {
+            typingStack = "";
+            timer = TIMER;
         }
 
         /// <summary>
@@ -69,27 +77,26 @@ namespace OneWayOut.Manager
                 to capture uppercase letter
              */
 
-            if (TypingStack.Length > 0)
+            if (typingStack.Length > 0)
             {
                 timer -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
             if (timer < 0)
             {
-                TypingStack = "";
-                timer = TIMER;
+                ClearStack();
             }
 
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
                 if (IsKeyAChar(key) && SingleKeyPress(key))
                 {
-                    TypingStack += key;
+                    typingStack += key;
                 }
 
-                if (TypingStack.Length > 0 && key == Keys.Back && SingleKeyPress(key))
+                if (typingStack.Length > 0 && key == Keys.Back && SingleKeyPress(key))
                 {
-                    TypingStack = TypingStack.Remove(TypingStack.Length - 1);  
+                    typingStack = typingStack.Remove(typingStack.Length - 1);  
                 }
             }
         }

@@ -50,11 +50,15 @@
     <Compile Include="Components\Slime\Slime.cs" />
     <Compile Include="Components\Slime\Slime.Draw.cs" />
     <Compile Include="Components\Slime\Slime.Shape.cs" />
-    <Compile Include="Components\Canvas.cs" />
     <Compile Include="Managers\CanvasManager.cs" />
     <Compile Include="Components\Tile.cs" />
     <Compile Include="Components\SaveButton.cs" />
     <Compile Include="Components\MobFile.cs" />
+    <Compile Include="Components\ColorGenerator.cs" />
+    <Compile Include="Components\Canvas\Canvas.cs" />
+    <Compile Include="Components\Canvas\Canvas.Generator.cs" />
+    <Compile Include="Components\Canvas\Canvas.Behavior.cs" />
+    <Compile Include="Components\Canvas\Canvas.Draw.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
@@ -75,4 +79,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Components\Canvas\" />
+  </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+using Utils;
+
 namespace Components.Slime
 {
 	/// <summary>
@@ -19,30 +21,37 @@ namespace Components.Slime
 		}
 
 		/// <summary>
-		/// Helper to draw a point.
+		/// Draws the point.
 		/// </summary>
 		/// <param name="sb">Spritebatch</param>
-		/// <param name="pos">Position of point</param>
+		/// <param name="pos">Position.</param>
 		public void DrawPoint (
 			SpriteBatch sb,
 			Vector2 pos
 		)
 		{
+			DrawPoint (sb, pos, color);
+		}
 
-			//int screenWidth = graphicDevice.Viewport.Width;
-
-			//int screenHeight = graphicDevice.Viewport.Height;
-
+		/// <summary>
+		/// Helper to draw a point.
+		/// </summary>
+		/// <param name="sb">Spritebatch</param>
+		/// <param name="pos">Position of point</param>
+		/// <param name="c">Color of the point</param>
+		public void DrawPoint (
+			SpriteBatch sb,
+			Vector2 pos,
+			Color c
+		)
+		{
 			var point = new Rectangle (
 				            (int)pos.X,
 				            (int)pos.Y,
 				            PIXEL_SIZE,
 				            PIXEL_SIZE);
-
-
-			// sb.Draw (texture, point, null, Color.White);
-			// 8sb.Draw (texture, point, null, ColorGenerator.RandomColor (random));
-			sb.Draw (texture, point, null, color);
+			
+			sb.Draw (Texture, point, null, c);	
 		}
 
 		/// <summary>
@@ -66,18 +75,18 @@ namespace Components.Slime
 						continue;
 					}
 
-					int x = position.X + j * PIXEL_SIZE;
+					int x = Position.X + j * PIXEL_SIZE;
 
-					int y = position.Y + i * PIXEL_SIZE;
+					int y = Position.Y + i * PIXEL_SIZE;
 
 					// Rotate across the X axis if look left
 					if ((direction & SlimeDirection.LEFT) != 0) {
-						x = position.X + (row.Length - j) * PIXEL_SIZE;
+						x = Position.X + (row.Length - j) * PIXEL_SIZE;
 					} 
 
 					// Rotate across the Y axis if look down
 					if ((direction & SlimeDirection.DOWN) != 0) {
-						y = position.Y + (shape.Length - i) * PIXEL_SIZE;
+						y = Position.Y + (shape.Length - i) * PIXEL_SIZE;
 					}
 
 					var pos = new Vector2 (x, y);
@@ -90,6 +99,9 @@ namespace Components.Slime
 						if (random.NextDouble () > 0.81) { 
 							DrawPoint (sb, pos);
 						}
+						break;
+					case SlimeTextureMap.COLORFUL:
+						DrawPoint (sb, pos, ColorGenerator.RandomColor (random));
 						break;
 					case SlimeTextureMap.BODY:
 					default:
@@ -141,7 +153,7 @@ namespace Components.Slime
 		{
 			// Get the position, top-left of the sprite, topped with the font line spacing.
 			// y run from top to bottom thus the '-' sign
-			var pos = new Vector2 ((float)position.Left, (float)(position.Top - sf.LineSpacing));
+			var pos = new Vector2 ((float)Position.Left, (float)(Position.Top - sf.LineSpacing));
 
 			sb.DrawString (sf, name, pos, Color.White);
 		}

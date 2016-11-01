@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Collections;
+using System.Collections.Generic;
 
 namespace OneWayOut.Components
 {
@@ -13,10 +14,12 @@ namespace OneWayOut.Components
         {
             NULL,
             BODY,
-            EYE
+            EYE,
+            COLORFUL
         }
 
-        internal byte[][] movingU = new byte[][] {
+        internal static byte[][] movingU = new byte[][]
+        {
             new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 },
             new byte[] { 0, 0, 1, 1, 1, 1, 0, 0 },
             new byte[] { 0, 1, 1, 2, 1, 2, 1, 0 },
@@ -25,7 +28,8 @@ namespace OneWayOut.Components
             new byte[] { 0, 1, 0, 1, 0, 0, 1, 0 }
         };
 
-        internal byte[][] movingR = new byte[][] {
+        internal static byte[][] movingR = new byte[][]
+        {
             new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 },
             new byte[] { 0, 0, 1, 1, 1, 1, 0, 0 },
             new byte[] { 1, 1, 1, 2, 1, 2, 1, 0 },
@@ -35,7 +39,8 @@ namespace OneWayOut.Components
         };
 
 
-        internal byte[][] body = new byte[][] {
+        internal static byte[][] idle = new byte[][]
+        {
             new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 },
             new byte[] { 0, 0, 1, 1, 1, 1, 0, 0 },
             new byte[] { 0, 1, 1, 2, 1, 2, 1, 0 },
@@ -44,15 +49,23 @@ namespace OneWayOut.Components
             new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }
         };
 
-        internal byte[][] blop = new byte[][] {
-            new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 },
-            new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 },
+        internal static byte[][] blop = new byte[][]
+        {
+            new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 },
+            new byte[] { 0, 1, 0, 0, 0, 0, 1, 0 },
             new byte[] { 0, 1, 1, 1, 1, 1, 1, 0 },
-            new byte[] { 1, 1, 1, 1, 1, 1, 1, 1 },
-            new byte[] { 0, 1, 1, 1, 1, 1, 1, 0 },
-            new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }
+            new byte[] { 0, 1, 1, 1, 1, 1, 1, 1 },
+            new byte[] { 0, 1, 0, 0, 0, 0, 1, 0 },
+            new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 }
         };
 
+        internal static Dictionary<string, byte[][]> Shapes = new Dictionary<string, byte[][]>()
+        {
+            { "IDLE", idle },
+            { "BLOP", blop },
+            { "UP", movingU },
+            { "RIGHT", movingR }
+        };
     }
 }
 
