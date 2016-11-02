@@ -25,6 +25,8 @@ namespace OneWayOut.Manager
 
         Texture2D signPicture;
 
+        Texture2D typeInput;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.ForegroundTextManager"/> class.
         /// Cached all font objects
@@ -43,6 +45,8 @@ namespace OneWayOut.Manager
             arrowCountDisplay = Content.Load<Texture2D>(@"textures/arrow");
 
             signPicture = Content.Load<Texture2D>(@"textures/signLanguage");
+
+            typeInput = Content.Load<Texture2D>(@"textures/typeInput");
         }
 
         /// <summary>
@@ -145,9 +149,10 @@ namespace OneWayOut.Manager
         /// <param name="spriteBatch"></param>
         public void DrawDebug(SpriteBatch spriteBatch, string msg)
         {
-            spriteBatch.DrawString(owoFont, msg, new Vector2(0, 450), Color.White);
+            //background for input
+            spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
+            spriteBatch.DrawString(owoFont, msg, new Vector2(2, 1040), Color.White);
         }
-
     }
 }
 
