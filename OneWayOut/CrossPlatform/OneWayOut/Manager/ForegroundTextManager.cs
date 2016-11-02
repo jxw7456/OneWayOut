@@ -70,11 +70,12 @@ namespace OneWayOut.Manager
             spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.START + "' for Main Menu", new Vector2(700, 975), Color.White);
         }
 
-        public void DrawGame(SpriteBatch spriteBatch, Player archer)
+        public void DrawGame(SpriteBatch spriteBatch, GameManager gm, Player archer)
         {
             spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
             spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, -2), Color.White);
-            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 975), Color.Red);
+            spriteBatch.DrawString(biggerFont, "Level: " + gm.level, new Vector2(800, -2), Color.White);
+            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 1020), Color.Red);
         }
 
         /// <summary>

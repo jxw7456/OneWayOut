@@ -38,7 +38,7 @@ namespace OneWayOut.Manager
     {
         public GameState state;
 
-        public static int level;
+        public int level;
 
         /// <summary>
         /// Initialize with state to start

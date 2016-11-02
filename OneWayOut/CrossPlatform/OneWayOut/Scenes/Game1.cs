@@ -377,7 +377,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawGame(spriteBatch, player);                    
+                    foregroundText.DrawGame(spriteBatch, game, player);                    
 
                     //DEBUG
                     foregroundText.DrawDebug(spriteBatch, input.TypingStack);

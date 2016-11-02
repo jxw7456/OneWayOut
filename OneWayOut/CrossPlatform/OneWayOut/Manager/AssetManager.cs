@@ -46,7 +46,9 @@ namespace OneWayOut.Manager
         Texture2D playerTexture;
 
         MarkovNameGenerator nameGen;
-        
+
+        GameManager gm;
+
         public List<Slime> slimes;
 
         public Dungeon dungeon;
@@ -83,6 +85,8 @@ namespace OneWayOut.Manager
 
             slimeCount = SLIME_COUNT;
 
+            gm = new GameManager();
+
             ResetGame(Graphics);
         }
 
@@ -103,7 +107,7 @@ namespace OneWayOut.Manager
 
             player.SetPositionCenter(Graphics);
 
-            slimeCount = slimeCount + (int)(GameManager.level * E_NATURAL * slimeCount);
+            slimeCount = slimeCount + (int)(gm.level * E_NATURAL * slimeCount);
 
             SpawnSlimes(Graphics, slimeCount);         
         }
@@ -160,7 +164,7 @@ namespace OneWayOut.Manager
         {
             var vp = Graphics.Viewport;
 
-            string name = nameGen.RandomBottomCase(nameGen.NextName, GameManager.level);
+            string name = nameGen.RandomBottomCase(nameGen.NextName, gm.level);
 
             int i = random.Next(4);
 
