@@ -135,12 +135,18 @@ namespace OneWayOut.Manager
         /// Draws the pause text.
         /// </summary>
         /// <param name="spriteBatch">Sprite batch.</param>
-        public void DrawPause(SpriteBatch spriteBatch)
+        public void DrawPause(SpriteBatch spriteBatch, Player archer)
         {
             spriteBatch.DrawString(boldFont, "PAUSED", new Vector2(810, 520), Color.DarkOrange);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2(700, 590), Color.Red);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.HELPER + "' for Helper", new Vector2(710, 660), Color.Red);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.START + "' to Quit", new Vector2(715, 730), Color.Red);
+
+            spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
+            spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, -2), Color.White);
+
+            //background for input
+            spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
         }
 
         /// <summary>

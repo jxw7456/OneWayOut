@@ -441,7 +441,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawPause(spriteBatch);
+                    foregroundText.DrawPause(spriteBatch, player);
 
                     break;
             }
