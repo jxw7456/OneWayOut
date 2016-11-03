@@ -25,6 +25,8 @@ namespace OneWayOut.Manager
 
         Texture2D signPicture;
 
+        Texture2D typeInput;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.ForegroundTextManager"/> class.
         /// Cached all font objects
@@ -43,6 +45,8 @@ namespace OneWayOut.Manager
             arrowCountDisplay = Content.Load<Texture2D>(@"textures/arrow");
 
             signPicture = Content.Load<Texture2D>(@"textures/signLanguage");
+
+            typeInput = Content.Load<Texture2D>(@"textures/typeInput");
         }
 
         /// <summary>
@@ -66,11 +70,12 @@ namespace OneWayOut.Manager
             spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.START + "' for Main Menu", new Vector2(700, 975), Color.White);
         }
 
-        public void DrawGame(SpriteBatch spriteBatch, Player archer)
+        public void DrawGame(SpriteBatch spriteBatch, GameManager gm, Player archer)
         {
             spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
             spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, -2), Color.White);
-            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 975), Color.Red);
+            spriteBatch.DrawString(biggerFont, "Level: " + gm.level, new Vector2(800, -2), Color.White);
+            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 1020), Color.Red);
         }
 
         /// <summary>
@@ -131,12 +136,18 @@ namespace OneWayOut.Manager
         /// Draws the pause text.
         /// </summary>
         /// <param name="spriteBatch">Sprite batch.</param>
-        public void DrawPause(SpriteBatch spriteBatch)
+        public void DrawPause(SpriteBatch spriteBatch, Player archer)
         {
             spriteBatch.DrawString(boldFont, "PAUSED", new Vector2(810, 520), Color.DarkOrange);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.GAME + "' to Resume", new Vector2(700, 590), Color.Red);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.HELPER + "' for Helper", new Vector2(710, 660), Color.Red);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.START + "' to Quit", new Vector2(715, 730), Color.Red);
+
+            spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
+            spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, -2), Color.White);
+
+            //background for input
+            spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
         }
 
         /// <summary>
@@ -145,9 +156,10 @@ namespace OneWayOut.Manager
         /// <param name="spriteBatch"></param>
         public void DrawDebug(SpriteBatch spriteBatch, string msg)
         {
-            spriteBatch.DrawString(owoFont, msg, new Vector2(0, 450), Color.White);
+            //background for input
+            spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
+            spriteBatch.DrawString(owoFont, msg, new Vector2(2, 1040), Color.White);
         }
-
     }
 }
 
