@@ -171,6 +171,11 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
 
                     checkIt = false;
+                    
+                    if (input.SingleKeyPress((Keys)GameState.NEXTLEVEL))
+                    {
+                        NextLevel();
+                    }
 
                     highscoreText.getScore(player.Score);
 
@@ -389,7 +394,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawGame(spriteBatch, game, player);                    
+                    foregroundText.DrawGame(spriteBatch, player);                    
 
                     //DEBUG
                     foregroundText.DrawDebug(spriteBatch, input.TypingStack);
@@ -473,7 +478,9 @@ namespace OneWayOut.Scenes
         {
             game.NextLevel();
 
-            asset.SpawnSlimes(GraphicsDevice, 10);
+            asset.Clear();
+
+            asset.NextLevel(GraphicsDevice);
 
             player.SetPositionCenter(GraphicsDevice);
         }
