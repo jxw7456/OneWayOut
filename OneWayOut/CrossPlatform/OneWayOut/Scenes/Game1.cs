@@ -238,36 +238,7 @@ namespace OneWayOut.Scenes
                     }
                     for(int i =0;i<allItems.Count;i++)
                     {
-                    if (dropIt && player.Position.Intersects(allItems[i].Position))
-                    {
-                            item = allItems[i];
-                        if (item.random >= 5)
-                        {
-                            player.GainArrow();
-                                allItems.Remove(allItems[i]);
-                            
-                        }
-                        else if (item.random < 5)
-                        {
-                            if (player.Health == 100)
-                            {
-                                    allItems.Remove(allItems[i]);
-                                   
-                            }
-                            else if (player.Health >= 90)
-                            {
-                                    allItems.Remove(allItems[i]);
-                                    
-                                player.Health = 100;
-                            }
-                            else
-                            {
-                                    allItems.Remove(allItems[i]);
-                                    
-                                player.Health += 10;
-                            }
-                        }
-                    }
+                    item.intersection(dropIt,player,allItems,item,i);
                     }
                     
 
