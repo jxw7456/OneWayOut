@@ -99,7 +99,7 @@ namespace OneWayOut.Manager
 
                 //GAMEOVER case
                 case GameState.GAMEOVER:
-                    if (SingleKeyPress((Keys)GameState.GAME))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         game.state = GameState.GAME;
                     }

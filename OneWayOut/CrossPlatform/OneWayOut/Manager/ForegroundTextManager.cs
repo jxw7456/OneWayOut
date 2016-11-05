@@ -66,7 +66,7 @@ namespace OneWayOut.Manager
         public void DrawGameover(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(biggerFont, "YOU ARE DEAD", new Vector2(720, 10), Color.Red);
-            spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.GAME + "' to Restart", new Vector2(735, 905), Color.White);
+            spriteBatch.DrawString(boldFont, "Press '" + Keys.Enter + "' to Restart", new Vector2(735, 905), Color.White);
             spriteBatch.DrawString(boldFont, "Press '" + (Keys)GameState.START + "' for Main Menu", new Vector2(700, 975), Color.White);
         }
 

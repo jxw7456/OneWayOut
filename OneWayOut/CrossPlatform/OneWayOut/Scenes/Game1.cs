@@ -42,7 +42,7 @@ namespace OneWayOut.Scenes
 
         Texture2D healthPack;
 
-        Texture2D arrowDrop;        
+        Texture2D arrowDrop;
 
         Drop item;
 
@@ -105,7 +105,7 @@ namespace OneWayOut.Scenes
 
             healthPack = Content.Load<Texture2D>(@"textures/healthpack");
 
-            arrowDrop = Content.Load<Texture2D>(@"textures/arrow");            
+            arrowDrop = Content.Load<Texture2D>(@"textures/arrow");
 
             asset = new AssetManager(Content, GraphicsDevice);
 
@@ -171,7 +171,7 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
 
                     checkIt = false;
-                    
+
                     if (input.SingleKeyPress((Keys)GameState.NEXTLEVEL))
                     {
                         NextLevel();
@@ -226,7 +226,6 @@ namespace OneWayOut.Scenes
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
-                            
                             item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
@@ -236,11 +235,11 @@ namespace OneWayOut.Scenes
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
-                    for(int i =0;i<allItems.Count;i++)
+                    for (int i = 0; i < allItems.Count; i++)
                     {
-                    item.intersection(dropIt,player,allItems,item,i);
+                        item.intersection(dropIt, player, allItems, item, i);
                     }
-                    
+
 
                     if (asset.slimes.Count == 0)
                     {
@@ -249,7 +248,8 @@ namespace OneWayOut.Scenes
 
                     if (player.Health <= 0)
                     {
-                        game.state = GameState.GAMEOVER;
+                        Reset();
+                        game.state = GameState.GAMEOVER;                        
                         highscoreText.getScore(player.Score);
                     }
 
@@ -346,12 +346,12 @@ namespace OneWayOut.Scenes
 
                     if (dropIt == true)
                     {
-                        for(int i =0;i<allItems.Count;i++)
+                        for (int i = 0; i < allItems.Count; i++)
                         {
                             item = allItems[i];
-                              item.DrawDrop(spriteBatch);
+                            item.DrawDrop(spriteBatch);
                         }
-                        
+
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
@@ -365,7 +365,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawGame(spriteBatch, player);                    
+                    foregroundText.DrawGame(spriteBatch, player);
 
                     //DEBUG
                     foregroundText.DrawDebug(spriteBatch, input.TypingStack);
@@ -426,7 +426,7 @@ namespace OneWayOut.Scenes
                     player.Draw(spriteBatch);
 
                     highscoreText.DrawScore(spriteBatch, player);
-                    
+
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
                     foregroundText.DrawPause(spriteBatch, player);
