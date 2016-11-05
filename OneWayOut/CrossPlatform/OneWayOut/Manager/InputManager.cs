@@ -47,10 +47,11 @@ namespace OneWayOut.Manager
                         game.state = GameState.HELP;
                     }
 
-                    if (SingleKeyPress((Keys)GameState.STORY))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         game.state = GameState.STORY;
                     }
+
                     break;
 
                 //GAME case    
@@ -64,10 +65,10 @@ namespace OneWayOut.Manager
 
                 //STORY case
                 case GameState.STORY:
-                    if (SingleKeyPress((Keys)GameState.GAME))
+                    if (SingleKeyPress(Keys.Enter))
                     {
                         game.state = GameState.GAME;
-                    }                    
+                    }
                     break;
 
                 //HELP case

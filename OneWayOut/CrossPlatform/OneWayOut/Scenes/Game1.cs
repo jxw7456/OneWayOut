@@ -46,6 +46,8 @@ namespace OneWayOut.Scenes
 
         Drop item;
 
+        List<Drop> allItems = new List<Drop>();
+
         ForegroundTextManager foregroundText;
         // TODO: Refactor, this should follow the rest of the naming
         // schema already in use.
@@ -169,6 +171,11 @@ namespace OneWayOut.Scenes
                     bgm.PlayGame();
 
                     checkIt = false;
+                    
+                    if (input.SingleKeyPress((Keys)GameState.NEXTLEVEL))
+                    {
+                        NextLevel();
+                    }
 
                     highscoreText.getScore(player.Score);
 
@@ -219,45 +226,21 @@ namespace OneWayOut.Scenes
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
+                            
                             item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
-
+                            allItems.Add(item);
                             player.Score += 50;
 
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
-
-                    if (dropIt && player.Position.Intersects(item.Position))
+                    for(int i =0;i<allItems.Count;i++)
                     {
-                        if (item.random >= 5)
-                        {
-                            player.GainArrow();
-                            item = null;
-                            dropIt = false;
-                        }
-                        else if (item.random < 5)
-                        {
-                            if (player.Health == 100)
-                            {
-                                item = null;
-                                dropIt = false;
-                            }
-                            else if (player.Health >= 90)
-                            {
-                                item = null;
-                                dropIt = false;
-                                player.Health = 100;
-                            }
-                            else
-                            {
-                                item = null;
-                                dropIt = false;
-                                player.Health += 10;
-                            }
-                        }
+                    item.intersection(dropIt,player,allItems,item,i);
                     }
+                    
 
                     if (asset.slimes.Count == 0)
                     {
@@ -363,7 +346,12 @@ namespace OneWayOut.Scenes
 
                     if (dropIt == true)
                     {
-                        item.DrawDrop(spriteBatch);
+                        for(int i =0;i<allItems.Count;i++)
+                        {
+                            item = allItems[i];
+                              item.DrawDrop(spriteBatch);
+                        }
+                        
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
@@ -377,7 +365,7 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawGame(spriteBatch, game, player);                    
+                    foregroundText.DrawGame(spriteBatch, player);                    
 
                     //DEBUG
                     foregroundText.DrawDebug(spriteBatch, input.TypingStack);
@@ -461,7 +449,9 @@ namespace OneWayOut.Scenes
         {
             game.NextLevel();
 
-            asset.SpawnSlimes(GraphicsDevice, 10);
+            asset.Clear();
+
+            asset.NextLevel(GraphicsDevice);
 
             player.SetPositionCenter(GraphicsDevice);
         }
