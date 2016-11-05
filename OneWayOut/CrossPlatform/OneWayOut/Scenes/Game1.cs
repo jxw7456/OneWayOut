@@ -438,7 +438,7 @@ namespace OneWayOut.Scenes
                     player.Draw(spriteBatch);
 
                     highscoreText.DrawScore(spriteBatch, player);
-
+                    
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
                     foregroundText.DrawPause(spriteBatch, player);
