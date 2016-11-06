@@ -73,8 +73,8 @@ namespace OneWayOut.Manager
         public void DrawGame(SpriteBatch spriteBatch, Player archer)
         {
             spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
-            spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, -2), Color.White);
-            spriteBatch.DrawString(biggerFont, "Level: " + GameManager.level, new Vector2(800, -2), Color.White);
+            spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, 0), Color.Black);
+            spriteBatch.DrawString(biggerFont, "Level: " + GameManager.level, new Vector2(800, 0), Color.Black);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 1020), Color.Red);
         }
 
@@ -117,7 +117,6 @@ namespace OneWayOut.Manager
             spriteBatch.DrawString(boldFont, "You have ONE WAY OUT!", new Vector2(600, 480), Color.DarkRed);
 
             //Continue to game
-            // spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.GAME + "' to Continue", new Vector2(720, 975), Color.White);
             spriteBatch.DrawString(biggerFont, "Press '" + Keys.Enter + "' to Continue", new Vector2(720, 975), Color.White);
         }
 
@@ -128,10 +127,9 @@ namespace OneWayOut.Manager
         public void DrawStart(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(biggerFont, "One Way Out", new Vector2(780, 10), Color.White);
-
-            // spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.STORY + "' to Start", new Vector2(720, 330), Color.OrangeRed); // Refactor this for dev
             spriteBatch.DrawString(biggerFont, "Press '" + Keys.Enter + "' to Start", new Vector2(720, 330), Color.OrangeRed);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.HELP + "' for Help", new Vector2(721, 400), Color.OrangeRed);
+            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.CREDITS + "' for Credits", new Vector2(721, 470), Color.OrangeRed);
             spriteBatch.DrawString(biggerFont, "Press 'Esc' to Quit", new Vector2(710, 975), Color.Red);
         }
 
@@ -151,6 +149,16 @@ namespace OneWayOut.Manager
 
             //background for input
             spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
+        }
+
+        public void DrawCredits(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(boldFont, "One Way Out", new Vector2(720, 10), Color.DarkOrange);
+            spriteBatch.DrawString(boldFont, "Development Team", new Vector2(680, 80), Color.DarkOrange);
+            spriteBatch.DrawString(biggerFont, "Lab Nguyen: Game Design", new Vector2(610, 300), Color.White);
+            spriteBatch.DrawString(biggerFont, "Thomas Tabacchi: Architecture", new Vector2(575, 400), Color.White);
+            spriteBatch.DrawString(biggerFont, "JaJuan Webster: Game Lead, UI", new Vector2(560, 500), Color.White);
+            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.START + "' To Go Back", new Vector2(680, 975), Color.Red);
         }
 
         /// <summary>

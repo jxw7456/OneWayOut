@@ -10,6 +10,7 @@ using System;
 
 namespace OneWayOut.Scenes
 {
+    //Limit to amount that spawn on a level
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -229,7 +230,7 @@ namespace OneWayOut.Scenes
                         if (slime.Health <= 0)
                         {
                             //player.GainArrow();
-                           item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);   
+                            item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
                             allItems.Add(item);
@@ -238,6 +239,7 @@ namespace OneWayOut.Scenes
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
+
                     for (int i = 0; i < allItems.Count; i++)
                     {
                         item.intersection(dropIt, player, allItems, item, i);
@@ -251,11 +253,10 @@ namespace OneWayOut.Scenes
 
                     if (player.Health <= 0)
                     {
+                        highscoreText.getScore(player.Score);
                         Reset();
                         game.state = GameState.GAMEOVER;                        
-                        highscoreText.getScore(player.Score);
                     }
-
                     break;
 
                 //OPTIONS case: will display the sound options, etc.
@@ -268,6 +269,7 @@ namespace OneWayOut.Scenes
                     if (checkIt == false)
                     {
                         checkIt = true;
+
                         try
                         {
                             /*
@@ -304,6 +306,11 @@ namespace OneWayOut.Scenes
                 case GameState.PAUSE:
                     checkIt = false;
                     bgm.Pause();
+
+                    if (input.SingleKeyPress((Keys)GameState.START))
+                    {
+                        Reset();
+                    }
 
                     break;
             }
@@ -433,6 +440,14 @@ namespace OneWayOut.Scenes
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
                     foregroundText.DrawPause(spriteBatch, player);
+
+                    break;
+
+                case GameState.CREDITS:
+
+                    background.DrawStart(spriteBatch, GraphicsDevice);
+
+                    foregroundText.DrawCredits(spriteBatch);
 
                     break;
             }
