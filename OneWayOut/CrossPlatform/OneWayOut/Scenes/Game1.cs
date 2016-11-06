@@ -48,7 +48,7 @@ namespace OneWayOut.Scenes
 
         Drop item;
 
-        List<Drop> drops = new List<Drop>();
+        List<Drop> allItems = new List<Drop>();
 
         ForegroundTextManager foregroundText;
         // TODO: Refactor, this should follow the rest of the naming
@@ -68,8 +68,9 @@ namespace OneWayOut.Scenes
             graphics = new GraphicsDeviceManager(this);
 
             graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
-            graphics.ApplyChanges();
+            graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window            
+            graphics.ToggleFullScreen();
+            graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
         }
@@ -153,32 +154,37 @@ namespace OneWayOut.Scenes
 
             switch (game.state)
             {
-            //START case: sets up the screen to switch between the GAME, HELP, OPTIONS screens
+                //START case: sets up the screen to switch between the GAME, HELP, OPTIONS screens
                 case GameState.START:
                     checkIt = false;
                     bgm.PlayMenu();
 
                     break;
 
-            //HELP case: gives background of the game as well as instructions to play the game
+                //HELP case: gives background of the game as well as instructions to play the game
                 case GameState.HELP:
                     checkIt = false;
                     bgm.PlayHelp();
 
                     break;
 
-            //GAME case: where the game is actually played and score is gathered
+                //GAME case: where the game is actually played and score is gathered
                 case GameState.GAME:
                     bgm.PlayGame();
 
                     checkIt = false;
+
+                    if (input.SingleKeyPress((Keys)GameState.NEXTLEVEL))
+                    {
+                        NextLevel();
+                    }
 
                     highscoreText.getScore(player.Score);
 
                     player.Move();
 
                     player.Update(gameTime);
-                   
+
                     healthSize.Width = player.Health;
 
                     game.ScreenWrap(GraphicsDevice, player);
@@ -226,61 +232,33 @@ namespace OneWayOut.Scenes
                             drops.Add(item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50));   
                             item.PickDrop();
                             dropIt = true;
-
+                            allItems.Add(item);
                             player.Score += 50;
 
                             asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
                         }
                     }
-
-                    if (dropIt && player.Position.Intersects(item.Position))
+                    for (int i = 0; i < allItems.Count; i++)
                     {
-                        for(int i=0;i<drops.Count;i++)
-                        {
-                            currentItem = drops[i];
-                            if (player.Position.Intersects(currentItem.Position))
-                            {
-                                if (item.random >= 5)
-                                {
-                                    player.GainArrow();
-                                    currentItem = null;
-                                    dropIt = false;
-                                }
-                                else if (item.random < 5)
-                                {
-                                    if(player.Health==100)
-                                    {
-                                        currentItem = null;
-                                        dropIt = false;
-                                    }
-                                    else if(player.Health >= 90)
-                                    {
-                                        currentItem = null;
-                                        dropIt = false;
-                                        player.Health = 100;
-                                    }
-                                    else
-                                    {
-                                        currentItem = null;
-                                        dropIt = false;
-                                        player.Health += 10;
-                                    }
-                                }
-                            }   
-                        }
-                       
+                        item.intersection(dropIt, player, allItems, item, i);
+                    }
 
+
+                    if (asset.slimes.Count == 0)
+                    {
+                        NextLevel();
                     }
 
                     if (player.Health <= 0)
                     {
-                        game.state = GameState.GAMEOVER;
+                        Reset();
+                        game.state = GameState.GAMEOVER;                        
                         highscoreText.getScore(player.Score);
                     }
 
                     break;
 
-            //OPTIONS case: will display the sound options, etc.
+                //OPTIONS case: will display the sound options, etc.
                 case GameState.STORY:
 
                     bgm.PlayStory();
@@ -310,7 +288,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-            //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
+                //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
                     checkIt = false;
                     bgm.PlayGameOver();
@@ -322,7 +300,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-            //PAUSE case: stops all movement and music in-game
+                //PAUSE case: stops all movement and music in-game
                 case GameState.PAUSE:
                     checkIt = false;
                     bgm.Pause();
@@ -349,7 +327,7 @@ namespace OneWayOut.Scenes
 
             switch (game.state)
             {
-            //Draw Menu
+                //Draw Menu
                 case GameState.START:
 
                     background.DrawStart(spriteBatch, GraphicsDevice);
@@ -358,7 +336,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-            //Draw Game
+                //Draw Game
                 case GameState.GAME:
 
                     asset.DrawDungeon(spriteBatch);
@@ -371,7 +349,11 @@ namespace OneWayOut.Scenes
 
                     if (dropIt == true)
                     {
-                        item.DrawDrop(spriteBatch);
+                        for (int i = 0; i < allItems.Count; i++)
+                        {
+                            item = allItems[i];
+                            item.DrawDrop(spriteBatch);
+                        }
 
                     }
 
@@ -388,9 +370,12 @@ namespace OneWayOut.Scenes
 
                     foregroundText.DrawGame(spriteBatch, player);
 
+                    //DEBUG
+                    foregroundText.DrawDebug(spriteBatch, input.TypingStack);
+
                     break;
 
-            //Draw Help
+                //Draw Help
                 case GameState.HELP:
 
                     background.DrawHelp(spriteBatch, GraphicsDevice);
@@ -399,7 +384,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-            //Draw Options
+                //Draw Options
                 case GameState.STORY:
 
                     background.DrawStory(spriteBatch, GraphicsDevice);
@@ -408,7 +393,7 @@ namespace OneWayOut.Scenes
 
                     break;
 
-            //Draw Game Over
+                //Draw Game Over
                 case GameState.GAMEOVER:
 
                     background.DrawGameover(spriteBatch, GraphicsDevice);
@@ -428,9 +413,10 @@ namespace OneWayOut.Scenes
                     }
 
                     highscoreText.DrawScore(spriteBatch);
+
                     break;
 
-            //Draw Pause
+                //Draw Pause
                 case GameState.PAUSE:
 
                     asset.DrawDungeon(spriteBatch);
@@ -446,14 +432,10 @@ namespace OneWayOut.Scenes
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
 
-                    foregroundText.DrawPause(spriteBatch);
+                    foregroundText.DrawPause(spriteBatch, player);
 
                     break;
             }
-            // DEBUG:
-
-            foregroundText.DrawDebug(spriteBatch, input.TypingStack);
-
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -462,7 +444,7 @@ namespace OneWayOut.Scenes
         void Reset()
         {
             asset.ResetGame(GraphicsDevice);
-           
+
             game.Reset();
         }
 
@@ -470,9 +452,11 @@ namespace OneWayOut.Scenes
         {
             game.NextLevel();
 
-            asset.SpawnSlimes(GraphicsDevice, 10);
+            asset.Clear();
 
-            player.SetPositionCenter(GraphicsDevice);            
+            asset.NextLevel(GraphicsDevice);
+
+            player.SetPositionCenter(GraphicsDevice);
         }
     }
 }

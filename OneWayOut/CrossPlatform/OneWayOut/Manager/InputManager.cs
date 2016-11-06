@@ -38,6 +38,83 @@ namespace OneWayOut.Manager
         /// <param name="bgm"></param>
         public void SwitchScene(GameManager game, BgmManager bgm)
         {
+            switch (game.state)
+            {
+                //START case
+                case GameState.START:
+                    if (SingleKeyPress((Keys)GameState.HELP))
+                    {
+                        game.state = GameState.HELP;
+                    }
+
+                    if (SingleKeyPress(Keys.Enter))
+                    {
+                        game.state = GameState.STORY;
+                    }
+
+                    break;
+
+                //GAME case    
+                case GameState.GAME:
+                    bgm.Resume();
+                    if (SingleKeyPress((Keys)GameState.PAUSE))
+                    {
+                        game.state = GameState.PAUSE;
+                    }
+                    break;
+
+                //STORY case
+                case GameState.STORY:
+                    if (SingleKeyPress(Keys.Enter))
+                    {
+                        game.state = GameState.GAME;
+                    }
+                    break;
+
+                //HELP case
+                case GameState.HELP:
+                    if (SingleKeyPress((Keys)GameState.START))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
+
+                //PAUSE case
+                case GameState.PAUSE:
+                    if (SingleKeyPress((Keys)GameState.GAME))
+                    {
+                        game.state = GameState.GAME;
+                    }
+
+                    if (SingleKeyPress((Keys)GameState.HELPER))
+                    {
+                        game.state = GameState.HELPER;
+                    }
+
+                    if (SingleKeyPress((Keys)GameState.START))
+                    {
+                        game.state = GameState.START;
+                    }
+                    break;
+
+                //GAMEOVER case
+                case GameState.GAMEOVER:
+                    if (SingleKeyPress(Keys.Enter))
+                    {
+                        game.state = GameState.GAME;
+                    }
+
+                    if (SingleKeyPress((Keys)GameState.START))
+                    {
+                        game.state = GameState.START;
+                    }                    
+                    break;
+
+                //HELPER case
+                case GameState.HELPER:
+                    break;
+            }
+            /*
             // Loop through all the enum to check for clicked state instead of going through each individually
             foreach (GameState state in Enum.GetValues(typeof(GameState)))
             {
@@ -46,15 +123,14 @@ namespace OneWayOut.Manager
                     if (state == GameState.GAME)
                     {
                         bgm.Resume();
-
                     }
 
                     Console.WriteLine(state);
 
                     game.state = state;
-
                 }
             }
+            */
         }
 
         public void ClearStack()

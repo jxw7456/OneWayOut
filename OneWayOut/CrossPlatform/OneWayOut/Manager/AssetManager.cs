@@ -21,7 +21,7 @@ namespace OneWayOut.Manager
     /// </summary>
     class AssetManager
     {
-        const float E_NATURAL = 2.71828f;
+        const float GROWTH_RATE = 0.09f;
 
         const int RANDOM_SEED = 999;
 
@@ -46,7 +46,7 @@ namespace OneWayOut.Manager
         Texture2D playerTexture;
 
         MarkovNameGenerator nameGen;
-        
+
         public List<Slime> slimes;
 
         public Dungeon dungeon;
@@ -94,18 +94,30 @@ namespace OneWayOut.Manager
             }
         }
 
+        public void NextLevel(GraphicsDevice Graphics)
+        {
+            slimes.Clear();
+
+            slimeCount = slimeCount + (int)(GameManager.level * GROWTH_RATE * slimeCount);
+
+            SpawnSlimes(Graphics, slimeCount);
+        }
+
+        public void Clear()
+        {
+            slimes.Clear();
+        }
+
         //Resets the game if player dies or quits
         public void ResetGame(GraphicsDevice Graphics)
         {
-            slimes.Clear();
-           
+            Clear();
+
             player.Reset();
 
             player.SetPositionCenter(Graphics);
 
-            slimeCount = slimeCount + (int)(GameManager.level * E_NATURAL * slimeCount);
-
-            SpawnSlimes(Graphics, slimeCount);         
+            NextLevel(Graphics);
         }
 
         /// <summary>

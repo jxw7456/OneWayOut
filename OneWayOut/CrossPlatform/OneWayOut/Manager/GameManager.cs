@@ -27,7 +27,8 @@ namespace OneWayOut.Manager
         STORY = Keys.F4,
         GAMEOVER = Keys.F5,
         PAUSE = Keys.F6,
-        HELPER = Keys.F7
+        HELPER = Keys.F7,
+        NEXTLEVEL = Keys.F12
     }
 
     /// <summary>
@@ -91,6 +92,6 @@ namespace OneWayOut.Manager
             {
                 theObject.SetPosition(objPos.X, screenHeight - objPos.Height / 2);
             }
-        }        
+        }
     }
 }
