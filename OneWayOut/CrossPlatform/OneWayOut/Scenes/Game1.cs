@@ -229,7 +229,7 @@ namespace OneWayOut.Scenes
                         if (slime.Health <= 0)
                         {
                             //player.GainArrow();
-                            drops.Add(item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50));   
+                           item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);   
                             item.PickDrop();
                             dropIt = true;
                             allItems.Add(item);
