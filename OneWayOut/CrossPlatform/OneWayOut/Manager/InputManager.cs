@@ -91,10 +91,10 @@ namespace OneWayOut.Manager
                         game.state = GameState.GAME;
                     }
 
-                    if (SingleKeyPress((Keys)GameState.HELPER))
-                    {
-                        game.state = GameState.HELPER;
-                    }
+                   // if (SingleKeyPress((Keys)GameState.HELPER))
+                    //{
+                     //   game.state = GameState.HELPER;
+                    //}
 
                     if (SingleKeyPress((Keys)GameState.START))
                     {
@@ -116,8 +116,8 @@ namespace OneWayOut.Manager
                     break;
 
                 //HELPER case
-                case GameState.HELPER:
-                    break;
+                //case GameState.HELPER:
+                    //break;
 
                 case GameState.CREDITS:
 

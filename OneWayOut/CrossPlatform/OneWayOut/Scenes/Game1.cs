@@ -58,11 +58,15 @@ namespace OneWayOut.Scenes
 
         InputManager input;
 
+        Texture2D signlanguage;
+
         bool scoreChecked;
 
         bool checkIt = false;
 
         bool dropIt = false;
+
+        bool drawit = false;
 
         public Game1()
         {
@@ -109,6 +113,8 @@ namespace OneWayOut.Scenes
             healthPack = Content.Load<Texture2D>(@"textures/healthpack");
 
             arrowDrop = Content.Load<Texture2D>(@"textures/arrow");
+
+            signlanguage = Content.Load<Texture2D>(@"textures/signLanguage");
 
             asset = new AssetManager(Content, GraphicsDevice);
 
@@ -181,6 +187,17 @@ namespace OneWayOut.Scenes
                     }
 
                     highscoreText.getScore(player.Score);
+
+                    if (checkIt == false && drawit == false && input.SingleKeyPress(Keys.F7)) 
+                    {
+                        checkIt = true;
+                        drawit = true;
+                    }
+                    if(checkIt == false && drawit == true&& input.SingleKeyPress(Keys.F7))
+                    {
+                        checkIt = true;
+                        drawit = false;
+                    }
 
                     player.Move();
 
@@ -311,6 +328,16 @@ namespace OneWayOut.Scenes
                     {
                         Reset();
                     }
+                    if (checkIt == false && drawit == false && input.SingleKeyPress(Keys.F7))
+                    {
+                        checkIt = true;
+                        drawit = true;
+                    }
+                    if (checkIt == false && drawit == true && input.SingleKeyPress(Keys.F7))
+                    {
+                        checkIt = true;
+                        drawit = false;
+                    }
 
                     break;
             }
@@ -362,6 +389,10 @@ namespace OneWayOut.Scenes
                             item.DrawDrop(spriteBatch);
                         }
 
+                    }
+                    if(drawit==true)
+                    {
+                        spriteBatch.Draw(signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
@@ -427,6 +458,10 @@ namespace OneWayOut.Scenes
                 case GameState.PAUSE:
 
                     asset.DrawDungeon(spriteBatch);
+                    if (drawit == true)
+                    {
+                        spriteBatch.Draw(signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
+                    }
 
                     // TODO: Refactor, this can be done better by caching the  rectangle
                     spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
