@@ -108,7 +108,7 @@ namespace OneWayOut
 
         public void DrawScore(SpriteBatch sBatch, Player mc)
         {
-            sBatch.DrawString(font, "Score: " + mc.Score.ToString(), gameScore, Color.White);
+            sBatch.DrawString(font, "Score: " + mc.Score.ToString(), gameScore, Color.Black);
         }
 
         public void CheckScore()
@@ -125,7 +125,7 @@ namespace OneWayOut
                 entireFile[3] = entireFile[2];
                 entireFile[2] = entireFile[1];
                 entireFile[1] = score.ToString();
-            } 
+            }
             // TODO: This nested if/else could be improved with a loop.
             //not "improved" just a diffirent way of doing it
             else

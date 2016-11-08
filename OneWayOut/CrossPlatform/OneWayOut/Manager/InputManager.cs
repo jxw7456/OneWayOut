@@ -52,6 +52,11 @@ namespace OneWayOut.Manager
                         game.state = GameState.STORY;
                     }
 
+                    if (SingleKeyPress((Keys)GameState.CREDITS))
+                    {
+                        game.state = GameState.CREDITS;
+                    }
+
                     break;
 
                 //GAME case    
@@ -86,10 +91,10 @@ namespace OneWayOut.Manager
                         game.state = GameState.GAME;
                     }
 
-                    if (SingleKeyPress((Keys)GameState.HELPER))
-                    {
-                        game.state = GameState.HELPER;
-                    }
+                   // if (SingleKeyPress((Keys)GameState.HELPER))
+                    //{
+                     //   game.state = GameState.HELPER;
+                    //}
 
                     if (SingleKeyPress((Keys)GameState.START))
                     {
@@ -111,7 +116,16 @@ namespace OneWayOut.Manager
                     break;
 
                 //HELPER case
-                case GameState.HELPER:
+                //case GameState.HELPER:
+                    //break;
+
+                case GameState.CREDITS:
+
+                    if (SingleKeyPress((Keys)GameState.START))
+                    {
+                        game.state = GameState.START;
+                    }
+
                     break;
             }
             /*

@@ -117,7 +117,7 @@ namespace OneWayOut.Manager
 
             player.SetPositionCenter(Graphics);
 
-            NextLevel(Graphics);
+            slimeCount = SLIME_COUNT;
         }
 
         /// <summary>

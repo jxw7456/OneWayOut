@@ -52,6 +52,7 @@ namespace OneWayOut.Components
             
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
+            //rotate arrow for up and down
             switch (direction)
             {
                 case Direction.RIGHT:

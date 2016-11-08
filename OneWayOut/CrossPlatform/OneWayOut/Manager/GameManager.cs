@@ -27,7 +27,7 @@ namespace OneWayOut.Manager
         STORY = Keys.F4,
         GAMEOVER = Keys.F5,
         PAUSE = Keys.F6,
-        HELPER = Keys.F7,
+        CREDITS = Keys.F8,
         NEXTLEVEL = Keys.F12
     }
 
