@@ -164,7 +164,7 @@ namespace OneWayOut.Scenes
                 //HELP case: gives background of the game as well as instructions to play the game
                 case GameState.HELP:
                     checkIt = false;
-                    bgm.PlayHelp();
+                   bgm.PlayHelp();
 
                     break;
 
@@ -261,7 +261,7 @@ namespace OneWayOut.Scenes
                 //OPTIONS case: will display the sound options, etc.
                 case GameState.STORY:
 
-                    bgm.PlayStory();
+                    //bgm.PlayStory();
                     //Code for changing volume and putting it in the options screen                  
                     //No need to check if a boolean is true or false
                     //yes there is. The exe will continuesly pop up and you cant exit it.
