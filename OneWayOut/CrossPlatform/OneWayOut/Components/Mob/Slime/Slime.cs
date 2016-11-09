@@ -56,8 +56,7 @@ namespace OneWayOut.Components
         /// <param name="gp">Graphic </param>
         /// <param name="r">Random object</param>
         /// <param name="n">Asigned name</param>
-        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n)
-            : base(x, y, width, height)
+        public Slime(int x, int y, int width, int height, GraphicsDevice gp, Random r, string n): base(x, y, width, height)
         {
             random = r;
 
@@ -73,7 +72,6 @@ namespace OneWayOut.Components
 
             Name = n;
 
-            //Name += Speed;
             Damage = 1;
 
             Health = 100;
@@ -82,6 +80,7 @@ namespace OneWayOut.Components
             {
                 color = ColorGenerator.RandomColor(r);
             }
+
             else
             {
                 color = Color.TransparentBlack;

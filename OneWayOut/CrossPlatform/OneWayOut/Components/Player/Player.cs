@@ -38,8 +38,6 @@ namespace OneWayOut.Components
         
         Direction direction;
 
-        Arrow arrow;
-
         int currentFrame;
 
         int blink;
@@ -98,6 +96,11 @@ namespace OneWayOut.Components
         public void GainArrow()
         {
             ArrowCount += 2;
+
+            if (ArrowCount == 0 & timer >= 60)
+            {
+                ArrowCount = 3;
+            }
         }
     }
 }

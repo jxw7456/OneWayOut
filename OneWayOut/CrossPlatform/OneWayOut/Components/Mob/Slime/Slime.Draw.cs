@@ -10,7 +10,6 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Slime
     {
-
         enum SlimeState
         {
             WALK,
@@ -24,17 +23,9 @@ namespace OneWayOut.Components
         /// </summary>
         /// <param name="sb">Spritebatch</param>
         /// <param name="pos">Position of point</param>
-        public void DrawPoint(
-            SpriteBatch sb,
-            Vector2 pos,
-            Color c
-        )
+        public void DrawPoint(SpriteBatch sb, Vector2 pos, Color c)
         {
-            var point = new Rectangle(
-                            (int)pos.X,
-                            (int)pos.Y,
-                            PIXEL_SIZE,
-                            PIXEL_SIZE);
+            var point = new Rectangle((int)pos.X, (int)pos.Y, PIXEL_SIZE, PIXEL_SIZE);
 
             if (!c.Equals(Color.TransparentBlack))
             {
@@ -53,7 +44,6 @@ namespace OneWayOut.Components
         /// <param name="shape">Shape.</param>
         public void DrawShape(SpriteBatch sb, byte[][] shape)
         {
-
             for (int i = 0; i < shape.Length; ++i)
             {
                 var row = shape[i];
@@ -128,6 +118,7 @@ namespace OneWayOut.Components
                 case SlimeState.BLOPPED:
                     shape = Shapes["BLOP"];
                     break;
+
                 case SlimeState.WALK:
 
                     shape = Shapes["RIGHT"];
@@ -138,9 +129,10 @@ namespace OneWayOut.Components
                     }
 
                     break;
+
                 case SlimeState.IDLE:
                 default:
-                    
+
                     shape = Shapes["IDLE"];
                     break;
             }

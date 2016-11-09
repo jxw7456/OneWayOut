@@ -10,7 +10,6 @@ namespace OneWayOut.Components
     /// </summary>
     partial class Slime
     {
-
         [Flags]
         enum SlimeDirection
         {

@@ -132,24 +132,28 @@ namespace OneWayOut.Components
                             WalkLeft(elapsed);
                         }
                         break;
+
                     case 1:
                         if (Position.X < obj.Position.X)
                         {
                             WalkRight(elapsed);
                         }
                         break;
+
                     case 2:
                         if (Position.Y > obj.Position.Y)
                         {
                             WalkUp(elapsed);
                         }
                         break;
+
                     case 3:
                         if (Position.Y < obj.Position.Y)
                         {
                             WalkDown(elapsed);
                         }
                         break;
+
                     default:
                         break;
                 }

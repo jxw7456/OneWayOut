@@ -48,12 +48,12 @@ namespace OneWayOut.Components
 
                     for (int i = 0; i < shape.Length; ++i)
                     {
-                        //					for (int i = shape.Length - 1; i >= 0; --i) {
+                        //for (int i = shape.Length - 1; i >= 0; --i) {
                         shape[i] = new byte[h];
 
                         var row = shape[i];
 
-                        //						for (int j = 0; j < row.Length; ++j) {
+                        //for (int j = 0; j < row.Length; ++j) {
                         for (int j = row.Length - 1; j >= 0; --j)
                         {
                             row[j] = binaryReader.ReadByte();
@@ -64,6 +64,7 @@ namespace OneWayOut.Components
                     return shape;
                 }
             }
+
             catch (FileNotFoundException ex)
             {
                 return null;

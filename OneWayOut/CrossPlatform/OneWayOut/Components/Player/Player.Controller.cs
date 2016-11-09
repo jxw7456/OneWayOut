@@ -35,16 +35,19 @@ namespace OneWayOut.Components
                 direction = Direction.UP;
                 Position.Y -= 5;
             }
+
             if (kbState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.DOWN;
                 Position.Y += 5;
             }
+
             if (kbState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.LEFT;
                 Position.X -= 5;
             }
+
             if (kbState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.RIGHT;

@@ -41,7 +41,6 @@
     <Compile Include="Components\Arrow\Arrow.cs" />
     <Compile Include="Utils\ColorGenerator.cs" />
     <Compile Include="Components\Drop\Drop.cs" />
-    <Compile Include="Components\Dungeon\Dungeon.Controller.cs" />
     <Compile Include="Components\Dungeon\Dungeon.Generator.cs" />
     <Compile Include="Components\GameObject.cs" />
     <Compile Include="Manager\AssetManager.cs" />

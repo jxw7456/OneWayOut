@@ -47,6 +47,7 @@ namespace OneWayOut.Components
                         column = 1;
                     }
                     break;
+
                 case Direction.DOWN:
                     row = 0;
                     column = 0;
@@ -55,6 +56,7 @@ namespace OneWayOut.Components
                         column = 1;
                     }
                     break;
+
                 case Direction.LEFT:
                 case Direction.RIGHT:
                     row = 1;
@@ -64,6 +66,7 @@ namespace OneWayOut.Components
                         column = 2;
                     }
                     break;
+
                 case Direction.IDLE:
                 default:
                     if (blink == 0)
@@ -79,6 +82,7 @@ namespace OneWayOut.Components
             {
                 spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
+
             else
             {
                 spriteBatch.Draw(Texture, Position, sourceRectangle, Color.White);

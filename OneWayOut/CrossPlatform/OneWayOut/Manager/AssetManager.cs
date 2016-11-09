@@ -132,6 +132,11 @@ namespace OneWayOut.Manager
 
             slimeCount = slimeCount + (int)(GameManager.level * GROWTH_RATE * slimeCount);
 
+            if (GameManager.level >= 9)
+            {
+                slimeCount = 150;
+            }
+
             SpawnSlimes(Graphics, slimeCount);
         }
 
