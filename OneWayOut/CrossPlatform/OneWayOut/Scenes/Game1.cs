@@ -10,7 +10,6 @@ using System;
 
 namespace OneWayOut.Scenes
 {
-    //Limit to amount that spawn on a level
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -20,8 +19,6 @@ namespace OneWayOut.Scenes
         GraphicsDeviceManager graphics;
 
         SpriteBatch spriteBatch;
-
-        // TODO: Refactor player and all texture/rectangle into assetManager
 
         Player player;
 
