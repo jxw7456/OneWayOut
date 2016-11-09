@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 using OneWayOut.Components;
 using OneWayOut.Utils;
+using OneWayOut.Manager;
 
 namespace OneWayOut.Components
 {
@@ -73,6 +74,12 @@ namespace OneWayOut.Components
             Name = n;
 
             Damage = 1;
+
+            //Can Edit in future
+            if (GameManager.level >= 9)
+            {
+                Damage = 2;
+            }
 
             Health = 100;
 
