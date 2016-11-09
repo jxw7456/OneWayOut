@@ -25,25 +25,13 @@ namespace OneWayOut.Scenes
 
         Player player;
 
-        Rectangle healthSize;
-
-        Texture2D health;
-
-        Rectangle healthContainer;
-
-        Arrow arrow;
-
         AssetManager asset;
 
         GameManager game;
 
         BgmManager bgm;
 
-        BackgroundManager background;
-
-        Texture2D healthPack;
-
-        Texture2D arrowDrop;
+        BackgroundManager background;        
 
         Drop currentItem = null;
 
@@ -52,13 +40,10 @@ namespace OneWayOut.Scenes
         List<Drop> allItems = new List<Drop>();
 
         ForegroundTextManager foregroundText;
-        // TODO: Refactor, this should follow the rest of the naming
-        // schema already in use.
+
         Highscore highscoreText;
 
-        InputManager input;
-
-        Texture2D signlanguage;
+        InputManager input;        
 
         bool scoreChecked;
 
@@ -106,16 +91,6 @@ namespace OneWayOut.Scenes
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: Refactor this into either assetManager or 
-            // some manager specialized for sprite
-            health = Content.Load<Texture2D>(@"textures/health");
-
-            healthPack = Content.Load<Texture2D>(@"textures/healthpack");
-
-            arrowDrop = Content.Load<Texture2D>(@"textures/arrow");
-
-            signlanguage = Content.Load<Texture2D>(@"textures/signLanguage");
-
             asset = new AssetManager(Content, GraphicsDevice);
 
             background = new BackgroundManager(Content);
@@ -128,12 +103,7 @@ namespace OneWayOut.Scenes
 
             player = asset.player;
 
-            player.SetPositionCenter(GraphicsDevice);
-
-            healthContainer = new Rectangle(4, 5, 102, 31);
-
-            healthSize = new Rectangle(5, 5, player.Health, 30);
-            // TODO: use this.Content to load your game content here
+            player.SetPositionCenter(GraphicsDevice);            
         }
 
         /// <summary>
@@ -171,7 +141,7 @@ namespace OneWayOut.Scenes
                 //HELP case: gives background of the game as well as instructions to play the game
                 case GameState.HELP:
                     checkIt = false;
-                   bgm.PlayHelp();
+                    bgm.PlayHelp();
 
                     break;
 
@@ -188,12 +158,13 @@ namespace OneWayOut.Scenes
 
                     highscoreText.getScore(player.Score);
 
-                    if (checkIt == false && drawit == false && input.SingleKeyPress(Keys.F7)) 
+                    if (checkIt == false && drawit == false && input.SingleKeyPress(Keys.F7))
                     {
                         checkIt = true;
                         drawit = true;
                     }
-                    if(checkIt == false && drawit == true&& input.SingleKeyPress(Keys.F7))
+
+                    if (checkIt == false && drawit == true && input.SingleKeyPress(Keys.F7))
                     {
                         checkIt = true;
                         drawit = false;
@@ -203,19 +174,17 @@ namespace OneWayOut.Scenes
 
                     player.Update(gameTime);
 
-                    healthSize.Width = player.Health;
+                    asset.healthSize.Width = player.Health;
 
                     game.ScreenWrap(GraphicsDevice, player);
 
-                    if (arrow != null &&
-                        arrow.Target < asset.slimes.Count &&
-                        asset.slimes.Count > 0)
+                    if (asset.arrow != null && asset.arrow.Target < asset.slimes.Count && asset.slimes.Count > 0)
                     {
-                        var targetSlime = asset.slimes[arrow.Target];
+                        var targetSlime = asset.slimes[asset.arrow.Target];
 
-                        arrow.Move(targetSlime);
+                        asset.arrow.Move(targetSlime);
 
-                        arrow.Collision(asset.slimes);
+                        asset.arrow.Collision(asset.slimes);
                     }
 
                     for (int i = 0; i < asset.slimes.Count; i++)
@@ -228,9 +197,9 @@ namespace OneWayOut.Scenes
 
                             int arrowY = player.Position.Y + 40;
 
-                            arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
+                            asset.arrow = new Arrow(100, asset.arrowTexture, arrowX, arrowY);
 
-                            arrow.Target = i;
+                            asset.arrow.Target = i;
 
                             input.ClearStack();
 
@@ -247,13 +216,14 @@ namespace OneWayOut.Scenes
                         if (slime.Health <= 0)
                         {
                             //player.GainArrow();
-                            item = new Drop(healthPack, arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
+                            item = new Drop(asset.healthPack, asset.arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
                             allItems.Add(item);
                             player.Score += 50;
-
-                            asset.slimes.RemoveAt(i);  //removes the slime that was hit by projectile and gives play 'x' amount of arrows
+                            
+                            //removes the slime that was hit by projectile and gives play 'x' amount of arrows
+                            asset.slimes.RemoveAt(i);  
                         }
                     }
 
@@ -272,43 +242,19 @@ namespace OneWayOut.Scenes
                     {
                         highscoreText.getScore(player.Score);
                         Reset();
-                        game.state = GameState.GAMEOVER;                        
+                        game.state = GameState.GAMEOVER;
                     }
                     break;
 
-                //OPTIONS case: will display the sound options, etc.
+                //STORY case: will display the sound options, etc.
                 case GameState.STORY:
-
-                    //bgm.PlayStory();
-                    //Code for changing volume and putting it in the options screen                  
-                    //No need to check if a boolean is true or false
-                    //yes there is. The exe will continuesly pop up and you cant exit it.
-                    if (checkIt == false)
-                    {
-                        checkIt = true;
-
-                        try
-                        {
-                            /*
-                            Process firstProc = new Process();
-                            firstProc.StartInfo.FileName = "..\\..\\..\\..\\..\\one way outexternal tool.exe";
-                            firstProc.EnableRaisingEvents = true;
-                            
-                            firstProc.Start();
-
-                            firstProc.WaitForExit();
-                            */
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
-                    }
+                    bgm.PlayStory();
 
                     break;
 
                 //GAME OVER case: displays the highscores for the players and gives the options to go back to GAME or START
                 case GameState.GAMEOVER:
+
                     checkIt = false;
                     bgm.PlayGameOver();
 
@@ -321,6 +267,7 @@ namespace OneWayOut.Scenes
 
                 //PAUSE case: stops all movement and music in-game
                 case GameState.PAUSE:
+
                     checkIt = false;
                     bgm.Pause();
 
@@ -377,9 +324,9 @@ namespace OneWayOut.Scenes
 
                     scoreChecked = false;
 
-                    spriteBatch.Draw(health, healthContainer, Color.Black);
+                    spriteBatch.Draw(asset.health, asset.healthContainer, Color.Black);
 
-                    spriteBatch.Draw(health, healthSize, Color.White);
+                    spriteBatch.Draw(asset.health, asset.healthSize, Color.White);
 
                     if (dropIt == true)
                     {
@@ -388,20 +335,20 @@ namespace OneWayOut.Scenes
                             item = allItems[i];
                             item.DrawDrop(spriteBatch);
                         }
-
                     }
-                    if(drawit==true)
+
+                    if (drawit == true)
                     {
-                        spriteBatch.Draw(signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
+                        spriteBatch.Draw(asset.signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
 
                     player.Draw(spriteBatch);
 
-                    if (arrow != null)
+                    if (asset.arrow != null)
                     {
-                        arrow.Draw(spriteBatch, gameTime);
+                        asset.arrow.Draw(spriteBatch, gameTime);
                     }
 
                     asset.DrawSlimes(spriteBatch, foregroundText);
@@ -458,15 +405,16 @@ namespace OneWayOut.Scenes
                 case GameState.PAUSE:
 
                     asset.DrawDungeon(spriteBatch);
+
                     if (drawit == true)
                     {
-                        spriteBatch.Draw(signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
+                        spriteBatch.Draw(asset.signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
                     }
 
                     // TODO: Refactor, this can be done better by caching the  rectangle
-                    spriteBatch.Draw(health, new Rectangle(4, 5, 102, 31), Color.Black);
+                    spriteBatch.Draw(asset.health, new Rectangle(4, 5, 102, 31), Color.Black);
 
-                    spriteBatch.Draw(health, healthSize, Color.White);
+                    spriteBatch.Draw(asset.health, asset.healthSize, Color.White);
 
                     player.Draw(spriteBatch);
 

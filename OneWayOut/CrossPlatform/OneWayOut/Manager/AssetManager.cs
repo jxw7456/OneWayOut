@@ -35,23 +35,43 @@ namespace OneWayOut.Manager
 
         const string ARROW_TEXTURE = @"textures/arrow";
 
+        const string HEALTH_TEXTURE = @"textures/health";
+
+        const string HEALTH_PACK_TEXTURE = @"textures/healthpack";
+
+        const string SIGN_TEXTURE = @"textures/signLanguage";
+
         int slimeCount;
 
         Random random;
 
         public Texture2D arrowTexture;
 
-        Texture2D slimeTexture;
+        public Texture2D slimeTexture;
 
-        Texture2D playerTexture;
+        public Texture2D playerTexture;
 
-        MarkovNameGenerator nameGen;
+        public Texture2D health;
+
+        public Texture2D healthPack;
+
+        public Texture2D arrowDrop;
+
+        public Texture2D signlanguage;
+
+        public Rectangle healthSize;
+
+        public Rectangle healthContainer;
+
+        public Arrow arrow;        
 
         public List<Slime> slimes;
 
         public Dungeon dungeon;
 
-        public Player player;
+        public Player player;        
+
+        MarkovNameGenerator nameGen;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OneWayOut.Manager.AssetManager"/> class.
@@ -75,13 +95,25 @@ namespace OneWayOut.Manager
 
             playerTexture = Content.Load<Texture2D>(PLAYER_TEXTURE);
 
-            InitSlime(Graphics);
+            health = Content.Load<Texture2D>(HEALTH_TEXTURE);
+
+            healthPack = Content.Load<Texture2D>(HEALTH_PACK_TEXTURE);
+
+            arrowDrop = Content.Load<Texture2D>(ARROW_TEXTURE);
+
+            signlanguage = Content.Load<Texture2D>(SIGN_TEXTURE);
 
             slimes = new List<Slime>();
 
-            player = new Player(playerTexture);
-
             slimeCount = SLIME_COUNT;
+
+            player = new Player(playerTexture); 
+
+            healthContainer = new Rectangle(4, 5, 102, 31);
+
+            healthSize = new Rectangle(5, 5, player.Health, 30);
+
+            InitSlime(Graphics);                       
 
             ResetGame(Graphics);
         }
