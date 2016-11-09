@@ -229,7 +229,7 @@ namespace OneWayOut.Scenes
 
                     for (int i = 0; i < allItems.Count; i++)
                     {
-                        item.intersection(dropIt, player, allItems, item, i);
+                        item.Intersection(dropIt, player, allItems, item, i);
                     }
 
 

@@ -8,6 +8,6 @@ namespace OneWayOut.Components.Dungeon
 {
     partial class Dungeon
     {
-      
+      //Class called inside other classes
     }
 }

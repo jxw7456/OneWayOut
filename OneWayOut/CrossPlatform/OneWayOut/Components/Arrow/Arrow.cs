@@ -24,16 +24,8 @@ namespace OneWayOut.Components
 
         Direction direction;
 
-        //Arrow Constructor
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="t"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public Arrow(int d, Texture2D t, int x, int y)
-            : base(x, y, WIDTH, HEIGHT)
+        //Arrow Constructor        
+        public Arrow(int d, Texture2D t, int x, int y): base(x, y, WIDTH, HEIGHT)
         {
             timer = ARROW_TIME;
 

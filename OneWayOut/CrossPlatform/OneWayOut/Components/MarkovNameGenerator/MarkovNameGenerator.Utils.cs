@@ -8,7 +8,6 @@ namespace OneWayOut.Components
     /// </summary>
     public partial class MarkovNameGenerator
     {
-
         public string RandomBottomCase(string s, int hardness = 0)
         {
             if (hardness == 0)
@@ -35,7 +34,6 @@ namespace OneWayOut.Components
                     o += sArray[i];
                 }
             }
-
             return o;
         }
 
@@ -48,7 +46,6 @@ namespace OneWayOut.Components
         {
             get
             {
-
                 string s = "";
 
                 do
@@ -60,8 +57,8 @@ namespace OneWayOut.Components
                     do
                     {
                         n = random.Next(samples.Count);
-
-                    } while (samples[n].Length < order);
+                    }
+                    while (samples[n].Length < order);
 
                     int nameLength = samples[n].Length;
 
@@ -87,7 +84,6 @@ namespace OneWayOut.Components
                     // Fill the empty char with letter matching the token
                     if (s.Contains(" "))
                     {
-
                         string[] tokens = s.Split(' ');
 
                         s = "";

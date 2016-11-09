@@ -11,7 +11,6 @@ namespace OneWayOut.Components.Drop
 {
     partial class Drop : GameObject
     {
-        
         Texture2D health;
 
         Texture2D arrow;
@@ -33,11 +32,13 @@ namespace OneWayOut.Components.Drop
             local = new Rectangle(x, y, width, height);
         }
 
+        //Picks random drop between arrow or health
         public void PickDrop()
         {
             random = ran.Next(1, 10);
         }
 
+        //Draws health or arrow depending on random
         public void DrawDrop(SpriteBatch sb)
         {
             if (random <= 2)
@@ -50,9 +51,10 @@ namespace OneWayOut.Components.Drop
             }
 
         }
-        public void intersection(bool dropIt,Player player, List<Drop> allItems, Drop item, int i)
-        {
 
+        //Intersects with the player
+        public void Intersection(bool dropIt, Player player, List<Drop> allItems, Drop item, int i)
+        {
             if (dropIt && player.Position.Intersects(allItems[i].Position))
             {
                 item = allItems[i];
@@ -62,6 +64,7 @@ namespace OneWayOut.Components.Drop
                     allItems.Remove(allItems[i]);
 
                 }
+
                 else if (item.random < 2)
                 {
                     if (player.Health == 100)
@@ -81,9 +84,10 @@ namespace OneWayOut.Components.Drop
 
                         player.Health += 10;
                     }
-                 
+
                 }
-              else
+
+                else
                 {
                     if (player.Health == 100)
                     {

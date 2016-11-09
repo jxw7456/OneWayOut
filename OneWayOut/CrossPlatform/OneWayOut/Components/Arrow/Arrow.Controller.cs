@@ -87,27 +87,27 @@ namespace OneWayOut.Components
             
             if (Position.X > end.X)
             {
-                //WalkLeft(elapsed);
+                //Left
                 Position.X -= 5;
                 direction = Direction.LEFT;
             }
 
             if (Position.X < end.X)
             {
-                //WalkRight(elapsed);
+                //Right
                 Position.X += 5;
                 direction = Direction.RIGHT;
             }
 
             if (Position.Y > end.Y)
             {
-                //WalkUp(elapsed);
+                //Up
                 Position.Y -= 5;
             }
 
             if (Position.Y < end.Y)
             {
-                //WalkDown(elapsed);
+                //Down
                 Position.Y += 5;
             }
         }
