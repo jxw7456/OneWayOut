@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace OneWayOut.Manager
 {
-
     class InputManager
     {
         const double TIMER = 2008.0;
@@ -91,11 +90,6 @@ namespace OneWayOut.Manager
                         game.state = GameState.GAME;
                     }
 
-                   // if (SingleKeyPress((Keys)GameState.HELPER))
-                    //{
-                     //   game.state = GameState.HELPER;
-                    //}
-
                     if (SingleKeyPress((Keys)GameState.START))
                     {
                         game.state = GameState.START;
@@ -117,6 +111,7 @@ namespace OneWayOut.Manager
 
                 //HELPER case
                 //case GameState.HELPER:
+                    //does not switch between scenes
                     //break;
 
                 case GameState.CREDITS:
@@ -128,6 +123,8 @@ namespace OneWayOut.Manager
 
                     break;
             }
+
+            //Possible easier code to switch between scenes
             /*
             // Loop through all the enum to check for clicked state instead of going through each individually
             foreach (GameState state in Enum.GetValues(typeof(GameState)))
@@ -210,7 +207,6 @@ namespace OneWayOut.Manager
 
             kbState = Keyboard.GetState();
         }
-
 
         /// <summary>
         /// Ensure a key is released before the next input event

@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-
-using OneWayOut.Components;
 using Microsoft.Xna.Framework.Input;
+using OneWayOut.Components;
 
 namespace OneWayOut.Manager
 {
@@ -96,7 +95,7 @@ namespace OneWayOut.Manager
             spriteBatch.DrawString(biggerFont, "the cooresponding letter on your keyboard to shoot your arrows.", new Vector2(0, 320), Color.White);
             spriteBatch.DrawString(biggerFont, "Refer to the image given below for help: ", new Vector2(0, 390), Color.OrangeRed);
 
-            //sign language image
+            //Sign language image
             spriteBatch.Draw(signPicture, new Rectangle(700, 470, 510, 500), Color.White);
 
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.START + "' To Go Back", new Vector2(680, 975), Color.Red);
@@ -151,6 +150,10 @@ namespace OneWayOut.Manager
             spriteBatch.Draw(typeInput, new Vector2(2, 1040), Color.White);
         }
 
+        /// <summary>
+        /// Draw the Credits text
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void DrawCredits(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(boldFont, "One Way Out", new Vector2(720, 10), Color.DarkOrange);
