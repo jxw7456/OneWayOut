@@ -212,7 +212,6 @@ namespace OneWayOut.Scenes
                         //handles when the slime dies
                         if (slime.Health <= 0)
                         {
-                            //player.GainArrow();
                             item = new Drop(asset.healthPack, asset.arrowDrop, slime.Position.X, slime.Position.Y, 50, 50);
                             item.PickDrop();
                             dropIt = true;
@@ -299,8 +298,6 @@ namespace OneWayOut.Scenes
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-
             spriteBatch.Begin();
 
             switch (game.state)
@@ -382,10 +379,6 @@ namespace OneWayOut.Scenes
 
                     foregroundText.DrawGameover(spriteBatch);
 
-                    // TODO: Refactor, this logic should happen in the Update if it ever needed to.
-                    // Also there is a way to do this without having a check.
-                    // Give it some thought and if stuck feel free to ask lab
-
                     highscoreText.readScore();
 
                     if (scoreChecked == false)
@@ -408,7 +401,6 @@ namespace OneWayOut.Scenes
                         spriteBatch.Draw(asset.signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
                     }
 
-                    // TODO: Refactor, this can be done better by caching the  rectangle
                     spriteBatch.Draw(asset.health, new Rectangle(4, 5, 102, 31), Color.Black);
 
                     spriteBatch.Draw(asset.health, asset.healthSize, Color.White);
