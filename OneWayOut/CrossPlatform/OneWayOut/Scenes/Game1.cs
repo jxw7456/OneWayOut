@@ -48,7 +48,7 @@ namespace OneWayOut.Scenes
 
         bool dropIt = false;
 
-        bool drawit = false;
+        bool drawit = true; //Helper screen bool
 
         public Game1()
         {
@@ -333,7 +333,7 @@ namespace OneWayOut.Scenes
 
                     if (drawit == true)
                     {
-                        spriteBatch.Draw(asset.signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
+                        foregroundText.DrawHelper(spriteBatch, asset);
                     }
 
                     highscoreText.DrawScore(spriteBatch, player);
@@ -398,7 +398,7 @@ namespace OneWayOut.Scenes
 
                     if (drawit == true)
                     {
-                        spriteBatch.Draw(asset.signlanguage, new Rectangle(1620, 730, 300, 300), Color.RoyalBlue);
+                        foregroundText.DrawHelper(spriteBatch, asset);
                     }
 
                     spriteBatch.Draw(asset.health, new Rectangle(4, 5, 102, 31), Color.Black);

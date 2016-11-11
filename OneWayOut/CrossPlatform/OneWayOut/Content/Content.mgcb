@@ -229,3 +229,9 @@
 /processorParam:TextureFormat=Color
 /build:textures/healthpack.png
 
+#begin fonts/smallerFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/smallerFont.spritefont
+

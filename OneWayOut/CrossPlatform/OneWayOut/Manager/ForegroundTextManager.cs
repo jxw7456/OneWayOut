@@ -20,6 +20,8 @@ namespace OneWayOut.Manager
 
         SpriteFont owoFont;
 
+        SpriteFont smallerFont;
+
         Texture2D arrowCountDisplay;
 
         Texture2D signPicture;
@@ -37,7 +39,9 @@ namespace OneWayOut.Manager
 
             biggerFont = Content.Load<SpriteFont>(@"fonts/biggerFont");
 
-            owoFont = Content.Load<SpriteFont>(@"fonts/owo");
+            smallerFont = Content.Load<SpriteFont>(@"fonts/smallerFont");
+
+            owoFont = Content.Load<SpriteFont>(@"fonts/owo");            
 
             owoFont.Spacing = 5;
 
@@ -74,7 +78,7 @@ namespace OneWayOut.Manager
             spriteBatch.Draw(arrowCountDisplay, new Rectangle(200, 0, 75, 55), Color.White);
             spriteBatch.DrawString(biggerFont, ": " + archer.ArrowCount, new Vector2(280, 0), Color.Black);
             spriteBatch.DrawString(biggerFont, "Level: " + GameManager.level, new Vector2(800, 0), Color.Black);
-            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 1020), Color.Red);
+            spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.PAUSE + "' To Pause", new Vector2(1370, 1020), Color.Red);            
         }
 
         /// <summary>
@@ -162,6 +166,16 @@ namespace OneWayOut.Manager
             spriteBatch.DrawString(biggerFont, "Thomas Tabacchi: Architecture", new Vector2(575, 400), Color.White);
             spriteBatch.DrawString(biggerFont, "JaJuan Webster: Game Lead, UI", new Vector2(560, 500), Color.White);
             spriteBatch.DrawString(biggerFont, "Press '" + (Keys)GameState.START + "' To Go Back", new Vector2(680, 975), Color.Red);
+        }
+
+        /// <summary>
+        /// Draw Helper
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public void DrawHelper(SpriteBatch spriteBatch, AssetManager asset)
+        {
+            spriteBatch.DrawString(smallerFont, "Press 'F7' For Helper", new Vector2(1600, 680), Color.Red);
+            spriteBatch.Draw(asset.signlanguage, new Rectangle(1590, 720, 300, 300), Color.RoyalBlue);            
         }
 
         /// <summary>

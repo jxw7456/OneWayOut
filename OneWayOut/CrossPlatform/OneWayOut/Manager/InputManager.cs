@@ -10,7 +10,8 @@ namespace OneWayOut.Manager
 {
     class InputManager
     {
-        const double TIMER = 2008.0;
+        //time they have to type input
+        const double TIMER = 3008.0;
 
         double timer;
 
