@@ -150,7 +150,8 @@ namespace OneWayOut.Components
             // Get the position, top-left of the sprite, topped with the font line spacing.
             // y run from top to bottom thus the '-' sign
             var pos = new Vector2((float)Position.Left, (float)(Position.Top - sf.LineSpacing));
-
+                        
+            sb.DrawString(sf, Name, new Vector2((float)Position.Left - 2, (float)(Position.Top - (sf.LineSpacing - 4))), Color.Black); //Shadow
             sb.DrawString(sf, Name, pos, Color.White);
         }
     }
