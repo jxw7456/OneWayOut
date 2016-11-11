@@ -442,8 +442,6 @@ namespace OneWayOut.Scenes
             asset.Clear();
 
             asset.NextLevel(GraphicsDevice);
-
-            player.SetPositionCenter(GraphicsDevice);
         }
     }
 }
