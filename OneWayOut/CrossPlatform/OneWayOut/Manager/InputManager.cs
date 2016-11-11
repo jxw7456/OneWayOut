@@ -26,11 +26,6 @@ namespace OneWayOut.Manager
             ClearStack();
         }
 
-        public bool PushShoot()
-        {
-            return SingleKeyPress(Keys.Space);
-        }
-
         /// <summary>
         /// // Loop through all the enum to check for clicked state instead of going through each individually
         /// </summary>
@@ -124,25 +119,6 @@ namespace OneWayOut.Manager
 
                     break;
             }
-
-            //Possible easier code to switch between scenes
-            /*
-            // Loop through all the enum to check for clicked state instead of going through each individually
-            foreach (GameState state in Enum.GetValues(typeof(GameState)))
-            {
-                if (SingleKeyPress((Keys)state))
-                {
-                    if (state == GameState.GAME)
-                    {
-                        bgm.Resume();
-                    }
-
-                    Console.WriteLine(state);
-
-                    game.state = state;
-                }
-            }
-            */
         }
 
         public void ClearStack()

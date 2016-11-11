@@ -148,10 +148,12 @@ namespace OneWayOut.Scenes
 
                     checkIt = false;
 
+                    /*for Testing
                     if (input.SingleKeyPress((Keys)GameState.NEXTLEVEL))
                     {
                         NextLevel();
                     }
+                    */
 
                     highscoreText.getScore(player.Score);
 
