@@ -106,13 +106,13 @@ namespace OneWayOut.Manager
                     if (SingleKeyPress((Keys)GameState.START))
                     {
                         game.state = GameState.START;
-                    }                    
+                    }
                     break;
 
                 //HELPER case
                 //case GameState.HELPER:
-                    //does not switch between scenes
-                    //break;
+                //does not switch between scenes
+                //break;
 
                 case GameState.CREDITS:
 
@@ -183,7 +183,7 @@ namespace OneWayOut.Manager
 
                 if (typingStack.Length > 0 && key == Keys.Back && SingleKeyPress(key))
                 {
-                    typingStack = typingStack.Remove(typingStack.Length - 1);  
+                    typingStack = typingStack.Remove(typingStack.Length - 1);
                 }
             }
         }

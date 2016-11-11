@@ -19,9 +19,13 @@ namespace OneWayOut.Components.Drop
 
         Random ran = new Random();
 
+        public List<Drop> allItems;
+
         public int healingAmount { get; set; }
 
         public int random;
+
+        public bool checkIt, dropIt, drawIt;
 
         //Constructor 
         public Drop(Texture2D texure, Texture2D texure2, int x, int y, int width, int height) : base(x, y, width, height)
@@ -30,6 +34,10 @@ namespace OneWayOut.Components.Drop
             health = texure;
             arrow = texure2;
             local = new Rectangle(x, y, width, height);
+            checkIt = false;
+            dropIt = false;
+            drawIt = false;
+            allItems = new List<Drop>();
         }
 
         //Picks random drop between arrow or health

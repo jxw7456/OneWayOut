@@ -28,7 +28,7 @@ namespace OneWayOut.Scenes
 
         BgmManager bgm;
 
-        BackgroundManager background;        
+        BackgroundManager background;
 
         Drop currentItem = null;
 
@@ -40,7 +40,7 @@ namespace OneWayOut.Scenes
 
         Highscore highscoreText;
 
-        InputManager input;        
+        InputManager input;
 
         bool scoreChecked;
 
@@ -100,7 +100,7 @@ namespace OneWayOut.Scenes
 
             player = asset.player;
 
-            player.SetPositionCenter(GraphicsDevice);            
+            player.SetPositionCenter(GraphicsDevice);
         }
 
         /// <summary>
@@ -217,9 +217,9 @@ namespace OneWayOut.Scenes
                             dropIt = true;
                             allItems.Add(item);
                             player.Score += 50;
-                            
+
                             //removes the slime that was hit by projectile and gives play 'x' amount of arrows
-                            asset.slimes.RemoveAt(i);  
+                            asset.slimes.RemoveAt(i);
                         }
                     }
 

@@ -63,13 +63,13 @@ namespace OneWayOut.Manager
 
         public Rectangle healthContainer;
 
-        public Arrow arrow;        
+        public Arrow arrow;
 
         public List<Slime> slimes;
 
         public Dungeon dungeon;
 
-        public Player player;        
+        public Player player;
 
         MarkovNameGenerator nameGen;
 
@@ -82,7 +82,7 @@ namespace OneWayOut.Manager
         public AssetManager(ContentManager Content, GraphicsDevice Graphics)
         {
             Slime.SetupShapes();
-            
+
             random = new Random();
 
             dungeon = new Dungeon(Content);
@@ -107,13 +107,13 @@ namespace OneWayOut.Manager
 
             slimeCount = SLIME_COUNT;
 
-            player = new Player(playerTexture); 
+            player = new Player(playerTexture);
 
             healthContainer = new Rectangle(4, 5, 102, 31);
 
             healthSize = new Rectangle(5, 5, player.Health, 30);
 
-            InitSlime(Graphics);                       
+            InitSlime(Graphics);
 
             ResetGame(Graphics);
         }

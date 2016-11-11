@@ -49,7 +49,7 @@ namespace OneWayOut.Components
         {
             if (!IsActive)
                 return;
-            
+
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
 
             //rotate arrow for up and down
@@ -73,7 +73,7 @@ namespace OneWayOut.Components
         {
             if (!IsActive)
                 return;
-            
+
             Point p = new Point(obj.Position.Left, obj.Position.Top);
 
             Move(p);
@@ -84,7 +84,7 @@ namespace OneWayOut.Components
         {
             if (!IsActive)
                 return;
-            
+
             if (Position.X > end.X)
             {
                 //Left

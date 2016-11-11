@@ -35,7 +35,7 @@ namespace OneWayOut.Components
         const int PLAYER_TEXTURE_START_R = 1;
 
         const int PLAYER_TEXTURE_START_C = 4;
-        
+
         Direction direction;
 
         int currentFrame;
@@ -57,7 +57,7 @@ namespace OneWayOut.Components
         /// <param name="Texture">T.</param>
         /// <param name="r">The red component.</param>
         /// <param name="c">C.</param>
-        public Player(Texture2D t): base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
+        public Player(Texture2D t) : base(new Rectangle(0, 0, PLAYER_SIZE, PLAYER_SIZE))
         {
             Texture = t;
 
@@ -80,7 +80,7 @@ namespace OneWayOut.Components
 
             column = PLAYER_TEXTURE_START_C;
 
-            IsActive = true;            
+            IsActive = true;
         }
 
         //takes a arrow away with each use

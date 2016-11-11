@@ -16,7 +16,7 @@ namespace OneWayOut.Components
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         public new bool IsActive
         {
-            get{ return timer > 0; }
+            get { return timer > 0; }
         }
     }
 }

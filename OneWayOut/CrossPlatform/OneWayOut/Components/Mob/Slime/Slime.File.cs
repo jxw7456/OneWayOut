@@ -22,9 +22,9 @@ namespace OneWayOut.Components
             foreach (var shapeName in Shapes.Keys.ToList())
             {
                 string shapeFile = shapeName + EXTENSION;
-                
+
                 var cShape = ReadBitMap(shapeFile);
-                
+
                 if (cShape != null)
                 {
                     Shapes[shapeName] = cShape;

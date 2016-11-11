@@ -26,6 +26,8 @@ namespace OneWayOut
 
         string line;
 
+        public bool scoreChecked;
+
         //Load Content
         public Highscore(ContentManager Content)
         {
@@ -49,13 +51,13 @@ namespace OneWayOut
             catch (Exception e)
             {
                 StreamWriter check = new StreamWriter("highscore.txt");
-                
+
                 check.WriteLine("Highscore:");
                 check.WriteLine("1000");
                 check.WriteLine("500");
                 check.WriteLine("100");
                 check.Close();
-                
+
                 using (var highScore = new StreamReader("highscore.txt"))
                 {
                     while ((line = highScore.ReadLine()) != null)
@@ -79,7 +81,7 @@ namespace OneWayOut
             {
                 return;
             }
-            
+
             sb.DrawString(font, entireFile[0], pos, Color.Red);
 
             sb.DrawString(font, entireFile[1], pos1, Color.Red);
@@ -104,14 +106,14 @@ namespace OneWayOut
             {
                 return;
             }
-            
+
             if (score >= int.Parse(entireFile[1]))
             {
                 entireFile[3] = entireFile[2];
                 entireFile[2] = entireFile[1];
                 entireFile[1] = score.ToString();
             }
-            
+
             else
             {
                 if (score >= int.Parse(entireFile[2]))
@@ -132,7 +134,7 @@ namespace OneWayOut
                 }
 
             }
-            
+
             StreamWriter high = new StreamWriter("highscore.txt");
 
             high.WriteLine(entireFile[0]);

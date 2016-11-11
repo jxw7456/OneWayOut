@@ -25,7 +25,7 @@ namespace OneWayOut.Components
         Direction direction;
 
         //Arrow Constructor        
-        public Arrow(int d, Texture2D t, int x, int y): base(x, y, WIDTH, HEIGHT)
+        public Arrow(int d, Texture2D t, int x, int y) : base(x, y, WIDTH, HEIGHT)
         {
             timer = ARROW_TIME;
 
