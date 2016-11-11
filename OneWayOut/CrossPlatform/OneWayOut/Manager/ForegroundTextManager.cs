@@ -43,7 +43,7 @@ namespace OneWayOut.Manager
 
             owoFont = Content.Load<SpriteFont>(@"fonts/owo");            
 
-            owoFont.Spacing = 5;
+            owoFont.Spacing = 10;
 
             arrowCountDisplay = Content.Load<Texture2D>(@"textures/arrow");
 

@@ -22,7 +22,7 @@ namespace OneWayOut.Manager
         GAMEOVER = Keys.F5,
         PAUSE = Keys.F6,
         CREDITS = Keys.F8,
-        //NEXTLEVEL = Keys.F12 for testing
+        NEXTLEVEL = Keys.F12 //for testing
     }
 
     /// <summary>
